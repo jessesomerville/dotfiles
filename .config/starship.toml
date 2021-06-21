@@ -1,0 +1,114 @@
+add_newline = true
+
+format = '''$python$kubernetes$gcloud
+$directory$git_branch$git_status${custom.fig_citc}${custom.fig_status}
+ > 
+'''
+
+[custom.fig_citc]
+command = "pwd | cut -d'/' -f6"
+symbol = "citc  "
+when = """ test "$PWD" "=~" "/google/src/cloud/[^/]+/[^/]+/.*" """
+style = 'bold green'
+
+[custom.fig_status]
+command = "~/.local/bin/fig_status.sh"
+format = "[$output]($style)"
+style = "bold red"
+when = """ test "$PWD" "=~" "/google/src/cloud/[^/]+/[^/]+/.*" """
+
+
+[python]
+format = '[($symbol $virtualenv) ]($style)'
+style = 'yellow'
+symbol = ' '
+
+[kubernetes]
+disabled = false
+format = '[$symbol $context]($style) '
+style = 'cyan'
+symbol = 'ﴱ '
+
+[gcloud]
+disabled = true
+format = '[$symbol $project]($style)'
+style = 'cyan'
+symbol = ' '
+
+[git_branch]
+symbol = "  "
+
+[git_status]
+format = '([$all_status$all_behind]($style) )'
+
+
+
+[aws]
+disabled = true
+
+[battery]
+full_symbol = ""
+charging_symbol = ""
+discharging_symbol = ""
+
+[conda]
+symbol = " "
+
+[cmd_duration]
+disabled = true
+
+[dart]
+symbol = " "
+
+[directory]
+read_only = " "
+style = "blue"
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+disabled = false
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[memory_usage]
+symbol = " "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = " "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "
+
+[swift]
+symbol = "ﯣ "
