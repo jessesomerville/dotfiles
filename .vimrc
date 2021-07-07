@@ -2,25 +2,36 @@
 set nocompatible
 filetype off
 
-source ~/.vim/config_files/vundle.vim
+let g:nerdtree_auto = 1
+
+source ~/.vim/config_files/vim_plug.vim
+source ~/.vim/config_files/coc.vim
 source ~/.vim/config_files/fzf.vim
 source ~/.vim/config_files/glug.vim
 source ~/.vim/config_files/nerdtree.vim
 set runtimepath^=~/.vim/bundle/bbye
 
-set rnu
+set relativenumber
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 set splitbelow
 set splitright
 set mouse=a
+set cmdheight=2
+set colorcolumn=80
 
 hi clear CursorLine
 hi CursorLineNR cterm=reverse,bold
 hi Error cterm=bold ctermfg=232 ctermbg=10
 hi NvimInternalError cterm=bold ctermfg=232 ctermbg=10
+hi MatchParen ctermfg=black
+hi ColorColumn ctermbg=236
 
-autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 cindent
-autocmd FileType cpp,go inoremap {<CR> {<CR>}<ESC>ko
+augroup filegroup
+  autocmd!
+  autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 cindent
+  autocmd FileType cpp,go inoremap {<CR> {<CR>}<ESC>ko
+  autocmd FileType json syntax match Comment +\/\/.\+$+
+augroup END
 
 " Status bar
 let g:airline#extensions#tabline#enabled = 1
@@ -52,6 +63,7 @@ nnoremap <leader>q :Bdelete<CR>
 
 let g:agriculture#rg_options = '--smart-case --hidden --follow'
 nnoremap <leader>f :RgRaw<Space>-g<Space>'*'<Space>
+nnoremap <leader>F :Files<CR>
 
 filetype plugin indent on
 syntax on

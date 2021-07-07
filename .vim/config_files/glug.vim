@@ -21,10 +21,12 @@ augroup autoformat_settings
   autocmd FileType c,cpp,javascript,typescript AutoFormatBuffer clang-format
   autocmd FileType go AutoFormatBuffer gofmt
   autocmd FileType java AutoFormatBuffer google-java-format
+  autocmd FileType textpb AutoFormatBuffer text-proto-format
+  autocmd FileType proto AutoFormatBuffer protofmt
 augroup END
 
-Glug youcompleteme-google
-let g:ycm_filetype_blacklist = {'cpp': 1, 'c': 1}
+"Glug youcompleteme-google
+"let g:ycm_filetype_blacklist = {'cpp': 1, 'c': 1}
 
 " Load the automated blaze dependency integration for Go.
 " Note: for Go, blazedeps uses the Go team's glaze tool, which is fully

@@ -16,6 +16,7 @@ command = "~/.local/bin/fig_status.sh"
 format = "[$output]($style)"
 style = "bold red"
 when = """ test "$PWD" "=~" "/google/src/cloud/[^/]+/[^/]+/.*" """
+disabled = true
 
 
 [python]

@@ -1,7 +1,8 @@
 alias aliases="nvim ${HOME}/.zsh/aliases.zsh"
 
-alias ls="ls_extended"
-alias la="ls -lAh"
+alias ls="exa"
+alias la="ls -lah"
+alias lr="ls --recurse"
 alias rg="rg --hidden"
 alias cat="bat"
 alias vim="nvim"

@@ -16,10 +16,9 @@ Plugin 'ryanoasis/vim-devicons'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'prabirshrestha/vim-lsp'
-Plugin 'fatih/vim-go'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'jesseleite/vim-agriculture'
-Plugin 'chrisbra/Colorizer'
 Plugin 'cespare/vim-toml'
+Plugin 'prabirshrestha/async.vim'
 
 call vundle#end()

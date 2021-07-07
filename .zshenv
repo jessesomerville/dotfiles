@@ -5,6 +5,4 @@ path=(
 
 # Environment Variables
 export LANG=en_US.UTF-8
-export EDITOR=vim
-export P4EDITOR="vim"
 export FZF_DEFAULT_OPTS="--height 20% --border"
