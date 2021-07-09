@@ -38,7 +38,6 @@ zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
 
-
 # Get `starship` binary from github release
 zinit ice as"command" from"gh-r" \
     atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
@@ -47,12 +46,11 @@ zinit light starship/starship
 
 eval "$(starship init zsh)"
 
-# Load autosuggestions and syntax highlighting
 zinit light zsh-users/zsh-autosuggestions
-zinit light zdharma/fast-syntax-highlighting
-
 # Enabling async suggestions breaks history search
 unset ZSH_AUTOSUGGEST_USE_ASYNC
+
+zinit light zdharma/fast-syntax-highlighting
 
 # Syntax highlighting
 fast-theme clean > /dev/null

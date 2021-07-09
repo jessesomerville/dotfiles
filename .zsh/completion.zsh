@@ -79,15 +79,14 @@ autoload -U +X bashcompinit && bashcompinit
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="true"
 
-# Google autocompletion for p4 / g4
-if [[ -f /etc/bash_completion.d/g4d ]]; then
-  . /etc/bash_completion.d/p4
-  . /etc/bash_completion.d/g4d
+# Google autocompletion for hgd (Fig)
+if [[ $IS_CLOUDTOP == true ]]; then
+    source /etc/bash_completion.d/hgd
 fi
 
-# Google autocompletion for hgd (Fig)
-source /etc/bash_completion.d/hgd
-
-# Enables fzf
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
+# Enables fzf.  I'm only doing this on cloudtop because I should install
+# fzf via git elsewhere.
+if [[ $IS_CLOUDTOP == true ]]; then
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+    source /usr/share/doc/fzf/examples/completion.zsh
+fi

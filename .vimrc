@@ -4,12 +4,21 @@ filetype off
 
 let g:nerdtree_auto = 1
 
+" Set global bool to enable/disable cloudtop specific configs
+let g:cloudtop = 0
+if $IS_CLOUDTOP == "true"
+    let g:cloudtop = 1
+endif
+
 source ~/.vim/config_files/vim_plug.vim
 source ~/.vim/config_files/coc.vim
 source ~/.vim/config_files/fzf.vim
-source ~/.vim/config_files/glug.vim
 source ~/.vim/config_files/nerdtree.vim
 set runtimepath^=~/.vim/bundle/bbye
+
+if cloudtop
+    source ~/.vim/config_files/glug.vim
+endif
 
 set relativenumber
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
