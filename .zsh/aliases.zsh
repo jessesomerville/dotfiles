@@ -12,6 +12,18 @@ alias mdformat=/google/data/ro/teams/g3doc/mdformat
 # dotfiles git command
 alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
 
+unzip_music() {
+    file=$(ls ~/Downloads/*.zip | fzf -0 -1 | tr -d '\n')
+
+    if [[ -z "$file" ]]; then
+        echo "No zip found in Downloads"
+    else
+        # echo "--${file}--"
+        dir_name=$(echo $file | rev | cut -d'.' -f2- | rev)
+        unzip "${file}" -d "${dir_name}"
+    fi
+}
+
 # Monitors a folder and rsync it in case of updates using inotify
 rsync_watch() {
     rsync --copy-links --progress --recursive "$1" "$2"

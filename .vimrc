@@ -32,7 +32,7 @@ hi clear CursorLine
 hi CursorLineNR cterm=reverse,bold
 hi Error cterm=bold ctermfg=232 ctermbg=10
 hi NvimInternalError cterm=bold ctermfg=232 ctermbg=10
-hi MatchParen ctermfg=black
+hi MatchParen ctermfg=none ctermbg=none cterm=underline
 hi ColorColumn ctermbg=236
 
 augroup filegroup
