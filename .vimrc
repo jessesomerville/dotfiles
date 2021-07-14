@@ -28,7 +28,6 @@ set mouse=a
 set cmdheight=2
 set colorcolumn=80
 
-
 augroup filegroup
   autocmd!
   autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 cindent
