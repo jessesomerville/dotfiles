@@ -80,3 +80,4 @@ hi clear MatchParen
 hi MatchParen cterm=bold
 hi ColorColumn ctermbg=236
 hi CocFloating ctermbg=232
+hi SignColumn ctermbg=235
