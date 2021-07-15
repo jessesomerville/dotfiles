@@ -46,7 +46,7 @@ Glug blaze plugin[mappings]
 " Load the syntastic plugin (http://go/vim/plugins/syntastic-google).
 " Note: this requires installing the upstream syntastic plugin from
 " https://github.com/vim-syntastic/syntastic.
-Glug syntastic-google
+" Glug syntastic-google
 
 " Load the ultisnips plugin (http://go/ultisnips).
 " Note: this requires installing the upstream ultisnips plugin from

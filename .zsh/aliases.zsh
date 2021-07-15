@@ -1,13 +1,13 @@
 alias aliases="nvim ${HOME}/.zsh/aliases.zsh"
 
-alias ls="exa"
-alias la="ls -lah"
+alias ls="lsd"
+alias la="ls -lAh"
 alias lr="ls --recurse"
 alias rg="rg --hidden"
 alias cat="bat"
 alias vim="nvim"
-
-alias mdformat=/google/data/ro/teams/g3doc/mdformat
+alias top="btm -b"
+alias cdgo="cd $GOPATH/src/github.com/jessesomerville"
 
 # dotfiles git command
 alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'

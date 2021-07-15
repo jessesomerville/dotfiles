@@ -2,7 +2,7 @@
 set nocompatible
 filetype off
 
-let g:nerdtree_auto = 1
+let g:nerdtree_auto = 0
 
 " Set global bool to enable/disable cloudtop specific configs
 let g:cloudtop = 0
@@ -76,6 +76,7 @@ hi clear CursorLine
 hi CursorLineNR cterm=reverse,bold
 hi Error cterm=bold ctermfg=232 ctermbg=10
 hi NvimInternalError cterm=bold ctermfg=232 ctermbg=10
-hi MatchParen ctermfg=black
+hi clear MatchParen
+hi MatchParen cterm=bold
 hi ColorColumn ctermbg=236
 hi CocFloating ctermbg=232
