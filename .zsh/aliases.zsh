@@ -19,9 +19,9 @@ unzip_music() {
     if [[ -z "$file" ]]; then
         echo "No zip found in Downloads"
     else
-        # echo "--${file}--"
         dir_name=$(echo $file | rev | cut -d'.' -f2- | rev)
         unzip "${file}" -d "${dir_name}"
+        rename-songs "${dir_name}"
     fi
 }
 
