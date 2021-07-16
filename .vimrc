@@ -3,6 +3,8 @@ set nocompatible
 filetype off
 
 let g:nerdtree_auto = 0
+" Speed up vim when not in piper dir
+let g:piperlib_ignored_dirs = [$HOME]
 
 " Set global bool to enable/disable cloudtop specific configs
 let g:cloudtop = 0
@@ -30,6 +32,7 @@ set colorcolumn=80
 
 augroup filegroup
   autocmd!
+  autocmd FileType go setlocal tabstop=4 shiftwidth=4
   autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 cindent
   autocmd FileType cpp,go inoremap {<CR> {<CR>}<ESC>ko
   autocmd FileType json syntax match Comment +\/\/.\+$+

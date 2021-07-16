@@ -7,7 +7,8 @@ alias rg="rg --hidden"
 alias cat="bat"
 alias vim="nvim"
 alias top="btm -b"
-alias cdgo="cd $GOPATH/src/github.com/jessesomerville"
+gopath=$(go env | grep "GOPATH" | cut -d'"' -f2)
+alias cdgo="cd $gopath/src/github.com/jessesomerville"
 
 # dotfiles git command
 alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
