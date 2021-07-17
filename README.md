@@ -86,6 +86,39 @@ sh -c 'curl -fLo "${$HOME/.local/share}"/nvim/site/autoload/plug.vim \
 
 Now open neovim (`nvim`) and run `:PlugInstall`.
 
+## (Optional) delta (better diff)
+
+```sh
+# Download the latest release
+curl -s https://api.github.com/repos/dandavison/delta/releases/latest \
+  | jq -r '.assets[].browser_download_url | select(test("amd64.deb"))' \
+  | xargs curl -fsLJO
+
+# Install it
+sudo dpkg -i DEB_FILE
+```
+
+Then configure `.gitconfig`:
+
+```gitconfig
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+[delta]
+    plus-style = "syntax #012800"
+    minus-style = "syntax #340001"
+    syntax-theme = Monokai Extended
+    navigate = true
+    line-numbers = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+```
+
 ## How to Install
 
 ```sh
