@@ -1,6 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'preservim/nerdcommenter'
@@ -14,5 +14,6 @@ Plug 'jesseleite/vim-agriculture'
 Plug 'cespare/vim-toml'
 Plug 'prabirshrestha/async.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 
 call plug#end()

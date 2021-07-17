@@ -13,7 +13,8 @@ source "${HOME}/.zsh/completion.zsh"
 source "${HOME}/.zsh/bindings.zsh"
 
 export GPG_TTY=$(tty)
-export PATH="${PATH}:${HOME}/.local/bin:/usr/local/go/bin"
+export PATH="${PATH}:${HOME}/.local/bin:/usr/local/go/bin:${HOME}/go/bin"
+export PATH="${PATH}:${HOME}/.npm-global/bin"
 
 # Function tmux uses to change title
 function tmux_title() {

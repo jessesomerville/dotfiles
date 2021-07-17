@@ -2,11 +2,13 @@
 set nocompatible
 filetype off
 
-let g:nerdtree_auto = 1
+let g:nerdtree_auto = 0
+" Speed up vim when not in piper dir
+let g:piperlib_ignored_dirs = [$HOME]
 
 " Set global bool to enable/disable cloudtop specific configs
 let g:cloudtop = 0
-if $IS_CLOUDTOP == "true"
+if $HOME == "/usr/local/google/home/jsomerville"
     let g:cloudtop = 1
 endif
 
@@ -21,22 +23,16 @@ if cloudtop
 endif
 
 set relativenumber
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+set tabstop=4 softtabstop=0 expandtab shiftwidth=4 smarttab
 set splitbelow
 set splitright
 set mouse=a
 set cmdheight=2
 set colorcolumn=80
 
-hi clear CursorLine
-hi CursorLineNR cterm=reverse,bold
-hi Error cterm=bold ctermfg=232 ctermbg=10
-hi NvimInternalError cterm=bold ctermfg=232 ctermbg=10
-hi MatchParen ctermfg=black
-hi ColorColumn ctermbg=236
-
 augroup filegroup
   autocmd!
+  autocmd FileType go setlocal tabstop=4 shiftwidth=4
   autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 cindent
   autocmd FileType cpp,go inoremap {<CR> {<CR>}<ESC>ko
   autocmd FileType json syntax match Comment +\/\/.\+$+
@@ -53,10 +49,10 @@ nnoremap <Up> <nop>
 nnoremap <Down> <nop>
 nnoremap <Left> <nop>
 nnoremap <Right> <nop>
-inoremap <Up> <nop>
-inoremap <Down> <nop>
-inoremap <Left> <nop>
-inoremap <Right> <nop>
+"inoremap <Up> <nop>
+"inoremap <Down> <nop>
+"inoremap <Left> <nop>
+"inoremap <Right> <nop>
 
 " Easier split navigation
 nnoremap <C-J> <C-W><C-J>
@@ -76,3 +72,15 @@ nnoremap <leader>F :Files<CR>
 
 filetype plugin indent on
 syntax on
+
+hi clear Todo " tab highlight color
+hi Todo ctermbg=236
+hi clear CursorLine
+hi CursorLineNR cterm=reverse,bold
+hi Error cterm=bold ctermfg=232 ctermbg=10
+hi NvimInternalError cterm=bold ctermfg=232 ctermbg=10
+hi clear MatchParen
+hi MatchParen cterm=bold
+hi ColorColumn ctermbg=236
+hi CocFloating ctermbg=232
+hi SignColumn ctermbg=235

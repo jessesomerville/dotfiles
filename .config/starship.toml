@@ -21,7 +21,7 @@ disabled = true
 
 [python]
 format = '[($symbol $virtualenv) ]($style)'
-style = 'yellow'
+style = 'fg:#E7D60A'
 symbol = ' '
 
 [kubernetes]
@@ -63,7 +63,7 @@ symbol = " "
 
 [directory]
 read_only = " "
-style = "blue"
+style = "green"
 
 [elixir]
 symbol = " "
