@@ -4,8 +4,13 @@ alias ls="exa"
 alias la="ls -lah"
 alias lr="ls --recurse"
 alias rg="rg --hidden"
-alias cat="bat"
 alias vim="nvim"
+
+if ! command -v bat &> /dev/null; then
+    alias cat="batcat"
+else
+    alias cat="bat"
+fi
 
 alias mdformat=/google/data/ro/teams/g3doc/mdformat
 
