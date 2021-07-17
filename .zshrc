@@ -1,10 +1,5 @@
 #zmodload zsh/zprof
 
-export IS_CLOUDTOP=false
-if [[ "${HOME}" == "/usr/local/google/home/jsomerville" ]]; then
-    export IS_CLOUDTOP=true   
-fi
-
 setopt rmstarsilent
 
 export GPG_TTY=$(tty)
@@ -16,17 +11,9 @@ source "${HOME}/.zsh/aliases.zsh"
 source "${HOME}/.zsh/completion.zsh"
 source "${HOME}/.zsh/bindings.zsh"
 
-
-# Function tmux uses to change title
-function tmux_title() {
-    if [[ $PWD =~ /google/src/cloud/[^/]+/([^/]+)/.* ]]; then
-        tmx2 rename-window "${match[1]}"
-    else
-        tmx2 rename-window "$(basename "`pwd`")"
-    fi
-}
-if [[ ! -z "$TMUX" ]] && [[ $IS_CLOUDTOP == true ]]; then
-    precmd_functions+=(tmux_title)
+# Google Cloudtop specific configs
+if [[ "${HOME}" == "/usr/local/google/home/jsomerville" ]]; then
+    source "${HOME}/.zsh/google.zsh"
 fi
 
 autoload -U history-search-end

@@ -14,7 +14,6 @@ endif
 
 source ~/.vim/config_files/vim_plug.vim
 source ~/.vim/config_files/coc.vim
-source ~/.vim/config_files/fzf.vim
 "source ~/.vim/config_files/nerdtree.vim
 set runtimepath^=~/.vim/bundle/bbye
 
@@ -69,6 +68,8 @@ nnoremap <leader>q :Bdelete<CR>
 let g:agriculture#rg_options = '--smart-case --hidden --follow'
 nnoremap <leader>f :RgRaw<Space>-g<Space>'*'<Space>
 nnoremap <leader>F :Files<CR>
+
+nnoremap <leader>r :%s/ / /g
 
 filetype plugin indent on
 syntax on
