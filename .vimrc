@@ -15,7 +15,7 @@ endif
 source ~/.vim/config_files/vim_plug.vim
 source ~/.vim/config_files/coc.vim
 source ~/.vim/config_files/fzf.vim
-source ~/.vim/config_files/nerdtree.vim
+"source ~/.vim/config_files/nerdtree.vim
 set runtimepath^=~/.vim/bundle/bbye
 
 if cloudtop
