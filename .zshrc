@@ -6,6 +6,13 @@ export GPG_TTY=$(tty)
 export PATH="${PATH}:${HOME}/.local/bin:/usr/local/go/bin:${HOME}/go/bin"
 export PATH="${PATH}:${HOME}/.npm-global/bin"
 
+autoload -U history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^[[A" history-beginning-search-backward-end
+bindkey "^[[B" history-beginning-search-forward-end
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source "${HOME}/.zsh/history.zsh"
 source "${HOME}/.zsh/aliases.zsh"
 source "${HOME}/.zsh/completion.zsh"
@@ -16,13 +23,6 @@ if [[ "${HOME}" == "/usr/local/google/home/jsomerville" ]]; then
     source "${HOME}/.zsh/google.zsh"
 fi
 
-autoload -U history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^[[A" history-beginning-search-backward-end
-bindkey "^[[B" history-beginning-search-forward-end
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source "${HOME}/.zsh/zinit_plugins.zsh"
 
 #zprof

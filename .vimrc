@@ -14,6 +14,7 @@ endif
 
 source ~/.vim/config_files/vim_plug.vim
 source ~/.vim/config_files/coc.vim
+source ~/.vim/config_files/ultisnips.vim
 "source ~/.vim/config_files/nerdtree.vim
 set runtimepath^=~/.vim/bundle/bbye
 
