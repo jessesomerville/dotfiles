@@ -22,14 +22,17 @@ alias mdformat=/google/data/ro/teams/g3doc/mdformat
 alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
 
 unzip_music() {
-    file=$(ls ~/Downloads/*.zip | fzf -0 -1 | tr -d '\n')
+    mnt_dir="/mnt/chromeos/MyFiles"
+    file=$(ls $mnt_dir/Downloads/*.zip | fzf -0 -1 | tr -d '\n')
 
     if [[ -z "$file" ]]; then
         echo "No zip found in Downloads"
     else
-        dir_name=$(echo $file | rev | cut -d'.' -f2- | rev)
-        unzip "${file}" -d "${dir_name}"
-        rename-songs "${dir_name}"
+        dir_path=$(echo $file | rev | cut -d'.' -f2- | rev)
+        dir_name=$(echo $dir_path | rev | cut -d'/' -f1 | rev)
+        unzip "${file}" -d "${dir_path}"
+        rename-songs "${dir_path}"
+        mv "${dir_path}" "${mnt_dir}/Music/${dir_name}"
     fi
 }
 
