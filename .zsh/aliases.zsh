@@ -61,3 +61,12 @@ gcon() {
 
     mv /tmp/starship.toml ~/.config/starship.toml
 }
+
+randstr() {
+    len=16
+    if [[ -n "$1" ]]; then
+        len=$1
+    fi
+
+    tr -dc A-Za-z0-9 </dev/urandom | head -c $len ; echo ''
+}

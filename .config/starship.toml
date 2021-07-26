@@ -9,7 +9,7 @@ $directory$git_branch$git_status${custom.fig_citc}${custom.fig_status}
 command = "pwd | cut -d'/' -f6"
 symbol = "citc  "
 when = """ test "$PWD" "=~" "/google/src/cloud/[^/]+/[^/]+/.*" """
-style = 'bold green'
+style = 'bold blue'
 
 [custom.fig_status]
 command = "~/.local/bin/fig_status.sh"
@@ -63,7 +63,7 @@ symbol = " "
 
 [directory]
 read_only = " "
-style = "green"
+#style = "green"
 
 [elixir]
 symbol = " "

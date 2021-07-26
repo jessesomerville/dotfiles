@@ -70,7 +70,7 @@ let g:agriculture#rg_options = '--smart-case --hidden --follow'
 nnoremap <leader>f :RgRaw<Space>-g<Space>'*'<Space>
 nnoremap <leader>F :Files<CR>
 
-nnoremap <leader>r :%s/ / /g
+nnoremap <leader>R :%s/ / /g
 
 filetype plugin indent on
 syntax on
@@ -87,3 +87,7 @@ hi ColorColumn ctermbg=236
 hi SignColumn ctermbg=235
 hi clear Pmenu
 hi Pmenu ctermbg=0 ctermfg=4
+
+if cloudtop
+  hi Pmenu ctermfg=6
+endif
