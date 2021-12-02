@@ -5,6 +5,7 @@ setopt rmstarsilent
 export GPG_TTY=$(tty)
 export PATH="${PATH}:${HOME}/.local/bin"
 export PATH="${PATH}:${HOME}/.npm-global/bin"
+source $HOME/.cargo/env
 
 if ! command -v go &> /dev/null; then
     if [[ -d "${HOME}/.go" ]]; then
@@ -18,6 +19,7 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^[[A" history-beginning-search-backward-end
 bindkey "^[[B" history-beginning-search-forward-end
+bindkey "^H" backward-kill-word
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source "${HOME}/.zsh/history.zsh"

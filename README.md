@@ -86,7 +86,9 @@ sh -c 'curl -fLo "${$HOME/.local/share}"/nvim/site/autoload/plug.vim \
 
 Now open neovim (`nvim`) and run `:PlugInstall`.
 
-## (Optional) delta (better diff)
+## Optional
+
+### delta (better diff)
 
 ```sh
 # Download the latest release
@@ -118,6 +120,28 @@ Then configure `.gitconfig`:
     diffFilter = delta --color-only
 
 ```
+
+### Alacritty
+
+Run the command at https://rustup.rs to install Rust and Cargo
+
+```
+# Install prerequisites
+sudo apt install -y \
+  cmake \
+  pkg-config \
+  libfreetype6-dev \
+  libfontconfig1-dev \
+  libxcb-xfixes0-dev \
+  python3 \
+  libegl1-mesa-dev \
+  libxkbcommon-dev
+
+# Install Alacritty
+cargo install alacrity
+```
+
+It will now be installed at `$HOME/.cargo/bin/alacritty`
 
 ## How to Install
 
