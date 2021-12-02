@@ -13,8 +13,9 @@ Plug 'jesseleite/vim-agriculture'
 Plug 'cespare/vim-toml'
 Plug 'prabirshrestha/async.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
+"Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'liuchengxu/graphviz.vim'
 
 call plug#end()

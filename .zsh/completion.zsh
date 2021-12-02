@@ -13,6 +13,9 @@ setopt always_to_end
 bindkey -M menuselect '^o' accept-and-infer-next-history
 zstyle ':completion:*:*:*:*:*' menu select
 
+# Attempt at fixing slow cd completion in large directories
+CASE_SENSITIVE="true"
+
 # case insensitive (all), partial-word and substring completion
 if [[ "$CASE_SENSITIVE" = true ]]; then
   zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'

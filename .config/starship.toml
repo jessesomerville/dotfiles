@@ -1,22 +1,29 @@
 add_newline = true
 
-format = '''$python$kubernetes$gcloud
-$directory$git_branch$git_status${custom.fig_citc}${custom.fig_status}
+format = '''$python
+$directory$git_branch$git_status${custom.fig_citc}${custom.fig_cl}${custom.fig_status}
  > 
 '''
 
 [custom.fig_citc]
 command = "pwd | cut -d'/' -f6"
-symbol = "citc  "
+symbol = " "
 when = """ test "$PWD" "=~" "/google/src/cloud/[^/]+/[^/]+/.*" """
 style = 'bold blue'
 
+[custom.fig_cl]
+command = "hg figstatus | tail -1"
+format = "[at $output]($style)"
+style = "bold blue"
+when = """ test "$PWD" "=~" "/google/src/cloud/[^/]+/[^/]+/.*" """
+disabled = false
+
 [custom.fig_status]
-command = "~/.local/bin/fig_status.sh"
-format = "[$output]($style)"
+command = "hg figstatus | head -1"
+format = " [$output]($style)"
 style = "bold red"
 when = """ test "$PWD" "=~" "/google/src/cloud/[^/]+/[^/]+/.*" """
-disabled = true
+disabled = false
 
 
 [python]
@@ -33,7 +40,7 @@ symbol = 'ﴱ '
 [gcloud]
 disabled = true
 format = '[$symbol $project]($style)'
-style = 'cyan'
+style = 'blue bold'
 symbol = ' '
 
 [git_branch]
@@ -62,6 +69,7 @@ disabled = true
 symbol = " "
 
 [directory]
+disabled = false
 read_only = " "
 #style = "green"
 

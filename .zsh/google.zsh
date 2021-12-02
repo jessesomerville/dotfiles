@@ -16,3 +16,5 @@ function tmux_title() {
 if [[ ! -z "$TMUX" ]]; then
     precmd_functions+=(tmux_title)
 fi
+
+alias bluze=/google/bin/releases/blueprint-bluze/public/bluze

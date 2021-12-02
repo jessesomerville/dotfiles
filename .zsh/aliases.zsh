@@ -1,13 +1,24 @@
+# Open aliases file in vim
 alias aliases="nvim ${HOME}/.zsh/aliases.zsh"
+# Open Google specific aliases in vim
+alias galiases="nvim ${HOME}/.zsh/google_aliases.zsh"
 
 alias ls="lsd"
+# List dir contents and include hidden files (but not '.' or '..') with file metadata 
 alias la="ls -lAh"
-alias lr="ls --recurse"
+# List dir contents recursively
+alias lr="ls --recursive"
 alias rg="rg --hidden"
 alias vim="nvim"
 alias top="btm -b"
+alias history="history 0"
+# Search for a pattern in command history
+alias histgrep="history | grep $@"
+# Print a 100 width line
+alias lines="python3 -c \"print('─'*100)\""
 
 gopath=$(go env | grep "GOPATH" | cut -d'"' -f2)
+# Change directory to GOPATH
 alias cdgo="cd $gopath/src/github.com/jessesomerville"
 
 if ! command -v bat &> /dev/null; then
@@ -15,12 +26,13 @@ if ! command -v bat &> /dev/null; then
 else
     alias cat="bat"
 fi
-
-alias mdformat=/google/data/ro/teams/g3doc/mdformat
+# Alias to /bin/cat for convenience
+alias ccat="/bin/cat"
 
 # dotfiles git command
 alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
 
+# Unzip a file in Downloads and move it to Music
 unzip_music() {
     mnt_dir="/mnt/chromeos/MyFiles"
     file=$(ls $mnt_dir/Downloads/*.zip | fzf -0 -1 | tr -d '\n')
@@ -48,7 +60,7 @@ rsync_watch() {
 # Launch tmux with tmx2 for fido2 compatibility
 work() { tmx2 new-session -A -s ${1:-work}; }
 
-
+# Disable GCP starship prompt
 gcoff() {
     rg --replace "$(echo '[gcloud]\ndisabled = true')" \
         --passthru --no-line-number --multiline --multiline-dotall \
@@ -57,6 +69,7 @@ gcoff() {
     mv /tmp/starship.toml ~/.config/starship.toml
 }
 
+# Enabled GCP starship prompt
 gcon() {
     rg --replace "$(echo '[gcloud]\ndisabled = false')" \
         --passthru --no-line-number --multiline --multiline-dotall \
@@ -65,6 +78,7 @@ gcon() {
     mv /tmp/starship.toml ~/.config/starship.toml
 }
 
+# Print a random alphanumberic string
 randstr() {
     len=16
     if [[ -n "$1" ]]; then
@@ -73,3 +87,5 @@ randstr() {
 
     tr -dc A-Za-z0-9 </dev/urandom | head -c $len ; echo ''
 }
+
+source "${HOME}/.zsh/google_aliases.zsh"
