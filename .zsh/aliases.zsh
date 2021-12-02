@@ -17,9 +17,18 @@ alias histgrep="history | grep $@"
 # Print a 100 width line
 alias lines="python3 -c \"print('─'*100)\""
 
-gopath=$(go env | grep "GOPATH" | cut -d'"' -f2)
 # Change directory to GOPATH
-alias cdgo="cd $gopath/src/github.com/jessesomerville"
+cdgo() {
+    if ! command -v go &> /dev/null; then
+        printf "go command not found\n"
+        return 1
+    fi
+    gopath="$(go env GOPATH)/src/github.com/jessesomerville"
+    if [[ ! -z $1 ]]; then
+        gopath="${gopath}/$1"
+    fi
+    cd "${gopath}"
+}
 
 if ! command -v bat &> /dev/null; then
     alias cat="batcat"

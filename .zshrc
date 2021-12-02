@@ -3,9 +3,16 @@
 setopt rmstarsilent
 
 export GPG_TTY=$(tty)
-export PATH="${PATH}:${HOME}/.local/bin:/usr/local/go/bin:${HOME}/go/bin"
+export PATH="${PATH}:${HOME}/.local/bin"
 export PATH="${PATH}:${HOME}/.npm-global/bin"
 source $HOME/.cargo/env
+
+if ! command -v go &> /dev/null; then
+    if [[ -d "${HOME}/.go" ]]; then
+        export GOROOT=${HOME}/.go
+        export PATH="${PATH}:${GOROOT}/bin"
+    fi
+fi
 
 autoload -U history-search-end
 zle -N history-beginning-search-backward-end history-search-end
@@ -28,4 +35,3 @@ fi
 source "${HOME}/.zsh/zinit_plugins.zsh"
 
 #zprof
-
