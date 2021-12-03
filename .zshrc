@@ -5,13 +5,16 @@ setopt rmstarsilent
 export GPG_TTY=$(tty)
 export PATH="${PATH}:${HOME}/.local/bin"
 export PATH="${PATH}:${HOME}/.npm-global/bin"
-source $HOME/.cargo/env
 
 if ! command -v go &> /dev/null; then
     if [[ -d "${HOME}/.go" ]]; then
         export GOROOT=${HOME}/.go
         export PATH="${PATH}:${GOROOT}/bin"
     fi
+fi
+
+if [[ -d "${HOME}/.cargo/env" ]]; then
+    source $HOME/.cargo/env
 fi
 
 autoload -U history-search-end
