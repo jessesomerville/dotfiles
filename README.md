@@ -11,8 +11,22 @@ sudo apt install -y \
   zsh
 ```
 
-Then you need to set your default shell in your terminal emulator to
-`/usr/bin/zsh`.
+## git Setup
+
+First, copy the SSH keys to `~/.ssh/` (or generate new ones).
+
+```sh
+# Start the ssh-agent in the background.
+eval "$(ssh-agent -s)"
+
+# Add the SSH private key to the ssh-agent
+ssh-add ~/.ssh/id_ed25519
+
+# Set git username and email
+git config --global user.name "Jesse Somerville"
+git config --global user.email "jssomerville2@gmail.com"
+```
+
 
 ## Nerd Fonts
 
@@ -27,11 +41,13 @@ curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest \
 unzip Mononoki.zip -d Mononoki
 ```
 
-## Starship prompt
+## fzf
 
 ```sh
-sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
 ```
+
 
 ## lsd (ls replacement)
 
@@ -80,8 +96,8 @@ ln -s ~/.vim ~/.config/nvim \
   && ln -s ~/.vimrc ~/.config/nvim/init.vim
 
 # Install vim-plug (plugin manager)
-sh -c 'curl -fLo "${$HOME/.local/share}"/nvim/site/autoload/plug.vim \
-  --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+sh -c 'curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
 
 Now open neovim (`nvim`) and run `:PlugInstall`.
