@@ -98,7 +98,7 @@ curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - \
 sudo apt install -y neovim
 
 # Install vim-plug (plugin manager)
-sh -c 'curl -fLo "${HOME}/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+sh -c 'curl -fLo "${HOME}"/.local/share/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 ```
 
