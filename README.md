@@ -13,7 +13,13 @@ sudo apt install -y \
 
 ## git Setup
 
-First, copy the SSH keys to `~/.ssh/` (or generate new ones).
+First, copy the SSH keys to `~/.ssh/` (or generate new ones).  If you copied them, set the permissions:
+
+```sh
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519
+chmod 644 ~/.ssh/id_ed25519.pub
+```
 
 ```sh
 # Start the ssh-agent in the background.
