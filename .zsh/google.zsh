@@ -5,6 +5,8 @@ source /etc/bash_completion.d/hgd
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 
+source "${HOME}/.zsh/google_aliases.zsh"
+
 # Function tmux uses to change title
 function tmux_title() {
   if [[ $PWD =~ /google/src/cloud/[^/]+/([^/]+)/.* ]]; then

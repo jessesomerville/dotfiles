@@ -1,3 +1,9 @@
+#!/bin/zsh
+#
+# Aliases specific to Google Cloudtop.
+
+alias galiases="nvim $0"
+
 alias mdformat=/google/data/ro/teams/g3doc/mdformat
 alias tricorder=/google/data/ro/teams/tricorder/tricorder
 alias lbresolve=/google/data/ro/teams/youtube-legos/bin/lbresolve

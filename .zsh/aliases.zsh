@@ -1,34 +1,21 @@
-# Open aliases file in vim
-alias aliases="nvim ${HOME}/.zsh/aliases.zsh"
-# Open Google specific aliases in vim
-alias galiases="nvim ${HOME}/.zsh/google_aliases.zsh"
+#!/bin/zsh
+#
+# Common aliases.
 
-alias ls="lsd"
-# List dir contents and include hidden files (but not '.' or '..') with file metadata 
-alias la="ls -lAh"
-# List dir contents recursively
-alias lr="ls --recursive"
-alias rg="rg --hidden"
-alias vim="nvim"
-alias top="btm -b"
-alias history="history 0"
-# Search for a pattern in command history
-alias histgrep="history | grep $@"
-# Print a 100 width line
-alias lines="python3 -c \"print('─'*100)\""
+source ${HOME}/.zsh/lib/alias_util.zsh || exit
+source ${HOME}/.zsh/lib/log.zsh        || exit
 
-# Change directory to GOPATH
-cdgo() {
-  if ! command -v go &> /dev/null; then
-    printf "go command not found\n"
-    return 1
-  fi
-  gopath="$(go env GOPATH)/src/github.com/jessesomerville"
-  if [[ ! -z $1 ]]; then
-    gopath="${gopath}/$1"
-  fi
-  cd "${gopath}"
-}
+ralias "aliases"   "nvim $0"
+ralias "ls"        "lsd"
+ralias "la"        "lsd -lAh"
+ralias "rg"        "rg --hidden"
+ralias "vim"       "nvim"
+ralias "top"       "btm -b"
+ralias "history"   "history 0"
+ralias "histgrep"  "history | grep $@"
+ralias "lines"     "python3 -c \"print('-'*80)\""
+ralias "cdgo"      "cd $(go env GOPATH)/src/github.com/jessesomerville"
+
 
 if ! command -v bat &> /dev/null; then
   alias cat="batcat"
@@ -40,34 +27,6 @@ alias ccat="/bin/cat"
 
 # dotfiles git command
 alias config='/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME'
-
-# Unzip a file in Downloads and move it to Music
-unzip_music() {
-  mnt_dir="/mnt/chromeos/MyFiles"
-  file=$(ls $mnt_dir/Downloads/*.zip | fzf -0 -1 | tr -d '\n')
-
-  if [[ -z "$file" ]]; then
-    echo "No zip found in Downloads"
-  else
-    dir_path=$(echo $file | rev | cut -d'.' -f2- | rev)
-    dir_name=$(echo $dir_path | rev | cut -d'/' -f1 | rev)
-    unzip "${file}" -d "${dir_path}"
-    rename-songs "${dir_path}"
-    mv "${dir_path}" "${mnt_dir}/Music/${dir_name}"
-  fi
-}
-
-# Monitors a folder and rsync it in case of updates using inotify
-rsync_watch() {
-  rsync --copy-links --progress --recursive "$1" "$2"
-
-  while inotifywait -r -e create,delete,modify "$(p4 g4d)/$1"; do
-    rsync --copy-links --progress --recursive "$1" "$2"
-  done
-}
-
-# Launch tmux with tmx2 for fido2 compatibility
-work() { tmx2 new-session -A -s ${1:-work}; }
 
 # Disable GCP starship prompt
 gcoff() {
@@ -87,14 +46,8 @@ gcon() {
   mv /tmp/starship.toml ~/.config/starship.toml
 }
 
-# Print a random alphanumberic string
+# Print a random alphanumeric string
 randstr() {
-  len=16
-  if [[ -n "$1" ]]; then
-    len=$1
-  fi
-
-  tr -dc A-Za-z0-9 </dev/urandom | head -c $len ; echo ''
+  local len="${1:-16}"
+  printf "%s\n" $(tr -dc A-Za-z0-9 </dev/urandom | head -c "${len}")
 }
-
-source "${HOME}/.zsh/google_aliases.zsh"
