@@ -1,40 +1,28 @@
 #zmodload zsh/zprof
 
-setopt rmstarsilent
+# Setup $PATH and make each item unique
+typeset -U path
+path=("${HOME}/.local/bin" "${HOME}/.npm-global/bin" "${HOME}/.go/bin" $path)
+
+# Setup named directories
+gosrc="$(go env GOPATH)/src/github.com/jessesomerville"
+: ~gosrc
+
+setopt rmstarsilent  # Don't prompt when using * with rm
 
 export GPG_TTY=$(tty)
-export PATH="${PATH}:${HOME}/.local/bin"
-export PATH="${PATH}:${HOME}/.npm-global/bin"
 
-if ! command -v go &> /dev/null; then
-    if [[ -d "${HOME}/.go" ]]; then
-        export GOROOT=${HOME}/.go
-        export PATH="${PATH}:${GOROOT}/bin"
-    fi
-fi
-
-if [[ -d "${HOME}/.cargo/env" ]]; then
-    source $HOME/.cargo/env
-fi
-
-autoload -U history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^[[A" history-beginning-search-backward-end
-bindkey "^[[B" history-beginning-search-forward-end
-bindkey "^H" backward-kill-word
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source "${HOME}/.zsh/history.zsh"
 source "${HOME}/.zsh/aliases.zsh"
-source "${HOME}/.zsh/completion.zsh"
 source "${HOME}/.zsh/bindings.zsh"
+source "${HOME}/.zsh/history.zsh"
+source "${HOME}/.zsh/zinit_plugins.zsh"
+[[ -f "${HOME}/.fzf.zsh" ]] && source ~/.fzf.zsh
+[[ -d "${HOME}/.cargo/env" ]] && source $HOME/.cargo/env
 
+# TODO: Remove this from this repo.
 # Google Cloudtop specific configs
 if [[ "${HOME}" == "/usr/local/google/home/jsomerville" ]]; then
     source "${HOME}/.zsh/google.zsh"
 fi
-
-source "${HOME}/.zsh/zinit_plugins.zsh"
 
 #zprof

@@ -15,8 +15,4 @@ function tmux_title() {
     tmx2 rename-window "$(basename "`pwd`")"
   fi
 }
-if [[ ! -z "$TMUX" ]]; then
-  precmd_functions+=(tmux_title)
-fi
-
-alias bluze=/google/bin/releases/blueprint-bluze/public/bluze
+[[ ! -z "$TMUX" ]] && precmd_functions+=(tmux_title)

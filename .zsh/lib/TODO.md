@@ -1,2 +1,0 @@
-- Change switch cases to associative arrays
-- Change `declare` to `typeset`
