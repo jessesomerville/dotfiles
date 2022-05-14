@@ -2,29 +2,35 @@ add_newline = true
 
 format = '''$python
 $directory$git_branch$git_status${custom.fig_citc}${custom.fig_cl}${custom.fig_status}
- > 
+${custom.gcert_status} > 
 '''
 
 [custom.fig_citc]
-command = "pwd | cut -d'/' -f6"
+command = "echo $G3DIR"
 symbol = " "
-when = """ test "$PWD" "=~" "/google/src/cloud/[^/]+/[^/]+/.*" """
+when = "[[ -n $G3DIR ]]"
 style = 'bold blue'
 
 [custom.fig_cl]
 command = "hg figstatus | tail -1"
 format = "[at $output]($style)"
 style = "bold blue"
-when = """ test "$PWD" "=~" "/google/src/cloud/[^/]+/[^/]+/.*" """
+when = "[[ -n $G3DIR ]]"
 disabled = false
 
 [custom.fig_status]
 command = "hg figstatus | head -1"
 format = " [$output]($style)"
 style = "bold red"
-when = """ test "$PWD" "=~" "/google/src/cloud/[^/]+/[^/]+/.*" """
+when = "[[ -n $G3DIR ]]"
 disabled = false
 
+[custom.gcert_status]
+when = "! gcertstatus -nocheck_ssh -check_remaining=1h"
+symbol = "\\[!\\]"
+format = "[\\[gcert expired\\]]($style)"
+style = "red bold"
+disabled = false
 
 [python]
 format = '[($symbol $virtualenv) ]($style)'

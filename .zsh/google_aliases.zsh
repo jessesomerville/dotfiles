@@ -14,33 +14,45 @@ alias tricorder=/google/data/ro/teams/tricorder/tricorder
 alias figls="hg citc --list"
 alias hgst="hg diff --stat"
 
+typeset info_icon=$(print -P "%B%F{12}[+]%f%b")
+typeset warn_icon=$(print -P "%B%F{9}[!]%f%b")
+
 function hg() {
   typeset subcmd="${1:-}"
   case "${subcmd}" in
-    amend|commit)
-      typeset -a modified_files=( $(hg st | cut -d' ' -f2) )
-      typeset -U paths=( ${modified_files:h} )
-      if (( ${#paths} )); then
-        echo "[+] Running glaze"
-        glaze -p ${paths/#///}
-      fi
-      ;;
-
+    amend|commit) hg_precommit ;;
     upload)
-      if read -q "?[+] Sync first? "; then
-        echo "[+] Syncing to head"
+      if (read -q "?$info_icon Sync first? "); then
+        echo "\n$info_icon Syncing to head"
         /usr/bin/hg sync --all
       fi
+      printf "\n"
       ;;
   esac
   /usr/bin/hg "$@"
 }
 
+function hg_precommit() {
+  typeset -a modified_files=( $(hg status --no-status -a -m) )
+
+  if [[ ${modified_files[(i)*.go]} -le ${#modified_files} ]]; then
+    typeset -U glaze_paths=( ${modified_files:h} )
+    echo "$info_icon Running glaze"
+    glaze -p ${glaze_paths/#///}
+  fi
+
+  if [[ ${modified_files[(i)*.md]} -le ${#modified_files} ]]; then
+    typeset -a md_files=( $(print -l ${modified_files} | grep ".md") )
+    echo "$info_icon Running mdformat"
+    mdformat --in_place ${md_files}
+  fi
+}
+
 # Change directory to a given CITC workspace.
 function fcd() {
   typeset workspace="${1:-$(hg citc --list | fzf --print0 -0 -1)}"
-  if hg citc --list | grep -q "${workspace}"; then
-    echo "[!] Invalid CITC name: ${workspace}"
+  if [[ -z "${workspace}" ]] || (! hg citc --list | grep -q "${workspace}"); then
+    echo "$warn_icon Invalid CITC name: ${workspace}"
     return 1
   fi
   hgd "${workspace}"
@@ -54,11 +66,11 @@ function scango() {
   fi
 
   if (( ${#files_to_scan} )); then
-    echo "[!] No files were found to scan"
+    echo "$warn_icon No files were found to scan"
     return 1
   fi
 
-  echo "[+] Scanning the following files:"
+  echo "$info_icon Scanning the following files:"
   print -l ${files_to_scan/#/  - }
   tricorder analyze -categories GoBugs,GoDeprecated,GoStaticCheck,GoVet ${files_to_scan}
 }
