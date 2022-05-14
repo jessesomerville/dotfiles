@@ -46,6 +46,7 @@ augroup END
 augroup filegroup
   autocmd!
   autocmd FileType zsh setlocal tabstop=2 shiftwidth=2
+  autocmd FileType go setlocal tabstop=2 shiftwidth=2
   autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 cindent
   autocmd FileType cpp,go inoremap {<CR> {<CR>}<ESC>ko
   autocmd FileType json syntax match Comment +\/\/.\+$+
