@@ -21,8 +21,13 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
-zinit light zsh-users/zsh-autosuggestions
-ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(history-beginning-search-backward-end history-beginning-search-forward-end)
+zinit wait lucid light-mode for \
+ atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
+ atload"fast-theme clean > /dev/null" \
+    zdharma-continuum/fast-syntax-highlighting \
+ atload"!_zsh_autosuggest_start" \
+    zsh-users/zsh-autosuggestions
+
 # This speeds up pasting w/ autosuggest
 # https://github.com/zsh-users/zsh-autosuggestions/issues/238
 pasteinit() {
@@ -35,13 +40,9 @@ pastefinish() {
 zstyle :bracketed-paste-magic paste-init pasteinit
 zstyle :bracketed-paste-magic paste-finish pastefinish
 
-zinit light zdharma-continuum/fast-syntax-highlighting
-
 # Get `starship` binary from github release
 zinit ice as"command" from"gh-r" \
   atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
   atpull"%atclone" src"init.zsh"
 zinit light starship/starship
 eval "$(starship init zsh)"
-# Syntax highlighting
-fast-theme clean > /dev/null
