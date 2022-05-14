@@ -3,6 +3,7 @@
 # Setup $PATH and make each item unique
 typeset -U path
 path=("${HOME}/.local/bin" "${HOME}/.npm-global/bin" "${HOME}/.go/bin" $path)
+path=("${HOME}/.cargo/bin" "${HOME}/.local/bin/depot_tools" $path)
 
 # Setup named directories
 gosrc="$(go env GOPATH)/src/github.com/jessesomerville"
@@ -24,5 +25,7 @@ source "${HOME}/.zsh/zinit_plugins.zsh"
 if [[ "${HOME}" == "/usr/local/google/home/jsomerville" ]]; then
     source "${HOME}/.zsh/google.zsh"
 fi
+
+export WORDCHARS='?_-.&!#$%'
 
 #zprof

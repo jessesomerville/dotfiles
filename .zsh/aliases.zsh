@@ -14,4 +14,4 @@ alias randstr='print -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c 64)'
 alias rg="rg --hidden"
 alias top="btm -b"
 alias vim="nvim"
-alias lines="python3 -c \"print('-'*80)\""
+alias lines="echo ${(l:80::─:)}"
