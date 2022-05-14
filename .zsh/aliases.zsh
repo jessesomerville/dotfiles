@@ -14,7 +14,6 @@ alias rg="rg --hidden"
 alias top="btm -b"
 alias vim="nvim"
 alias lines="echo ${(l:80::─:)}"
-alias sshpi="ssh pi@192.168.1.217"
 
 
 if (command -v bat > /dev/null); then
