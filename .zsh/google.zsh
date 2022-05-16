@@ -1,3 +1,5 @@
+path=("${HOME}/.npm-global/bin" $path)
+
 # Google autocompletion for hgd (Fig)
 source /etc/bash_completion.d/hgd
 

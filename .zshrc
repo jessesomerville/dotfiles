@@ -1,25 +1,30 @@
-#zmodload zsh/zprof
+# zmodload zsh/zprof
 
 # Setup $PATH and make each item unique
 typeset -U path
-path=("${HOME}/.local/bin" "${HOME}/.npm-global/bin" "${HOME}/.go/bin" $path)
-path=("${HOME}/.cargo/bin" "${HOME}/.local/bin/depot_tools" $path)
-path=("$(go env GOPATH)/bin" "${HOME}/.local/bin/wabt/bin" $path)
-
-# Setup named directories
-gosrc="$(go env GOPATH)/src/github.com/jessesomerville"
-: ~gosrc
+path=(
+  "${HOME}/.local/bin"
+  "${HOME}/.go/bin"
+  "${HOME}/go/bin"
+  "${HOME}/.cargo/bin"
+  "${HOME}/.google-cloud-sdk/bin"
+  "${N_PREFIX}/bin"
+  $path
+)
 
 setopt rmstarsilent  # Don't prompt when using * with rm
-
-export GPG_TTY=$(tty)
 
 source "${HOME}/.zsh/aliases.zsh"
 source "${HOME}/.zsh/bindings.zsh"
 source "${HOME}/.zsh/history.zsh"
 source "${HOME}/.zsh/zinit_plugins.zsh"
-[[ -f "${HOME}/.fzf.zsh" ]] && source ~/.fzf.zsh
-[[ -d "${HOME}/.cargo/env" ]] && source $HOME/.cargo/env
+[[ -d "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
+[[ -f "${HOME}/.config/fzf/fzf.zsh" ]] && source "${HOME}/.config/fzf/fzf.zsh"
+
+# hyperfine, tealdeer
+# n - https://github.com/tj/n
+# .gitconfig .gitignore
+#
 
 # TODO: Remove this from this repo.
 # Google Cloudtop specific configs
@@ -29,15 +34,4 @@ fi
 
 export WORDCHARS='?_-.&!#$%'
 
-#zprof
-# GoLang
-export GOROOT=/home/jsomerville/.go
-export PATH=$GOROOT/bin:$PATH
-
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/jsomerville/google-cloud-sdk/path.zsh.inc' ]; then . '/home/jsomerville/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/jsomerville/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/jsomerville/google-cloud-sdk/completion.zsh.inc'; fi
+# zprof

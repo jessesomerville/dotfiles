@@ -5,14 +5,14 @@
 alias galiases="nvim $0"
 
 alias bluze=/google/bin/releases/blueprint-bluze/public/bluze
+alias ganpaticfg=/google/bin/releases/ganpaticfg/public/ganpaticfg
 alias get_mint=/google/data/ro/projects/gaiamint/bin/get_mint
 alias lbresolve=/google/data/ro/teams/youtube-legos/bin/lbresolve
 alias mdformat=/google/data/ro/teams/g3doc/mdformat
 alias perf5=/google/bin/releases/kernel-tools/perf5/usr/bin/perf5
-alias tricorder=/google/data/ro/teams/tricorder/tricorder
 alias plxutil=/google/data/ro/teams/plx/plxutil
-alias ganpaticfg=/google/bin/releases/ganpaticfg/public/ganpaticfg
 alias sqlfmt=/google/data/ro/teams/googlesql-formatter/fmt
+alias tricorder=/google/data/ro/teams/tricorder/tricorder
 
 alias figls="hg citc --list"
 alias hgst="hg diff --stat"

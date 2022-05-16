@@ -3,8 +3,9 @@
 # Common aliases.
 
 alias aliases="nvim $0"
+alias cat="bat"
 alias ccat="command cat"
-alias cdgo="cd ~gosrc"
+alias cdgo="cd $(go env GOPATH)/src/github.com/jessesomerville"
 alias config="/usr/bin/git --git-dir=${HOME}/.cfg --work-tree=${HOME}"
 alias history="history -fD 0"  # Show history with time, date, and command runtime
 alias la="lsd -lAh"
@@ -14,10 +15,3 @@ alias rg="rg --hidden"
 alias top="btm -b"
 alias vim="nvim"
 alias lines="echo ${(l:80::─:)}"
-
-
-if (command -v bat > /dev/null); then
-  alias cat="bat"
-else
-  alias cat="batcat"
-fi

@@ -1,126 +1,58 @@
 add_newline = true
 
-format = '''$python
-$directory$git_branch$git_status${custom.fig_citc}${custom.fig_status}
-${custom.gcert_status} > 
-'''
+format = """
 
+$directory\
+$python\
+$git_branch\
+$git_status\
+${custom.fig}\
+$line_break\
+$character"""
 
-[custom.fig_citc]
-command = "echo $G3DIR at $FIG_CL"
-symbol = " "
-when = "[[ -n $G3DIR ]]"
-style = 'bold blue'
-disabled = false
+[custom.fig]
+format = "[$symbol ($output)]($style) "
+symbol = ""
+style = "bold white"
+command = 'print -P "%B%F{7}$G3DIR at $FIG_CL%f %F{3}$FIG_MODIFIED%f%b"'
+when = "test -n $G3DIR"
+disabled = true
 
-[custom.fig_status]
-command = "echo $FIG_MODIFIED"
-format = "[$output]($style)"
-when = "[[ -n $G3DIR ]]"
-style = "bold red"
-disabled = false
-
-[custom.gcert_status]
-when = "! gcertstatus -nocheck_ssh -check_remaining=1h"
-symbol = "\\[!\\]"
-format = "[\\[gcert expired\\]]($style)"
-style = "red bold"
-disabled = false
+[character]
+format = " $symbol "
+success_symbol = ">"
+error_symbol = ">"
 
 [python]
-format = '[($symbol $virtualenv) ]($style)'
+format = '[($symbol $virtualenv)]($style) '
 style = 'fg:#E7D60A'
-symbol = ' '
-disabled = true
-
-[kubernetes]
+symbol = ''
 disabled = false
-format = '[$symbol $context]($style) '
-style = 'cyan'
-symbol = 'ﴱ '
-
-[gcloud]
-disabled = true
-format = '[$symbol $project]($style)'
-style = 'blue bold'
-symbol = ' '
 
 [directory]
+format = "[$path]($style)[$read_only]($read_only_style) "
+style = "bold yellow"
 read_only = " "
+read_only_style = "red"
+truncation_length = 3
+truncate_to_repo = true
+truncation_symbol = ""
+home_symbol = "~"
 disabled = false
 
 [git_branch]
-symbol = "  "
-disabled = true
-
-[git_status]
-format = '([$all_status$all_behind]($style) )'
-disabled = true
-
-
-
-[aws]
-disabled = true
-
-[battery]
-full_symbol = ""
-charging_symbol = ""
-discharging_symbol = ""
-
-[conda]
-symbol = " "
-
-[cmd_duration]
-disabled = true
-
-[dart]
-symbol = " "
-
-[elixir]
-symbol = " "
-
-[elm]
-symbol = " "
-
-[golang]
-symbol = " "
-
-[hg_branch]
-symbol = " "
+format = "[$symbol $branch]($style) "
+symbol = ""
+style = "white"
 disabled = false
 
-[java]
-symbol = " "
-
-[julia]
-symbol = " "
-
-[memory_usage]
-symbol = " "
-
-[nim]
-symbol = " "
-
-[nix_shell]
-symbol = " "
-
-[nodejs]
-symbol = " "
-
-[package]
-symbol = " "
-
-[perl]
-symbol = " "
-
-[php]
-symbol = " "
-
-[ruby]
-symbol = " "
-
-[rust]
-symbol = " "
-
-[swift]
-symbol = "ﯣ "
+[git_status]
+format = '([\[$all_status\]]($style)) '
+style = "yellow"
+conflicted = "="
+untracked = "?"
+stashed = "$"
+modified = "!"
+staged = "+"
+renamed = "%"
+deleted = "-"
