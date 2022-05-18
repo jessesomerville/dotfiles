@@ -15,8 +15,8 @@ format = "[$symbol ($output)]($style) "
 symbol = ""
 style = "bold white"
 command = 'print -P "%B%F{7}$G3DIR at $FIG_CL%f %F{3}$FIG_MODIFIED%f%b"'
-when = "test -n $G3DIR"
-disabled = true
+when = "[[ -n $G3DIR ]]"
+disabled = false
 
 [character]
 format = " $symbol "
@@ -31,7 +31,7 @@ disabled = false
 
 [directory]
 format = "[$path]($style)[$read_only]($read_only_style) "
-style = "bold yellow"
+style = "bright-yellow"
 read_only = " "
 read_only_style = "red"
 truncation_length = 3
@@ -44,7 +44,7 @@ disabled = false
 format = "[$symbol $branch]($style) "
 symbol = ""
 style = "white"
-disabled = false
+disabled = true
 
 [git_status]
 format = '([\[$all_status\]]($style)) '
@@ -56,3 +56,4 @@ modified = "!"
 staged = "+"
 renamed = "%"
 deleted = "-"
+disabled = true
