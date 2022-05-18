@@ -1,5 +1,7 @@
 # zmodload zsh/zprof
 
+export N_PREFIX="${HOME}/.n"
+
 # Setup $PATH and make each item unique
 typeset -U path
 path=(
@@ -13,13 +15,13 @@ path=(
 )
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_COMPLETION_OPTS='--height=75% --border --info=inline'
+export FZF_DEFAULT_OPTS='--border --info=inline' # --color 'fg:#bbccdd,fg+:#ddeeff,bg:#334455,preview-bg:#223344,border:#778899'
 
-# Use fd (https://github.com/sharkdp/fd) instead of the default find
-# command for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
+export FZF_COMPLETION_OPTS="$FZF_DEFAULT_OPTS"
+
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
@@ -41,7 +43,9 @@ source "${HOME}/.zsh/zinit_plugins.zsh"
 # hyperfine, tealdeer
 # n - https://github.com/tj/n
 # .gitconfig .gitignore
-#
+# sd
+# fd
+#   sudo apt install -y fd-find && ln -s $(which fdfind) ~/.local/bin/fd
 
 # TODO: Remove this from this repo.
 # Google Cloudtop specific configs

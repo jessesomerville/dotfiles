@@ -1,8 +1,7 @@
-########################################################################
-#  To identify an escape sequence, run `showkey -a` and press the key  #
-#  You can then run `infocmp -1 | grep $ESCAPE_SEQ` to find the        #
-#  terminfo entry to use.  Some entries won't exist (Ctrl combos)      #
-########################################################################
+#!/usr/bin/env zsh
+#
+# To identify an escape sequence, run `showkey -a`. You can then run `infocmp -1 | grep $ESCAPE_SEQ`
+# to find the terminfo entry to use. Some entries won't exist (Ctrl combos)     
 
 bindkey $terminfo[kdch1]  delete-char         # Enables DEL key proper behaviour
 bindkey '^[[1;5C'         forward-word        # [Ctrl-RightArrow] - move forward one word
