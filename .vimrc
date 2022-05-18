@@ -5,7 +5,7 @@ filetype off
 " Speed up vim when not in piper dir
 let g:piperlib_ignored_dirs = [$HOME]
 
-" Set global bool to enable/disable cloudtop specific configs
+" Set global bool to enable/disable cloudtop specific configs TODO(remove)
 let g:cloudtop = 0
 if $HOME == "/usr/local/google/home/jsomerville"
     let g:cloudtop = 1
@@ -14,7 +14,6 @@ endif
 source ~/.vim/config_files/vim_plug.vim
 source ~/.vim/config_files/coc.vim
 source ~/.vim/config_files/ultisnips.vim
-set runtimepath^=~/.vim/bundle/bbye
 
 if cloudtop
     source ~/.vim/config_files/glug.vim
@@ -34,7 +33,7 @@ set foldmethod=manual
 " Press Space to fold at the current cursor location.
 " If the current line is not a fold, the default behavior for Space is used.
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-" Fold a the visually selected lines
+" Fold the visually selected lines
 vnoremap <Space> zf
 " Save folds when closing a file
 augroup remember_folds
@@ -45,11 +44,11 @@ augroup END
 
 augroup filegroup
   autocmd!
-  autocmd FileType zsh setlocal tabstop=2 shiftwidth=2
-  autocmd FileType go setlocal tabstop=2 shiftwidth=2
   autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 cindent
   autocmd FileType cpp,go inoremap {<CR> {<CR>}<ESC>ko
+  autocmd FileType go setlocal tabstop=2 shiftwidth=2
   autocmd FileType json syntax match Comment +\/\/.\+$+
+  autocmd FileType zsh setlocal tabstop=2 shiftwidth=2
 augroup END
 
 " General autocommands
@@ -68,15 +67,11 @@ let g:airline_theme='deus'
 
 let mapleader = "-"
 
-" Disable arrow key movement
+" Disable arrow key movement in normal mode
 nnoremap <Up> <nop>
 nnoremap <Down> <nop>
 nnoremap <Left> <nop>
 nnoremap <Right> <nop>
-"inoremap <Up> <nop>
-"inoremap <Down> <nop>
-"inoremap <Left> <nop>
-"inoremap <Right> <nop>
 
 " Easier split navigation
 nnoremap <C-J> <C-W><C-J>

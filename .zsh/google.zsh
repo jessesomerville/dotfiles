@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 path=("${HOME}/.npm-global/bin" $path)
 
 # Google autocompletion for hgd (Fig)
