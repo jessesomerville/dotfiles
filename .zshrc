@@ -22,6 +22,8 @@ export FZF_COMPLETION_OPTS="$FZF_DEFAULT_OPTS"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 
+export FZF_TMUX_OPTS='-r 40%'
+
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
