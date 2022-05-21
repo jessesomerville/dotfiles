@@ -22,7 +22,7 @@ export FZF_COMPLETION_OPTS="$FZF_DEFAULT_OPTS"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 
-export FZF_TMUX_OPTS='-r 40%'
+export FZF_TMUX_OPTS='-d 80%'
 
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
@@ -41,6 +41,7 @@ source "${HOME}/.zsh/history.zsh"
 source "${HOME}/.zsh/zinit_plugins.zsh"
 [[ -d "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
 [[ -f "${HOME}/.config/fzf/fzf.zsh" ]] && source "${HOME}/.config/fzf/fzf.zsh"
+[[ -f  "${HOME}/.config/broot/launcher/bash/br" ]] && source "${HOME}/.config/broot/launcher/bash/br"
 
 # hyperfine, tealdeer
 # n - https://github.com/tj/n
@@ -48,6 +49,7 @@ source "${HOME}/.zsh/zinit_plugins.zsh"
 # sd
 # fd
 #   sudo apt install -y fd-find && ln -s $(which fdfind) ~/.local/bin/fd
+# broot
 
 # TODO: Remove this from this repo.
 # Google Cloudtop specific configs
@@ -58,3 +60,4 @@ fi
 export WORDCHARS='?_-.&!#$%'
 
 # zprof
+

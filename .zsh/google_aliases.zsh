@@ -13,6 +13,7 @@ alias perf5=/google/bin/releases/kernel-tools/perf5/usr/bin/perf5
 alias plxutil=/google/data/ro/teams/plx/plxutil
 alias sqlfmt=/google/data/ro/teams/googlesql-formatter/fmt
 alias tricorder=/google/data/ro/teams/tricorder/tricorder
+alias prodfs=/google/bin/users/catalinp/prodfs/prodfs.sh
 
 alias figls="hg citc --list"
 alias hgst="hg diff --stat"

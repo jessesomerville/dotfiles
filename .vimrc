@@ -20,7 +20,7 @@ if cloudtop
 endif
 
 set relativenumber
-set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
 set splitbelow
 set splitright
 set mouse=a
@@ -48,6 +48,7 @@ augroup filegroup
   autocmd FileType cpp,go inoremap {<CR> {<CR>}<ESC>ko
   autocmd FileType go setlocal tabstop=2 shiftwidth=2
   autocmd FileType json syntax match Comment +\/\/.\+$+
+  autocmd FileType py setlocal tabstop=2 shiftwidth=2
   autocmd FileType zsh setlocal tabstop=2 shiftwidth=2
 augroup END
 
