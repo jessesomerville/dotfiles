@@ -1,62 +1,60 @@
 [user]
 	name = jessesomerville
-	email = jsomerville@google.com
+	email = jssomerville2@gmail.com
 
 [diff]
-    colorMoved = default
-
-[include]
-    path = ~/.config/delta/themes.gitconfig
+  colorMoved = default
 
 [pager]
-    diff = delta
-    log = delta
-    reflog = delta
-    show = delta
+  diff = delta
+  ;log = delta
+  ;reflog = delta
+  ;show = delta
 
 [delta]
-    features = diff-colors line-numbers file-headers
-    syntax-theme = gruvbox-material-dark
-    tabs = 2
-    dark = true
-    side-by-side = false
-    navigate = true
-    whitespace-error-style = purple
-    hunk-header-style = omit
+  features = diff-colors line-numbers file-headers
+  ;syntax-theme = gruvbox-material-dark
+  syntax-theme = turnip
+  tabs = 2
+  dark = true
+  side-by-side = false
+  navigate = true
+  whitespace-error-style = purple
+  hunk-header-style = omit
 
 [delta "diff-colors"]
-    minus-style = syntax "#55251b"
-    minus-emph-style = syntax ul "#55251b"
-    minus-empty-line-marker-style = syntax "#55251b"
-    minus-non-emph-style = syntax ul
-    plus-style = syntax "#2a3c2a"
-    plus-emph-style = syntax ul "#2a3c2a"
-    plus-non-emph-style = syntax ul
-    plus-empty-line-marker-style = syntax "#2a3c2a"
-    zero-style = syntax
+  minus-style = syntax "#3B1A13"
+  minus-emph-style = syntax "#55451b"
+  minus-non-emph-style = minus-style
+  minus-empty-line-marker-style = minus-style
+  plus-style = syntax "#243324"
+  plus-emph-style = syntax "#36424C"
+  plus-non-emph-style = plus-style
+  plus-empty-line-marker-style = plus-style
+  zero-style = syntax
 
 [delta "line-numbers"]
-    line-numbers = true
-    line-numbers-left-format = " {nm:>1} "
-    line-numbers-left-style = black
-    line-numbers-minus-style = "#bf4349"
-    line-numbers-right-format = " {np:>1} │ "
-    line-numbers-right-style = white
-    line-numbers-plus-style = green
-    line-numbers-zero-style = "#404040"
+  line-numbers = true
+  line-numbers-left-format = " {nm:>1} "
+  line-numbers-left-style = black
+  line-numbers-minus-style = "#bf4349"
+  line-numbers-right-format = " {np:>1} │ "
+  line-numbers-right-style = black
+  line-numbers-plus-style = green
+  line-numbers-zero-style = "#404040"
 
 [delta "file-headers"]
-    file-style = syntax
-    file-decoration-style = "#b57614" ul ol
-    file-added-label = [added]
-    file-copied-label = [copied]
-    file-modified-label = [modified]
-    file-removed-label = [removed]
-    file-renamed-label = [renamed]
-
+  file-style = syntax
+  file-decoration-style = "#b57614" ul ol
+  file-added-label = [added]
+  file-copied-label = [copied]
+  file-modified-label = [modified]
+  file-removed-label = [removed]
+  file-renamed-label = [renamed]
 
 [interactive]
-    diffFilter = delta --color-only
+  diffFilter = delta --color-only
 
 [core]
-	editor = nvim
+  editor = nvim
+  excludesfile = ~/.gitignore

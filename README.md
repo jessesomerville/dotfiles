@@ -1,3 +1,9 @@
+> **IMPORTANT:** Remove hex color syntax highlighting from `fast-syntax-highlighting`.
+
+Change the `reply` lines in [this function](https://github.com/zdharma-continuum/fast-syntax-highlighting/blob/9469bd0e7ed65eb30e38085409b96ad6643752c5/fast-highlight#L1151)
+to `fg=` instead of `bg=`.  Or just turn it off.
+
+
 # Prerequisites
 
 This will install the easy packages:

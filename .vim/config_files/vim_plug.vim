@@ -16,5 +16,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'liuchengxu/graphviz.vim'
+Plug 'sainnhe/gruvbox-material'
 
 call plug#end()

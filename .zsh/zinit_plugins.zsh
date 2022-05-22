@@ -23,7 +23,8 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
-zle_highlight+=(paste:none)  # Don't highlight pasted content, forehead.
+typeset -U zle_highlight
+zle_highlight=(paste:none $zle_highlight)  # Don't highlight pasted content, forehead.
 
 zinit wait lucid light-mode for \
  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \

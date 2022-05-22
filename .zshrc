@@ -60,4 +60,3 @@ fi
 export WORDCHARS='?_-.&!#$%'
 
 # zprof
-

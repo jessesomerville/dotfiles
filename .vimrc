@@ -25,7 +25,7 @@ set splitbelow
 set splitright
 set mouse=a
 set cmdheight=2
-set colorcolumn=80
+set colorcolumn=100
 
 " Folding
 set foldlevelstart=99
@@ -48,7 +48,7 @@ augroup filegroup
   autocmd FileType cpp,go inoremap {<CR> {<CR>}<ESC>ko
   autocmd FileType go setlocal tabstop=2 shiftwidth=2
   autocmd FileType json syntax match Comment +\/\/.\+$+
-  autocmd FileType py setlocal tabstop=2 shiftwidth=2
+  autocmd FileType py setlocal colorcolumn=80
   autocmd FileType zsh setlocal tabstop=2 shiftwidth=2
 augroup END
 
@@ -99,16 +99,22 @@ nnoremap <leader>n :cprevious<CR>
 filetype plugin indent on
 syntax on
 
+set tgc  " Enable 24-bit colors
+
+let g:gruvbox_material_transparent_background = 1
+let g:gruvbox_material_palette = g:gruvbox_material#get_palette('medium', 'material')
+colorscheme gruvbox-material
+
+
 hi clear Todo " tab highlight color
-hi Todo ctermbg=236
 hi clear CursorLine
 hi CursorLineNR cterm=reverse,bold
 hi Error cterm=bold ctermfg=232 ctermbg=10
 hi NvimInternalError cterm=bold ctermfg=232 ctermbg=10
 hi clear MatchParen
 hi MatchParen cterm=bold
-hi ColorColumn ctermbg=236
-hi SignColumn ctermbg=235
+hi ColorColumn guibg='#032029'
+hi SignColumn guibg='#032029'
 hi clear Pmenu
 hi Pmenu ctermbg=0 ctermfg=4
 hi Folded ctermbg=236
