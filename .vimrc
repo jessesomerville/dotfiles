@@ -12,12 +12,19 @@ if $HOME == "/usr/local/google/home/jsomerville"
 endif
 
 source ~/.vim/config_files/vim_plug.vim
-source ~/.vim/config_files/coc.vim
-source ~/.vim/config_files/ultisnips.vim
+"source ~/.vim/config_files/coc.vim
+"source ~/.vim/config_files/ultisnips.vim
+source ~/.vim/config_files/theme.vim
 
 if cloudtop
     source ~/.vim/config_files/glug.vim
 endif
+
+"if exists('$TMUX')
+  "let g:fzf_layout = { 'tmux': '-p90%,60%' }
+"else
+  "let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+"endif
 
 set relativenumber
 set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
@@ -36,11 +43,11 @@ nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 " Fold the visually selected lines
 vnoremap <Space> zf
 " Save folds when closing a file
-augroup remember_folds
-  autocmd!
-  autocmd BufWinLeave * mkview
-  autocmd BufWinEnter * silent! loadview
-augroup END
+"augroup remember_folds
+  "autocmd!
+  "autocmd BufWinLeave * mkview
+  "autocmd BufWinEnter * silent! loadview
+"augroup END
 
 augroup filegroup
   autocmd!
@@ -54,8 +61,12 @@ augroup END
 
 " General autocommands
 augroup generic
-    autocmd!
-    autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix" | q | endif
+  autocmd!
+  autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix" | q | endif
+  " Start NERDTree when Vim starts with a directory argument.
+  autocmd StdinReadPre * let s:std_in=1
+  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
+      \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 augroup END
 
 " Run go vet and golint on golang file save
@@ -81,14 +92,17 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
 nnoremap <leader>x :noh<cr>
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :vsplit $HOME/.vimrc<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 nnoremap <leader>q :Bdelete<CR>
 
 let g:agriculture#rg_options = '--smart-case --hidden --follow'
 nnoremap <leader>f :RgRaw<Space>-g<Space>'*'<Space>
-nnoremap <leader>F :Files<CR>
+nnoremap <leader>F :Files %:p:h<CR>
+
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
 
 nnoremap <leader>R :%s/ / /g
 
@@ -112,11 +126,21 @@ hi Error cterm=bold ctermfg=232 ctermbg=10
 hi NvimInternalError cterm=bold ctermfg=232 ctermbg=10
 hi clear MatchParen
 hi MatchParen cterm=bold
-hi ColorColumn guibg='#032029'
+hi ColorColumn guibg='#282828'
 hi SignColumn guibg='#032029'
 hi clear Pmenu
-hi Pmenu ctermbg=0 ctermfg=4
-hi Folded ctermbg=236
+hi Pmenu ctermbg=0 ctermfg=4 guibg=#2d2e30
+hi PmenuSel guibg=#3a3b3d
+hi Folded guibg='#2d2e30' guifg='#7a7b7d'
+hi clear VertSplit
+hi VertSplit guifg='#282828'
+hi clear EndOfBuffer
+hi EndOfBuffer guifg='#1a1b1d'
+hi Constant guifg='#92B55F'
+hi clear Visual
+hi Visual guibg='#3a3b3d'
+hi Comment  guibg=bg  guifg=#8f8e8d  gui=none    ctermbg=8   ctermfg=7
+hi clear Error
 hi Normal guibg='#00181f'
 
 if cloudtop

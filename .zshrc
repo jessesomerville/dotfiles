@@ -1,4 +1,4 @@
-# zmodload zsh/zprof
+#zmodload zsh/zprof
 
 export N_PREFIX="${HOME}/.n"
 
@@ -13,6 +13,14 @@ path=(
   "${N_PREFIX}/bin"
   $path
 )
+
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+set -o emacs
+
+# ────────────────────────────────────────────────────────────────────────────────
+#                                 fzf options
+# ────────────────────────────────────────────────────────────────────────────────
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS='--border --info=inline' # --color 'fg:#bbccdd,fg+:#ddeeff,bg:#334455,preview-bg:#223344,border:#778899'
@@ -32,6 +40,10 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
+
+# ────────────────────────────────────────────────────────────────────────────────
+#                                general opts
+# ────────────────────────────────────────────────────────────────────────────────
 
 setopt rmstarsilent  # Don't prompt when using * with rm
 
@@ -59,4 +71,4 @@ fi
 
 export WORDCHARS='?_-.&!#$%'
 
-# zprof
+#zprof

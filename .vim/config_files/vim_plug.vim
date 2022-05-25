@@ -3,19 +3,28 @@ call plug#begin('~/.vim/plugged')
 " Plug 'vim-syntastic/syntastic'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'jesseleite/vim-agriculture'
 Plug 'preservim/nerdcommenter'
+Plug 'preservim/nerdtree'
+
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+
+"Plug 'prabirshrestha/async.vim'
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
+
 Plug 'ryanoasis/vim-devicons'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'jesseleite/vim-agriculture'
 Plug 'cespare/vim-toml'
-Plug 'prabirshrestha/async.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'fatih/vim-go', {'do': ':GoUpdateBinaries'}
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'liuchengxu/graphviz.vim'
-Plug 'sainnhe/gruvbox-material'
 
 call plug#end()
+
+inoremap <expr> <Tab>    pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab>  pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <Esc>    pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <CR>     pumvisible() ? "\<C-y>" : "\<CR>"
+
+let g:asyncomplete_popup_delay=1000
