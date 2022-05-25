@@ -110,14 +110,14 @@ nnoremap <leader>R :%s/ / /g
 nnoremap <leader>m :cnext<CR>
 nnoremap <leader>n :cprevious<CR>
 
-inoremap jk <Esc>
+inoremap jk <ESC>
 
 filetype plugin indent on
 syntax on
 
 set tgc  " Enable 24-bit colors
 
-
+source ~/.vim/config_files/theme.vim
 
 hi clear Todo " tab highlight color
 hi clear CursorLine
@@ -141,6 +141,7 @@ hi clear Visual
 hi Visual guibg='#3a3b3d'
 hi Comment  guibg=bg  guifg=#8f8e8d  gui=none    ctermbg=8   ctermfg=7
 hi clear Error
+hi Normal guibg='#00181f'
 
 if cloudtop
   hi Pmenu ctermfg=6
