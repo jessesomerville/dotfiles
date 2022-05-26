@@ -7,19 +7,14 @@
 
 [pager]
   diff = delta
-  ;log = delta
-  ;reflog = delta
-  ;show = delta
 
 [delta]
   features = diff-colors line-numbers file-headers
-  ;syntax-theme = gruvbox-material-dark
   syntax-theme = turnip
   tabs = 2
   dark = true
   side-by-side = false
   navigate = true
-  whitespace-error-style = purple
   hunk-header-style = omit
 
 [delta "diff-colors"]
