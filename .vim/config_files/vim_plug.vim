@@ -10,6 +10,7 @@ Plug 'preservim/nerdtree'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'mattn/vim-lsp-settings'
 
 "Plug 'prabirshrestha/async.vim'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}

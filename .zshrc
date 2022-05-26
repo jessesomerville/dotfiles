@@ -72,3 +72,8 @@ fi
 export WORDCHARS='?_-.&!#$%'
 
 #zprof
+# GoLang
+export GOROOT=/home/jsomerville/.go
+export PATH=$GOROOT/bin:$PATH
+export GOPATH=/home/jsomerville/go
+export PATH=$GOPATH/bin:$PATH

@@ -13,18 +13,11 @@ endif
 
 source ~/.vim/config_files/vim_plug.vim
 "source ~/.vim/config_files/coc.vim
-"source ~/.vim/config_files/ultisnips.vim
 source ~/.vim/config_files/theme.vim
 
 if cloudtop
     source ~/.vim/config_files/glug.vim
 endif
-
-"if exists('$TMUX')
-  "let g:fzf_layout = { 'tmux': '-p90%,60%' }
-"else
-  "let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-"endif
 
 set relativenumber
 set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
@@ -42,12 +35,6 @@ set foldmethod=manual
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 " Fold the visually selected lines
 vnoremap <Space> zf
-" Save folds when closing a file
-"augroup remember_folds
-  "autocmd!
-  "autocmd BufWinLeave * mkview
-  "autocmd BufWinEnter * silent! loadview
-"augroup END
 
 augroup filegroup
   autocmd!
@@ -72,10 +59,6 @@ augroup END
 " Run go vet and golint on golang file save
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = ['vet', 'golint']
-
-" Status bar
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='deus'
 
 let mapleader = "-"
 
@@ -115,33 +98,25 @@ inoremap jk <ESC>
 filetype plugin indent on
 syntax on
 
-set tgc  " Enable 24-bit colors
-
+set termguicolors  " Enable 24-bit colors
+colors deus
 source ~/.vim/config_files/theme.vim
 
-hi clear Todo " tab highlight color
-hi clear CursorLine
-hi CursorLineNR cterm=reverse,bold
-hi Error cterm=bold ctermfg=232 ctermbg=10
-hi NvimInternalError cterm=bold ctermfg=232 ctermbg=10
-hi clear MatchParen
-hi MatchParen cterm=bold
-hi ColorColumn guibg='#282828'
-hi SignColumn guibg='#032029'
-hi clear Pmenu
-hi Pmenu ctermbg=0 ctermfg=4 guibg=#2d2e30
-hi PmenuSel guibg=#3a3b3d
-hi Folded guibg='#2d2e30' guifg='#7a7b7d'
-hi clear VertSplit
-hi VertSplit guifg='#282828'
-hi clear EndOfBuffer
-hi EndOfBuffer guifg='#1a1b1d'
-hi Constant guifg='#92B55F'
-hi clear Visual
-hi Visual guibg='#3a3b3d'
-hi Comment  guibg=bg  guifg=#8f8e8d  gui=none    ctermbg=8   ctermfg=7
-hi clear Error
-hi Normal guibg='#00181f'
+"hi clear Todo " tab highlight color
+"hi clear CursorLine
+"hi CursorLineNR cterm=reverse,bold
+"hi Error cterm=bold ctermfg=232 ctermbg=10
+"hi NvimInternalError cterm=bold ctermfg=232 ctermbg=10
+"hi clear MatchParen
+"hi MatchParen cterm=bold
+"hi SignColumn guibg='#032029'
+"hi clear Pmenu
+"hi Pmenu ctermbg=0 ctermfg=4 guibg=#2d2e30
+"hi PmenuSel guibg=#3a3b3d
+"hi Folded guibg='#2d2e30' guifg='#7a7b7d'
+"hi clear VertSplit
+"hi VertSplit guifg='#282828'
+"hi Comment  guibg=bg  guifg=#8f8e8d  gui=none    ctermbg=8   ctermfg=7
 
 if cloudtop
   hi Pmenu ctermfg=6
