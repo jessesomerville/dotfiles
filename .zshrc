@@ -1,5 +1,8 @@
 #zmodload zsh/zprof
 
+setopt rmstarsilent
+set -o emacs
+
 export N_PREFIX="${HOME}/.n"
 
 # Setup $PATH and make each item unique
@@ -9,59 +12,46 @@ path=(
   "${HOME}/.go/bin"
   "${HOME}/go/bin"
   "${HOME}/.cargo/bin"
-  "${HOME}/.google-cloud-sdk/bin"
   "${N_PREFIX}/bin"
+  "${XDG_DATA_HOME}/fzf/bin"
   $path
 )
-
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-set -o emacs
-
-# ────────────────────────────────────────────────────────────────────────────────
-#                                 fzf options
-# ────────────────────────────────────────────────────────────────────────────────
-
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_DEFAULT_OPTS='--border --info=inline' # --color 'fg:#bbccdd,fg+:#ddeeff,bg:#334455,preview-bg:#223344,border:#778899'
-
-export FZF_COMPLETION_OPTS="$FZF_DEFAULT_OPTS"
-
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="$FZF_DEFAULT_OPTS --preview 'bat --style=numbers --color=always --line-range :500 {}'"
-
-export FZF_TMUX_OPTS='-d 80%'
-
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
-
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
-
-# ────────────────────────────────────────────────────────────────────────────────
-#                                general opts
-# ────────────────────────────────────────────────────────────────────────────────
-
-setopt rmstarsilent  # Don't prompt when using * with rm
 
 source "${HOME}/.zsh/aliases.zsh"
 source "${HOME}/.zsh/bindings.zsh"
 source "${HOME}/.zsh/history.zsh"
 source "${HOME}/.zsh/zinit_plugins.zsh"
+source "${HOME}/.zsh/fzf.zsh"
 [[ -d "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
-[[ -f "${HOME}/.config/fzf/fzf.zsh" ]] && source "${HOME}/.config/fzf/fzf.zsh"
-[[ -f  "${HOME}/.config/broot/launcher/bash/br" ]] && source "${HOME}/.config/broot/launcher/bash/br"
 
-# hyperfine, tealdeer
-# n - https://github.com/tj/n
-# .gitconfig .gitignore
-# sd
-# fd
-#   sudo apt install -y fd-find && ln -s $(which fdfind) ~/.local/bin/fd
-# broot
+# ──────────────────────────────────────────────────────────────────────────────────────────────────
+#                                              History
+# ──────────────────────────────────────────────────────────────────────────────────────────────────
+
+HISTFILE="${HOME}/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=10000
+
+setopt extended_history       # record timestamp of command in HISTFILE
+setopt hist_ignore_dups       # ignore immediate duplicated commands history list
+setopt hist_ignore_all_dups   # only store unique commands in history
+setopt hist_verify            # show command with history expansion to user before running it
+setopt share_history          # share command history data
+setopt hist_reduce_blanks     # remove blanks from each command line
+
+# ──────────────────────────────────────────────────────────────────────────────────────────────────
+#                                              Bindings
+#  Use `showkey -a` or `od -c` to identify an escape sequence, and `infocmp -1 | grep <seq>` to
+#  find the corresponding terminfo entry.
+# ──────────────────────────────────────────────────────────────────────────────────────────────────
+
+bindkey $terminfo[kdch1]  delete-char         # Enables DEL key proper behaviour
+bindkey '^[[1;5C'         forward-word        # [Ctrl-RightArrow] - move forward one word
+bindkey '^[[1;5D'         backward-word       # [Ctrl-LeftArrow] - move backward one word
+bindkey $terminfo[khome]  beginning-of-line   # [Home] - goes at the begining of the line
+bindkey $terminfo[kend]   end-of-line         # [End] - goes at the end of the line
+bindkey $terminfo[cub1]   backward-kill-word  # [Ctrl-Backspace] - Delete previous word
+
 
 # TODO: Remove this from this repo.
 # Google Cloudtop specific configs
@@ -69,11 +59,4 @@ if [[ "${HOME}" == "/usr/local/google/home/jsomerville" ]]; then
     source "${HOME}/.zsh/google.zsh"
 fi
 
-export WORDCHARS='?_-.&!#$%'
-
 #zprof
-# GoLang
-export GOROOT=/home/jsomerville/.go
-export PATH=$GOROOT/bin:$PATH
-export GOPATH=/home/jsomerville/go
-export PATH=$GOPATH/bin:$PATH

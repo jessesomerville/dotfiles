@@ -1,6 +1,4 @@
 #!/usr/bin/env zsh
-#
-# Common aliases.
 
 alias aliases="nvim $0"
 alias cat="bat"
@@ -16,4 +14,3 @@ alias top="btm -b"
 alias vim="nvim"
 alias lines="echo ${(l:80::─:)}"
 alias envs="env | sort"
-

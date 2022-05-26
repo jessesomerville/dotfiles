@@ -1,3 +1,6 @@
+set termguicolors
+colors deus
+
 " Status bar
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#enabled = 0
