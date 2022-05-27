@@ -2,9 +2,6 @@
 set nocompatible
 filetype off
 
-" Speed up vim when not in piper dir
-let g:piperlib_ignored_dirs = [$HOME]
-
 " Set global bool to enable/disable cloudtop specific configs TODO(remove)
 let g:cloudtop = 0
 if $HOME == "/usr/local/google/home/jsomerville"
@@ -12,10 +9,11 @@ if $HOME == "/usr/local/google/home/jsomerville"
 endif
 
 source ~/.vim/config_files/vim_plug.vim
-"source ~/.vim/config_files/coc.vim
 source ~/.vim/config_files/theme.vim
 
 if cloudtop
+    " Speed up vim when not in piper dir
+    let g:piperlib_ignored_dirs = [$HOME]
     source ~/.vim/config_files/glug.vim
 endif
 
@@ -31,22 +29,10 @@ set colorcolumn=100
 set foldlevelstart=99
 set foldmethod=manual
 " Press Space to fold at the current cursor location.
-" If the current line is not a fold, the default behavior for Space is used.
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 " Fold the visually selected lines
 vnoremap <Space> zf
 
-augroup filegroup
-  autocmd!
-  autocmd FileType cpp setlocal tabstop=2 shiftwidth=2 cindent
-  autocmd FileType cpp,go inoremap {<CR> {<CR>}<ESC>ko
-  autocmd FileType go setlocal tabstop=2 shiftwidth=2
-  autocmd FileType json syntax match Comment +\/\/.\+$+
-  autocmd FileType py setlocal colorcolumn=80
-  autocmd FileType zsh setlocal tabstop=2 shiftwidth=2
-augroup END
-
-" General autocommands
 augroup generic
   autocmd!
   autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix" | q | endif
@@ -56,13 +42,25 @@ augroup generic
       \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 augroup END
 
+augroup filegroup
+  autocmd!
+  autocmd FileType cpp setlocal cindent
+  autocmd FileType cpp,go inoremap {<CR> {<CR>}<ESC>ko
+  autocmd FileType json syntax match Comment +\/\/.\+$+
+  autocmd FileType py setlocal colorcolumn=80
+augroup END
+
 " Run go vet and golint on golang file save
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = ['vet', 'golint']
 
 let mapleader = "-"
 
-" Disable arrow key movement in normal mode
+nnoremap <leader>x :noh<cr>
+nnoremap <leader>ev :vsplit $HOME/.vimrc<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+inoremap jk <ESC>
+
 nnoremap <Up> <nop>
 nnoremap <Down> <nop>
 nnoremap <Left> <nop>
@@ -74,16 +72,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-nnoremap <leader>x :noh<cr>
-nnoremap <leader>ev :vsplit $HOME/.vimrc<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
-nnoremap <leader>q :Bdelete<CR>
-
 let g:agriculture#rg_options = '--smart-case --hidden --follow'
 nnoremap <leader>f :RgRaw<Space>-g<Space>'*'<Space>
 nnoremap <leader>F :Files %:p:h<CR>
-
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
 
@@ -93,31 +84,5 @@ nnoremap <leader>R :%s/ / /g
 nnoremap <leader>m :cnext<CR>
 nnoremap <leader>n :cprevious<CR>
 
-inoremap jk <ESC>
-
 filetype plugin indent on
 syntax on
-
-set termguicolors  " Enable 24-bit colors
-colors deus
-source ~/.vim/config_files/theme.vim
-
-"hi clear Todo " tab highlight color
-"hi clear CursorLine
-"hi CursorLineNR cterm=reverse,bold
-"hi Error cterm=bold ctermfg=232 ctermbg=10
-"hi NvimInternalError cterm=bold ctermfg=232 ctermbg=10
-"hi clear MatchParen
-"hi MatchParen cterm=bold
-"hi SignColumn guibg='#032029'
-"hi clear Pmenu
-"hi Pmenu ctermbg=0 ctermfg=4 guibg=#2d2e30
-"hi PmenuSel guibg=#3a3b3d
-"hi Folded guibg='#2d2e30' guifg='#7a7b7d'
-"hi clear VertSplit
-"hi VertSplit guifg='#282828'
-"hi Comment  guibg=bg  guifg=#8f8e8d  gui=none    ctermbg=8   ctermfg=7
-
-if cloudtop
-  hi Pmenu ctermfg=6
-endif

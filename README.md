@@ -4,6 +4,12 @@ Change the `reply` lines in [this function](https://github.com/zdharma-continuum
 to `fg=` instead of `bg=`.  Or just turn it off.
 
 
+ hyperfine, tealdeer
+ n - https://github.com/tj/n
+ sd
+ fd
+   sudo apt install -y fd-find && ln -s $(which fdfind) ~/.local/bin/fd
+
 # Prerequisites
 
 This will install the easy packages:
