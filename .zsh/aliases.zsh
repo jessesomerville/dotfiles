@@ -14,3 +14,21 @@ alias top="btm -b"
 alias vim="nvim"
 alias lines="echo ${(l:80::─:)}"
 alias envs="env | sort"
+
+hexcolor() {
+  setopt localoptions extendedglob
+
+  local args=${1:-}
+  if [[ -z $args ]]; then
+    echo 'Missing color argument'
+    return
+  fi
+
+  local colorstr=$(echo $args | rg -o '#[[:xdigit:]]{6}')
+  if [[ -z $colorstr ]]; then
+    echo "$colorstr is not a hex color"
+    return
+  fi
+
+  print -P "%B%F{$colorstr} $colorstr %f%K{$colorstr} $colorstr %k%b"
+}

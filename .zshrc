@@ -18,8 +18,6 @@ path=(
 )
 
 source "${HOME}/.zsh/aliases.zsh"
-source "${HOME}/.zsh/bindings.zsh"
-source "${HOME}/.zsh/history.zsh"
 source "${HOME}/.zsh/zinit_plugins.zsh"
 source "${HOME}/.zsh/fzf.zsh"
 [[ -d "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
