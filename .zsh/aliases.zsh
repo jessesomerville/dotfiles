@@ -8,7 +8,6 @@ alias config="/usr/bin/git --git-dir=${HOME}/.cfg --work-tree=${HOME}"
 alias hist="history -fD 0"  # Show history with time, date, and command runtime
 alias la="lsd -lAh"
 alias ls="lsd"
-alias randstr='print -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c 64)'
 alias rg="rg --hidden"
 alias top="btm -b"
 alias vim="nvim"
@@ -31,4 +30,8 @@ hexcolor() {
   fi
 
   print -P "%B%F{$colorstr} $colorstr %f%K{$colorstr} $colorstr %k%b"
+}
+
+randstr() {
+  print -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64})
 }
