@@ -24,4 +24,10 @@ let g:airline_symbols.colnr = ' C:'
 hi Normal guibg='#191c21'
 hi Visual guibg='#3a3b3d'
 hi EndOfBuffer guifg='#191c21'
-hi ColorColumn guibg='#242a32'
+hi ColorColumn guibg='#38393a' guifg='#38393a'
+
+hi SignColumn guibg='#191c21'
+hi LspErrorVirtualText gui=italic guifg='#6a6d71' guibg=bg
+hi LspErrorText gui=bold guifg='#6a6d71'
+
+set signcolumn=yes

@@ -50,6 +50,14 @@ augroup filegroup
   autocmd FileType py setlocal colorcolumn=80
 augroup END
 
+let g:markdown_fenced_languages = [
+  \ 'bash=sh',
+  \ 'bzl',
+  \ 'gcl',
+  \ 'python',
+  \ 'textproto',
+  \ 'ncl'] 
+
 " Run go vet and golint on golang file save
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_autosave_enabled = ['vet', 'golint']
