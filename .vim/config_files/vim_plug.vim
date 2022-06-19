@@ -7,9 +7,9 @@ Plug 'jesseleite/vim-agriculture'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
 
+Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
-Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 
 Plug 'ryanoasis/vim-devicons'
@@ -28,3 +28,5 @@ inoremap <expr> <CR>     pumvisible() ? "\<C-y>" : "\<CR>"
 
 let g:asyncomplete_popup_delay=1000
 let g:lsp_diagnostics_enabled=0
+
+nnoremap gd :LspDefinition<CR>

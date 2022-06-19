@@ -36,7 +36,6 @@ augroup END
   "\   '--tooltag=vim-lsp',
   "\   '--noforward_sync_responses',
   "\ ]},
-  "\ 'allowlist': ['proto', 'textproto', 'go', 'bzl', 'gcl', 'borg', 'python'],
+  "\ 'allowlist': ['proto', 'textproto', 'go', 'bzl', 'gcl', 'borg', 'python', 'sql'],
   "\})
 
-nnoremap gd :LspDefinition<CR>
