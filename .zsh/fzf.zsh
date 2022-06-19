@@ -7,8 +7,8 @@
 source "${XDG_DATA_HOME}/fzf/shell/key-bindings.zsh"
 
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_CTRL_T_COMMAND='fd --type f --hidden --follow --exclude .git'
-export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+export FZF_CTRL_T_COMMAND='fd . --type f --hidden --follow --exclude .git $(pwd)'
+export FZF_ALT_C_COMMAND='fd . --type d --hidden --follow --exclude .git $(pwd)'
 
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always {}'"
 command -v tree > /dev/null && export FZF_ALT_C_OPTS="--preview 'tree -C {}'"

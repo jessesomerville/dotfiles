@@ -27,7 +27,5 @@ hi EndOfBuffer guifg='#191c21'
 hi ColorColumn guibg='#38393a' guifg='#38393a'
 
 hi SignColumn guibg='#191c21'
-hi LspErrorVirtualText gui=italic guifg='#6a6d71' guibg=bg
-hi LspErrorText gui=bold guifg='#6a6d71'
 
 set signcolumn=yes
