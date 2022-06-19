@@ -14,6 +14,7 @@ alias plxutil=/google/data/ro/teams/plx/plxutil
 alias sqlfmt=/google/data/ro/teams/googlesql-formatter/fmt
 alias tricorder=/google/data/ro/teams/tricorder/tricorder
 alias prodfs=/google/bin/users/catalinp/prodfs/prodfs.sh
+alias datahub=/google/bin/releases/datahub/datahub_util
 
 alias figls="hg citc --list"
 alias hgst="hg diff --stat"
@@ -148,13 +149,39 @@ function whichtests() {
 }
 
 function f1q() {
-  typeset infile="${1:-}"
-  if [[ -z $infile ]]; then
-    echo "$warn_icon you must provide the query file path"
+  local infile tmpqueryfile importpath tmplmatch
+
+  infile="${1:-}"
+  if [[ ! -f $infile ]]; then
+    echo "$warn_icon missing input file"
     return 1
   fi
+
+  tmplmatch=$(rg --color always --passthru '\{TEMPLATE_[^\}]+[^\s]+' $infile)
+  if (( ? == 0 )); then
+    echo "$warn_icon query contains PlxAuto templates\n"
+    echo $tmplmatch | bat -l sql --decorations never
+    return 1
+  fi
+
+  tmpqueryfile=$(mktemp)
+  local importpath="${2:-$PWD}"
+  echo "SET module.global_import_path = ${importpath};" > $tmpqueryfile
+  cat $infile >> $tmpqueryfile
+
   typeset log_file="/tmp/f1q_${infile:t}_$(date --iso-8601=seconds).log"
-  f1-sql --input_file="${infile}" --session_log_file="${log_file}" \
+  f1-sql --input_file =(echo "SOURCE $tmpqueryfile;") --session_log_file="${log_file}" \
     --f1_sql_show_query_progress --f1_sql_force_output_profile_link
-    
+
+  rm $tmpqueryfile
 }
+
+function sql() {
+  local query="${1:-}"
+  if [[ -z $query ]]; then
+    echo "$warnicon missing query string"
+    return 1
+  fi
+  f1q =(echo "${query}" | sd -p '^(.*[^;]);*\n' '$1;\n')
+}
+
