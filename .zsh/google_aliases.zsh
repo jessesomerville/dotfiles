@@ -35,8 +35,8 @@ function hg() {
   case "${subcmd}" in
     amend|commit) hg_precommit ;;
     upload)
-      if (read -q "?$info_icon Sync first? "); then
-        echo "\n$info_icon Syncing to head"
+      if (read -q "?$(echoinfo) Sync first? "); then
+        echo; echoinfo "Syncing to head"
         /usr/bin/hg sync --all
       fi
       printf "\n"
@@ -46,7 +46,7 @@ function hg() {
 }
 
 function hg_precommit() {
-  echo "$info_icon Running linters"
+  echoinfo "Running linters"
   #/usr/bin/hg fixwdir
 
   typeset -a modified_files=( $(hg status --no-status -a -m | grep -Ev "plx/.*\.textproto") )
@@ -55,13 +55,13 @@ function hg_precommit() {
   if [[ ${modified_files[(i)*.go]} -le ${#modified_files} ]]; then
     typeset -a go_files=( $(print -l ${modified_files} | grep ".go$") )
     typeset -U glaze_paths=( ${go_files:h} )
-    echo "$info_icon Running glaze"
+    echoinfo "Running glaze"
     glaze -p ${glaze_paths/#///}
   fi
 
   if [[ ${modified_files[(i)*.md]} -le ${#modified_files} ]]; then
     typeset -a md_files=( $(print -l ${modified_files} | grep ".md$") )
-    echo "$info_icon Running mdformat"
+    echoinfo "Running mdformat"
     mdformat --in_place ${md_files}
   fi
 }
@@ -70,7 +70,7 @@ function hg_precommit() {
 function fcd() {
   typeset workspace="${1:-$(hg citc --list | fzf --print0 -0 -1)}"
   if [[ -z "${workspace}" ]] || (! hg citc --list | grep -q "${workspace}"); then
-    echo "$warn_icon Invalid CITC name: ${workspace}"
+    echoerr "Invalid CITC name: ${workspace}"
     return 1
   fi
   hgd "${workspace}"
@@ -84,11 +84,11 @@ function scango() {
   fi
 
   if (( ${#files_to_scan} )); then
-    echo "$warn_icon No files were found to scan"
+    echoerr "No files were found to scan"
     return 1
   fi
 
-  echo "$info_icon Scanning the following files:"
+  echoinfo "Scanning the following files:"
   print -l ${files_to_scan/#/  - }
   tricorder analyze -categories GoBugs,GoDeprecated,GoStaticCheck,GoVet ${files_to_scan}
 }
@@ -103,7 +103,7 @@ function blazet() {
   fi
 
   if (( $# != 2 )); then
-    echo "$warn_icon blazet requires 2 arguments"
+    echoerr "blazet requires 2 arguments"
     return 1
   fi
 
@@ -114,22 +114,22 @@ function blazet() {
 
 # Sync to head without committing changes.
 function hgsyncd() {
-  echo "$info_icon Creating temp commit"
+  echoinfo "Creating temp commit"
   /usr/bin/hg commit -m "sync"
   if (( $? != 0 )); then
-    echo "$warn_icon Failed to create empty commit"
+    echoerr "Failed to create empty commit"
   fi
 
-  echo "$info_icon Syncing to head"
+  echoinfo "Syncing to head"
   /usr/bin/hg sync --all
   if (( $? != 0 )); then
-    echo "$warn_icon Failed to sync to head"
+    echoerr "Failed to sync to head"
   fi
 
-  echo "$info_icon Removing temp commit"
+  echoinfo "Removing temp commit"
   /usr/bin/hg uncommit --no-keep
   if (( $? != 0 )); then
-    echo "$warn_icon Failed to remove temp commit"
+    echoerr "Failed to remove temp commit"
   fi
 }
 
@@ -148,40 +148,48 @@ function whichtests() {
   fi
 }
 
-function f1q() {
-  local infile tmpqueryfile importpath tmplmatch
+function vsasearch() {
+  local opt search
 
-  infile="${1:-}"
-  if [[ ! -f $infile ]]; then
-    echo "$warn_icon missing input file"
+  typeset -A help
+  help=(
+    '-s' 'the term to search for'
+  )
+
+  while getopts s:h opt
+  do
+    case $opt in
+      (s) search=$OPTARG ;;
+      (h)
+        print -P "\n%B%F{11}vsasearch%f%b - search for VSAs\n"
+        for k in "${(k)help[@]}"; do
+          print -P "  %F{2}$k%f  %F{7}$help[$k]%f"
+        done
+        return 0
+        ;;
+      (\?)
+        echoerr "invalid option provided"
+        return 1
+        ;;
+    esac
+  done
+  (( OPTIND > 1 )) && shift $(( OPTIND - 1 ))
+
+  if [[ -z $search ]]; then
+    echoerr "you must provide a search term with -s"
     return 1
   fi
 
-  tmplmatch=$(rg --color always --passthru '\{TEMPLATE_[^\}]+[^\s]+' $infile)
-  if (( ? == 0 )); then
-    echo "$warn_icon query contains PlxAuto templates\n"
-    echo $tmplmatch | bat -l sql --decorations never
-    return 1
-  fi
+  echoinfo "Searching for '${search}'"
 
-  tmpqueryfile=$(mktemp)
-  local importpath="${2:-$PWD}"
-  echo "SET module.global_import_path = ${importpath};" > $tmpqueryfile
-  cat $infile >> $tmpqueryfile
+  typeset -a query=(
+    "SELECT title, FORMAT('http://b/%d', issue_id) AS bug,"
+    "FROM buganizer.issuestatsfresh.live"
+    "WHERE"
+    "  component_id = 873039"
+    "  AND REGEXP_CONTAINS(LOWER(title), 'vendor security assessment')"
+    "  AND REGEXP_CONTAINS(LOWER(title), LOWER('${search}'));"
+  )
 
-  typeset log_file="/tmp/f1q_${infile:t}_$(date --iso-8601=seconds).log"
-  f1-sql --input_file =(echo "SOURCE $tmpqueryfile;") --session_log_file="${log_file}" \
-    --f1_sql_show_query_progress --f1_sql_force_output_profile_link
-
-  rm $tmpqueryfile
+  f1q -f =(print -l $query)
 }
-
-function sql() {
-  local query="${1:-}"
-  if [[ -z $query ]]; then
-    echo "$warnicon missing query string"
-    return 1
-  fi
-  f1q =(echo "${query}" | sd -p '^(.*[^;]);*\n' '$1;\n')
-}
-

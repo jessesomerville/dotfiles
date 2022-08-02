@@ -23,49 +23,49 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-fzf-blaze() {
-  local tokens basepath lbuf matches
-  setopt localoptions noshwordsplit noksh_arrays noposixbuiltins extendedglob
+#fzf-blaze() {
+  #local tokens basepath lbuf matches
+  #setopt localoptions noshwordsplit noksh_arrays noposixbuiltins extendedglob
 
-  tokens=(${(z)LBUFFER})
-  if [[ ${#tokens} -lt 1 ]]; then
-    return
-  fi
+  #tokens=(${(z)LBUFFER})
+  #if [[ ${#tokens} -lt 1 ]]; then
+    #return
+  #fi
 
-  lbuf=$LBUFFER
-  [[ -n "${tokens[-1]}" ]] && lbuf=${lbuf:0:-${#tokens[-1]}}
+  #lbuf=$LBUFFER
+  #[[ -n "${tokens[-1]}" ]] && lbuf=${lbuf:0:-${#tokens[-1]}}
 
-  if [[ ! $lbuf =~ 'blaze' ]]; then
-    return
-  fi
+  #if [[ ! $lbuf =~ 'blaze' ]]; then
+    #return
+  #fi
 
-  basepath=${tokens[-1]#//}
+  #basepath=${tokens[-1]#//}
 
-  if [[ ! -d $basepath ]]; then
-    # Check for partial matches
-    if [[ -n $basepath*(#qN) ]]; then
-      basepath="$basepath*"
-    else
-      return
-    fi
-  fi
+  #if [[ ! -d $basepath ]]; then
+    ## Check for partial matches
+    #if [[ -n $basepath*(#qN) ]]; then
+      #basepath="$basepath*"
+    #else
+      #return
+    #fi
+  #fi
 
-  local regexp
-  if [[ $lbuf =~ 'test' ]]; then
-    regexp='\sname = "([^"]+_test)",'
-  else
-    regexp='\sname = "([^"]+)",'
-  fi
+  #local regexp
+  #if [[ $lbuf =~ 'test' ]]; then
+    #regexp='\sname = "([^"]+_test)",'
+  #else
+    #regexp='\sname = "([^"]+)",'
+  #fi
 
-  typeset -a buildrules=( $(fd 'BUILD' $~basepath --type f -d 5 -X rg -o "${regexp}" -r '$1') ) 
+  #typeset -a buildrules=( $(fd 'BUILD' $~basepath --type f -d 5 -X rg -o "${regexp}" -r '$1') ) 
 
-  matches=$(print -l //${^buildrules//\/BUILD/} | fzf --bind=ctrl-z:ignore --height "${FZF_TMUX_HEIGHT:-40%}")
-  if [[ -n "$matches" ]]; then
-    LBUFFER="$lbuf$matches"
-  fi
-  zle reset-prompt
-}
+  #matches=$(print -l //${^buildrules//\/BUILD/} | fzf --bind=ctrl-z:ignore --height "${FZF_TMUX_HEIGHT:-40%}")
+  #if [[ -n "$matches" ]]; then
+    #LBUFFER="$lbuf$matches"
+  #fi
+  #zle reset-prompt
+#}
 
-zle     -N   fzf-blaze
-bindkey '^[b' fzf-blaze
+#zle     -N   fzf-blaze
+#bindkey '^[b' fzf-blaze
 

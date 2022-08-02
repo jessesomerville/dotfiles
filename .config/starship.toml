@@ -7,6 +7,7 @@ $python\
 $git_branch\
 $git_status\
 ${custom.fig}\
+${custom.capture}\
 $line_break\
 $character"""
 
@@ -16,6 +17,14 @@ symbol = ""
 style = "bold white"
 command = 'print -P "%B%F{7}$G3DIR at $FIG_CL%f %F{3}$FIG_MODIFIED%f%b"'
 when = "[[ -n $G3DIR ]]"
+disabled = false
+
+[custom.capture]
+format = "[$symbol ($output)]($style)"
+symbol = "壘"
+style = "bold red"
+command = "echo $CAPTURE_SESSION_LOG_FILE__"
+when = "[[ -n $CAPTURE_SESSION_LOG_FILE__ ]]"
 disabled = false
 
 [character]
