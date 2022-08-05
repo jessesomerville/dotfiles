@@ -4,6 +4,7 @@ setopt rmstarsilent
 set -o emacs
 
 export N_PREFIX="${HOME}/.n"
+export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME}/ripgrep/config"
 
 # Setup $PATH and make each item unique
 typeset -U path
@@ -12,6 +13,7 @@ path=(
   "${HOME}/.go/bin"
   "${HOME}/go/bin"
   "${HOME}/.cargo/bin"
+  "${HOME}/.google-cloud-sdk/bin"
   "${N_PREFIX}/bin"
   "${XDG_DATA_HOME}/fzf/bin"
   $path

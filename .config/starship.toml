@@ -56,4 +56,4 @@ modified = "!"
 staged = "+"
 renamed = "%"
 deleted = "-"
-disabled = true
+disabled = false
