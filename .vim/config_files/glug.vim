@@ -29,14 +29,13 @@ augroup autoformat_settings
   autocmd FileType textpb AutoFormatBuffer text-proto-format
 augroup END
 
-au User lsp_setup call lsp#register_server({
-  \ 'name': 'CiderLSP',
-  \ 'cmd': {server_info->[
-  \   '/google/bin/releases/cider/ciderlsp/ciderlsp',
-  \   '--tooltag=vim-lsp',
-  \   '--noforward_sync_responses',
-  \ ]},
-  \ 'allowlist': ['proto', 'textproto', 'go', 'bzl', 'gcl', 'borg'],
-  \})
+"au User lsp_setup call lsp#register_server({
+  "\ 'name': 'CiderLSP',
+  "\ 'cmd': {server_info->[
+  "\   '/google/bin/releases/cider/ciderlsp/ciderlsp',
+  "\   '--tooltag=vim-lsp',
+  "\   '--noforward_sync_responses',
+  "\ ]},
+  "\ 'allowlist': ['proto', 'textproto', 'go', 'bzl', 'gcl', 'borg', 'python', 'sql'],
+  "\})
 
-nnoremap gd :LspDefinition<CR>

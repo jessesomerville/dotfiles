@@ -19,9 +19,11 @@ path=(
   $path
 )
 
+source "${HOME}/.zsh/colors.zsh"
 source "${HOME}/.zsh/aliases.zsh"
 source "${HOME}/.zsh/zinit_plugins.zsh"
 source "${HOME}/.zsh/fzf.zsh"
+source "${HOME}/.zsh/f1/f1.zsh"
 [[ -d "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
 
 # ──────────────────────────────────────────────────────────────────────────────────────────────────

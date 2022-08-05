@@ -5,7 +5,7 @@ filetype off
 " Set global bool to enable/disable cloudtop specific configs TODO(remove)
 let g:cloudtop = 0
 if $HOME == "/usr/local/google/home/jsomerville"
-    let g:cloudtop = 1
+    let g:cloudtop = 1 
 endif
 
 source ~/.vim/config_files/vim_plug.vim
@@ -23,7 +23,7 @@ set splitbelow
 set splitright
 set mouse=a
 set cmdheight=2
-set colorcolumn=100
+"set colorcolumn=100
 
 " Folding
 set foldlevelstart=99
@@ -36,7 +36,7 @@ vnoremap <Space> zf
 augroup generic
   autocmd!
   autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix" | q | endif
-  " Start NERDTree when Vim starts with a directory argument.
+  "" Start NERDTree when Vim starts with a directory argument.
   autocmd StdinReadPre * let s:std_in=1
   autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
       \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
@@ -49,6 +49,14 @@ augroup filegroup
   autocmd FileType json syntax match Comment +\/\/.\+$+
   autocmd FileType py setlocal colorcolumn=80
 augroup END
+
+let g:markdown_fenced_languages = [
+  \ 'bash=sh',
+  \ 'bzl',
+  \ 'gcl',
+  \ 'python',
+  \ 'textproto',
+  \ 'ncl'] 
 
 " Run go vet and golint on golang file save
 let g:go_metalinter_autosave = 1

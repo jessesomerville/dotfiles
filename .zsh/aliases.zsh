@@ -6,32 +6,45 @@ alias ccat="command cat"
 alias cdgo="cd $(go env GOPATH)/src/github.com/jessesomerville"
 alias config="/usr/bin/git --git-dir=${HOME}/.cfg --work-tree=${HOME}"
 alias hist="history -fD 0"  # Show history with time, date, and command runtime
-alias la="lsd -lAh"
-alias ls="lsd"
+alias la="ls -lAh --color=auto"
+alias ls="ls --color=auto"
 alias rg="rg --hidden"
+alias rgi="rg -i"
 alias top="btm -b"
 alias vim="nvim"
 alias lines="echo ${(l:80::─:)}"
 alias envs="env | sort"
-
-hexcolor() {
-  setopt localoptions extendedglob
-
-  local args=${1:-}
-  if [[ -z $args ]]; then
-    echo 'Missing color argument'
-    return
-  fi
-
-  local colorstr=$(echo $args | rg -o '#[[:xdigit:]]{6}')
-  if [[ -z $colorstr ]]; then
-    echo "$colorstr is not a hex color"
-    return
-  fi
-
-  print -P "%B%F{$colorstr} $colorstr %f%K{$colorstr} $colorstr %k%b"
-}
+alias tv="tidy-viewer"
 
 randstr() {
   print -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64})
+}
+
+capture() {
+  local opt log_file args
+  while getopts o: opt; do
+    case $opt in
+      (o)
+        log_file=$OPTARG
+        ;;
+      (\?)
+        echoerr "bad option provided"
+        return 1
+        ;;
+    esac
+  done
+  (( OPTIND > 1 )) && shift $(( OPTIND - 1 ))
+  args=$*
+
+  if [[ -z $log_file ]]; then
+    echoerr "missing required '-o LOG_FILE' option"
+    return 1
+  fi
+
+  
+  if [[ -f $log_file ]] && (read -q "?Append to existing log file $log_file? "); then
+    CAPTURE_SESSION_LOG_FILE__=$log_file script -a $log_file
+  else
+    CAPTURE_SESSION_LOG_FILE__=$log_file script $log_file
+  fi
 }
