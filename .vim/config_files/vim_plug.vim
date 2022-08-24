@@ -5,7 +5,6 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'jesseleite/vim-agriculture'
 Plug 'preservim/nerdcommenter'
-Plug 'preservim/nerdtree'
 
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -18,6 +17,8 @@ Plug 'vim-airline/vim-airline-themes'
 
 Plug 'sheerun/vim-polyglot'
 Plug 'cespare/vim-toml'
+
+Plug 'chriskempson/base16-vim'
 
 call plug#end()
 

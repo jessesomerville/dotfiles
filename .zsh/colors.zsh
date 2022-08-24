@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 export LS_COLORS="$(vivid generate gruvbox-dark-hard)"
 
 echoinfo() {
