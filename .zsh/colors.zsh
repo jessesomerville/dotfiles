@@ -1,14 +1,4 @@
-#!/usr/bin/env zsh
-
 export LS_COLORS="$(vivid generate gruvbox-dark-hard)"
-
-echoinfo() {
-  echo $(print -P "%B%F{12}[+]%f%b") $@
-}
-
-echoerr() {
-  echo $(print -P "%B%F{9}[!]%f%b") $@
-}
 
 hexcolor() {
   setopt localoptions extendedglob

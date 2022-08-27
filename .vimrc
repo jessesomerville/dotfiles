@@ -2,20 +2,8 @@
 set nocompatible
 filetype off
 
-" Set global bool to enable/disable cloudtop specific configs TODO(remove)
-let g:cloudtop = 0
-if $HOME == "/usr/local/google/home/jsomerville"
-    let g:cloudtop = 1 
-endif
-
 source ~/.vim/config_files/vim_plug.vim
 source ~/.vim/config_files/theme.vim
-
-if cloudtop
-    " Speed up vim when not in piper dir
-    let g:piperlib_ignored_dirs = [$HOME]
-    source ~/.vim/config_files/glug.vim
-endif
 
 set relativenumber
 set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
