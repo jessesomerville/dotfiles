@@ -7,13 +7,20 @@ colors base16gruvbox
 
 function! StatusLine(current, width)
   let l:s = ''
+
   if a:current
     let l:s .= crystalline#mode() . crystalline#right_mode_sep('')
   else
     let l:s .= '%#CrystallineInactive#'
   endif
-  let l:s .= ' %f %='
+  let l:s .= ' %f '
   if a:current
+    let l:s .= crystalline#right_sep('', 'Fill')
+  endif
+
+  let l:s .= '%='
+  if a:current
+    let l:s .= crystalline#left_sep('', 'Fill')
     let l:s .= crystalline#left_mode_sep('')
   endif
   if a:width > 80
@@ -21,12 +28,19 @@ function! StatusLine(current, width)
   else
     let l:s .= ' '
   endif
+
   return l:s
+endfunction
+
+function! TabLine()
+  return crystalline#bufferline(0, 0, 1)
 endfunction
 
 let g:crystalline_enable_sep = 0
 let g:crystalline_statusline_fn = 'StatusLine'
-let g:crystalline_theme = 'hybrid'
+let g:crystalline_tabline_fn = 'TabLine'
+let showtabline=2
+let g:crystalline_theme = 'jellybeans'
 
 set guioptions-=e
 set laststatus=2
@@ -34,7 +48,7 @@ set laststatus=2
 " ─────────────────────────────────────────────────────────────────────────────
 "                                   vim-plug
 " ─────────────────────────────────────────────────────────────────────────────
-call plug#begin('~/vim/plugged')
+call plug#begin('~/.vim/plugged')
 
 Plug 'rbong/vim-crystalline'
 
