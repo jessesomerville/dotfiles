@@ -3,7 +3,7 @@ set nocompatible
 filetype off
 
 set termguicolors
-colors base16gruvbox
+colors base16-ashes
 
 function! StatusLine(current, width)
   let l:s = ''

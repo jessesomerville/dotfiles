@@ -2,41 +2,41 @@
 
 " base16-vim (https://github.com/chriskempson/base16-vim)
 " by Chris Kempson (http://chriskempson.com)
-" Gruvbox dark, hard scheme by Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
+" Ashes scheme by Jannik Siebert (https://github.com/janniks)
 
 " GUI color definitions
-let s:gui00        = "1d2021"
-let g:base16_gui00 = "1d2021"
-let s:gui01        = "3c3836"
-let g:base16_gui01 = "3c3836"
-let s:gui02        = "504945"
-let g:base16_gui02 = "504945"
-let s:gui03        = "81746a"
-let g:base16_gui03 = "81746a"
-let s:gui04        = "bdae93"
-let g:base16_gui04 = "bdae93"
-let s:gui05        = "d5c4a1"
-let g:base16_gui05 = "d5c4a1"
-let s:gui06        = "ebdbb2"
-let g:base16_gui06 = "ebdbb2"
-let s:gui07        = "fbf1c7"
-let g:base16_gui07 = "fbf1c7"
-let s:gui08        = "fb4934"
-let g:base16_gui08 = "fb4934"
-let s:gui09        = "fe8019"
-let g:base16_gui09 = "fe8019"
-let s:gui0A        = "fabd2f"
-let g:base16_gui0A = "fabd2f"
-let s:gui0B        = "b8bb26"
-let g:base16_gui0B = "b8bb26"
-let s:gui0C        = "8ec07c"
-let g:base16_gui0C = "8ec07c"
-let s:gui0D        = "83a598"
-let g:base16_gui0D = "83a598"
-let s:gui0E        = "d3869b"
-let g:base16_gui0E = "d3869b"
-let s:gui0F        = "d65d0e"
-let g:base16_gui0F = "d65d0e"
+let s:gui00        = "1C2023"
+let g:base16_gui00 = "1C2023"
+let s:gui01        = "393F45"
+let g:base16_gui01 = "393F45"
+let s:gui02        = "565E65"
+let g:base16_gui02 = "565E65"
+let s:gui03        = "747C84"
+let g:base16_gui03 = "747C84"
+let s:gui04        = "ADB3BA"
+let g:base16_gui04 = "ADB3BA"
+let s:gui05        = "C7CCD1"
+let g:base16_gui05 = "C7CCD1"
+let s:gui06        = "DFE2E5"
+let g:base16_gui06 = "DFE2E5"
+let s:gui07        = "F3F4F5"
+let g:base16_gui07 = "F3F4F5"
+let s:gui08        = "C7AE95"
+let g:base16_gui08 = "C7AE95"
+let s:gui09        = "C7C795"
+let g:base16_gui09 = "C7C795"
+let s:gui0A        = "AEC795"
+let g:base16_gui0A = "AEC795"
+let s:gui0B        = "95C7AE"
+let g:base16_gui0B = "95C7AE"
+let s:gui0C        = "95AEC7"
+let g:base16_gui0C = "95AEC7"
+let s:gui0D        = "AE95C7"
+let g:base16_gui0D = "AE95C7"
+let s:gui0E        = "C795AE"
+let g:base16_gui0E = "C795AE"
+let s:gui0F        = "C79595"
+let g:base16_gui0F = "C79595"
 
 " Terminal color definitions
 let s:cterm00        = "00"
@@ -90,7 +90,7 @@ endif
 " Theme setup
 hi clear
 syntax reset
-let g:colors_name = "base16-gruvbox-dark-hard"
+let g:colors_name = "base16-ashes"
 
 " Highlighting function
 " Optional variables are attributes and guisp
@@ -145,7 +145,7 @@ call <sid>hi("Substitute",    s:gui01, s:gui0A, s:cterm01, s:cterm0A, "none", ""
 call <sid>hi("SpecialKey",    s:gui03, "", s:cterm03, "", "", "")
 call <sid>hi("TooLong",       s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("Underlined",    s:gui08, "", s:cterm08, "", "", "")
-call <sid>hi("Visual",        "", "3a3b3d", "", s:cterm02, "", "")
+call <sid>hi("Visual",        "", s:gui02, "", s:cterm02, "", "")
 call <sid>hi("VisualNOS",     s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("WarningMsg",    s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("WildMenu",      s:gui08, s:gui0A, s:cterm08, "", "", "")
@@ -159,7 +159,7 @@ call <sid>hi("StatusLine",    s:gui04, s:gui02, s:cterm04, s:cterm02, "none", ""
 call <sid>hi("StatusLineNC",  s:gui03, s:gui01, s:cterm03, s:cterm01, "none", "")
 call <sid>hi("VertSplit",     s:gui02, s:gui02, s:cterm02, s:cterm02, "none", "")
 call <sid>hi("ColorColumn",   "", s:gui01, "", s:cterm01, "none", "")
-call <sid>hi("CursorColumn",  "", "282828", "", s:cterm01, "none", "")
+call <sid>hi("CursorColumn",  "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorLine",    "", s:gui01, "", s:cterm01, "none", "")
 call <sid>hi("CursorLineNr",  s:gui04, s:gui01, s:cterm04, s:cterm01, "", "")
 call <sid>hi("QuickFixLine",  "", s:gui01, "", s:cterm01, "none", "")
@@ -202,6 +202,8 @@ call <sid>hi("Typedef",      s:gui0A, "", s:cterm0A, "", "", "")
 call <sid>hi("cOperator",   s:gui0C, "", s:cterm0C, "", "", "")
 call <sid>hi("cPreCondit",  s:gui0E, "", s:cterm0E, "", "", "")
 
+call <sid>hi("csNewDecleration",        s:gui08, "", s:cterm08, "", "", "")
+
 " CSS highlighting
 call <sid>hi("cssBraces",      s:gui05, "", s:cterm05, "", "", "")
 call <sid>hi("cssClassName",   s:gui0E, "", s:cterm0E, "", "", "")
@@ -223,12 +225,6 @@ call <sid>hi("gitcommitUntrackedFile",  s:gui0A, "", s:cterm0A, "", "", "")
 call <sid>hi("gitcommitUnmergedFile",   s:gui08, "", s:cterm08, "", "bold", "")
 call <sid>hi("gitcommitDiscardedFile",  s:gui08, "", s:cterm08, "", "bold", "")
 call <sid>hi("gitcommitSelectedFile",   s:gui0B, "", s:cterm0B, "", "bold", "")
-
-" GitGutter highlighting
-call <sid>hi("GitGutterAdd",     s:gui0B, s:gui01, s:cterm0B, s:cterm01, "", "")
-call <sid>hi("GitGutterChange",  s:gui0D, s:gui01, s:cterm0D, s:cterm01, "", "")
-call <sid>hi("GitGutterDelete",  s:gui08, s:gui01, s:cterm08, s:cterm01, "", "")
-call <sid>hi("GitGutterChangeDelete",  s:gui0E, s:gui01, s:cterm0E, s:cterm01, "", "")
 
 " HTML highlighting
 call <sid>hi("htmlBold",    s:gui0A, "", s:cterm0A, "", "", "")
