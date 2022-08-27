@@ -2,8 +2,44 @@
 set nocompatible
 filetype off
 
-source ~/.vim/config_files/vim_plug.vim
-source ~/.vim/config_files/theme.vim
+set termguicolors
+colors base16gruvbox
+
+function! StatusLine(current, width)
+  let l:s = ''
+  if a:current
+    let l:s .= crystalline#mode() . crystalline#right_mode_sep('')
+  else
+    let l:s .= '%#CrystallineInactive#'
+  endif
+  let l:s .= ' %f %='
+  if a:current
+    let l:s .= crystalline#left_mode_sep('')
+  endif
+  if a:width > 80
+    let l:s .= ' %l/%L %c%V '
+  else
+    let l:s .= ' '
+  endif
+  return l:s
+endfunction
+
+let g:crystalline_enable_sep = 0
+let g:crystalline_statusline_fn = 'StatusLine'
+let g:crystalline_theme = 'hybrid'
+
+set guioptions-=e
+set laststatus=2
+
+" ─────────────────────────────────────────────────────────────────────────────
+"                                   vim-plug
+" ─────────────────────────────────────────────────────────────────────────────
+call plug#begin('~/vim/plugged')
+
+Plug 'rbong/vim-crystalline'
+
+call plug#end()
+" ─────────────────────────────────────────────────────────────────────────────
 
 set relativenumber
 set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
@@ -11,7 +47,8 @@ set splitbelow
 set splitright
 set mouse=a
 set cmdheight=2
-"set colorcolumn=100
+set colorcolumn=80
+set signcolumn=yes
 
 " Folding
 set foldlevelstart=99
@@ -24,10 +61,6 @@ vnoremap <Space> zf
 augroup generic
   autocmd!
   autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix" | q | endif
-  "" Start NERDTree when Vim starts with a directory argument.
-  autocmd StdinReadPre * let s:std_in=1
-  autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') |
-      \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 augroup END
 
 augroup filegroup
@@ -37,14 +70,6 @@ augroup filegroup
   autocmd FileType json syntax match Comment +\/\/.\+$+
   autocmd FileType py setlocal colorcolumn=80
 augroup END
-
-let g:markdown_fenced_languages = [
-  \ 'bash=sh',
-  \ 'bzl',
-  \ 'gcl',
-  \ 'python',
-  \ 'textproto',
-  \ 'ncl'] 
 
 " Run go vet and golint on golang file save
 let g:go_metalinter_autosave = 1
@@ -68,17 +93,3 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-let g:agriculture#rg_options = '--smart-case --hidden --follow'
-nnoremap <leader>f :RgRaw<Space>-g<Space>'*'<Space>
-nnoremap <leader>F :Files %:p:h<CR>
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
-
-nnoremap <leader>R :%s/ / /g
-
-" Navigate quickfix items
-nnoremap <leader>m :cnext<CR>
-nnoremap <leader>n :cprevious<CR>
-
-filetype plugin indent on
-syntax on
