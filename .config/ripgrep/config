@@ -1,4 +1,3 @@
---colors=match:none
 --colors=line:fg:yellow
 --colors=path:fg:cyan
 --colors=path:style:bold

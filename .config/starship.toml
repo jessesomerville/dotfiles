@@ -2,14 +2,20 @@ add_newline = true
 
 format = """
 
-$directory\
+${custom.pwd}\
 $python\
 $git_branch\
 $git_status\
 ${custom.fig}\
-${custom.capture}\
 $line_break\
 $character"""
+
+[custom.pwd]
+format = "[($output)]($style) "
+style = "bright-yellow"
+command = 'print -P "%3~"'
+when = true
+disabled = false
 
 [custom.fig]
 format = "[$symbol ($output)]($style)"
@@ -17,14 +23,6 @@ symbol = ""
 style = "bold white"
 command = 'print -P "%B%F{7}$G3DIR at $FIG_CL%f %F{3}$FIG_MODIFIED%f%b"'
 when = "[[ -n $G3DIR ]]"
-disabled = false
-
-[custom.capture]
-format = "[$symbol ($output)]($style)"
-symbol = "壘"
-style = "bold red"
-command = "echo $CAPTURE_SESSION_LOG_FILE__"
-when = "[[ -n $CAPTURE_SESSION_LOG_FILE__ ]]"
 disabled = false
 
 [character]
@@ -39,15 +37,15 @@ symbol = ''
 disabled = false
 
 [directory]
-format = "[$path]($style)[$read_only]($read_only_style) "
+format = "[$path]($style) "
 style = "bright-yellow"
 read_only = " "
 read_only_style = "red"
 truncation_length = 3
-truncate_to_repo = true
+truncate_to_repo = false
 truncation_symbol = ""
 home_symbol = "~"
-disabled = false
+disabled = true
 
 [git_branch]
 format = "[$symbol $branch]($style)"
@@ -65,4 +63,4 @@ modified = "!"
 staged = "+"
 renamed = "%"
 deleted = "-"
-disabled = false
+disabled = true

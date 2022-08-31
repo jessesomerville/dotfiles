@@ -98,10 +98,14 @@ function! g:Base16hi(group, guifg, guibg, ctermfg, ctermbg, ...)
   let l:attr = get(a:, 1, "")
   let l:guisp = get(a:, 2, "")
 
-  if a:guifg != ""
+  if a:guifg == "none"
+    exec "hi " . a:group . " guifg=none"
+  elseif a:guifg != ""
     exec "hi " . a:group . " guifg=#" . a:guifg
   endif
-  if a:guibg != ""
+  if a:guibg == "none"
+    exec "hi " . a:group . " guibg=none"
+  elseif a:guibg != ""
     exec "hi " . a:group . " guibg=#" . a:guibg
   endif
   if a:ctermfg != ""
@@ -128,6 +132,7 @@ call <sid>hi("Normal",        s:gui05, "none", s:cterm05, s:cterm00, "", "")
 call <sid>hi("Bold",          "", "", "", "", "bold", "")
 call <sid>hi("Debug",         s:gui08, "", s:cterm08, "", "", "")
 call <sid>hi("Directory",     s:gui0D, "", s:cterm0D, "", "", "")
+call <sid>hi("EndOfBuffer",   "1e1e1e", "none", "", "", "", "")
 call <sid>hi("Error",         s:gui00, s:gui08, s:cterm00, s:cterm08, "", "")
 call <sid>hi("ErrorMsg",      s:gui08, s:gui00, s:cterm08, s:cterm00, "", "")
 call <sid>hi("Exception",     s:gui08, "", s:cterm08, "", "", "")

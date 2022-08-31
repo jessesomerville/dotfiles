@@ -1,13 +1,22 @@
 #zmodload zsh/zprof
+# typeset -F SECONDS start 
+# precmd () {
+#     start=$SECONDS
+# }
+# zle-line-init () {
+#      PREDISPLAY="[$(( $SECONDS - $start ))] "
+# }
+# zle -N zle-line-init
+##################################
 
 setopt rmstarsilent
 set -o emacs
 
-export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME}/ripgrep/config"
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_STATE_HOME=$HOME/.local/state
+export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME}/ripgrep/config"
 
 export LANG=en_US.UTF-8                           
 export GPG_TTY=$(tty)                             
