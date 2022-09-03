@@ -51,6 +51,7 @@ set laststatus=2
 call plug#begin('~/.vim/plugged')
 
 Plug 'rbong/vim-crystalline'
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
 
 call plug#end()
 " ─────────────────────────────────────────────────────────────────────────────

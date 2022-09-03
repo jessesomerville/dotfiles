@@ -21,8 +21,8 @@ disabled = false
 format = "[$symbol ($output)]($style)"
 symbol = ""
 style = "bold white"
-command = 'print -P "%B%F{7}$G3DIR at $FIG_CL%f %F{3}$FIG_MODIFIED%f%b"'
-when = "[[ -n $G3DIR ]]"
+command = 'print -P "%B%F{7}$FIGSTATUS_CITC %F{3}$FIGSTATUS_MODIFIED%f%b"'
+when = "[[ -n $FIGSTATUS_CITC ]]"
 disabled = false
 
 [character]
