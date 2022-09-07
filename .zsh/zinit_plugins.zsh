@@ -21,8 +21,9 @@ zinit light-mode for \
 
 ### End of Zinit's installer chunk
 
+# Don't highlight pasted content, forehead.
 typeset -U zle_highlight
-zle_highlight=(paste:none $zle_highlight)  # Don't highlight pasted content, forehead.
+zle_highlight=(paste:none $zle_highlight)
 
 zinit wait lucid light-mode for \
  atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
@@ -32,8 +33,7 @@ zinit wait lucid light-mode for \
     zsh-users/zsh-autosuggestions
 
 # Get `starship` binary from github release
-zinit ice as"command" from"gh-r" \
-  atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-  atpull"%atclone" src"init.zsh"
-zinit light starship/starship
-eval "$(starship init zsh)"
+zinit wait'!0' lucid as"command" from"gh-r" \
+  atclone"./starship init zsh > init.zsh" atpull"%atclone" \
+  src"init.zsh" for \
+    starship/starship

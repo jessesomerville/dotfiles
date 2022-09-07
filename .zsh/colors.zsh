@@ -1,4 +1,4 @@
-export LS_COLORS="$(vivid generate gruvbox-dark-hard)"
+export LS_COLORS="$(vivid generate glacier)"
 
 hexcolor() {
   setopt localoptions extendedglob
@@ -9,7 +9,7 @@ hexcolor() {
     return 1
   fi
 
-  local colorstr=$(echo $args | rg -o '#[[:xdigit:]]{6}')
+  local colorstr="#${(S)$(echo $args | rg -o '[[:xdigit:]]{6}')%\#*}"
   if [[ -z $colorstr ]]; then
     echoerr "$colorstr is not a hex color"
     return 1
@@ -19,13 +19,25 @@ hexcolor() {
 }
 
 colors16() {
-  typeset -a colorsfg=()
-  typeset -a colorsbgl=()
-  typeset -a colorsbgd=()
-  for i in {0..16}; do
-    colorsfg=($colorsfg $(print -P "%F{$i} ${i} %f"))
-    colorsbgl=($colorsbgl $(print -P "%F{15}%K{$i} ${i} %f%k"))
-    colorsbgd=($colorsbgd $(print -P "%F{16}%K{$i} ${i} %f%k"))
+  local fgc bgc
+  for i in {0..255}; do
+    fgc="${fgc} %F{$i}${(l:3:: ::0:)i}%f "
+    bgc="${bgc}%K{$i}${(l:5:)}%k"
+    if (( (i + 1) % 16 == 0 )); then
+      print -lP $fgc $bgc
+      fgc='' bgc=''
+    fi
   done
-  print -l "${colorsfg}" "${colorsbgl}" "${colorsbgd}"
+  print -lP $fgc $bgc
 }
+
+
+colorcube() {
+  local -a cubeidx=( {0..5}' + (6 * '{0..5}') + (36 * '{0..5}') + 16' )
+  for exp in "${cubeidx[@]}"; do
+    local -i i=$(( exp ))
+    print -P "%F{$i}${(l:3:)i}%f %K{%i}${(l:3:)}%k"
+  done
+}
+
+# 196 = 16 + (36 * r) + (6 * g) + b

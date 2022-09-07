@@ -11,7 +11,7 @@ alias rgi="rg -i"
 alias top="btm -b"
 alias vim="nvim"
 alias lines="echo ${(l:80::─:)}"
-alias envs="env | sort"
+alias envs="env | rg -v '^LS_COLORS' | sort"
 alias tv="tidy-viewer"
 
 randstr() { print -r -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64}); }

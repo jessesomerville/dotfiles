@@ -1,4 +1,4 @@
-#zmodload zsh/zprof
+# zmodload zsh/zprof
 # typeset -F SECONDS start 
 # precmd () {
 #     start=$SECONDS
@@ -12,11 +12,11 @@
 setopt rmstarsilent
 set -o emacs
 
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-export XDG_DATA_HOME=$HOME/.local/share
-export XDG_STATE_HOME=$HOME/.local/state
-export RIPGREP_CONFIG_PATH="${XDG_CONFIG_HOME}/ripgrep/config"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_STATE_HOME="$HOME/.local/state"
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/config"
 
 export LANG=en_US.UTF-8                           
 export GPG_TTY=$(tty)                             
@@ -37,12 +37,14 @@ path=(
   $path
 )
 
+local private_dotfiles="$XDG_DATA_HOME/dotfiles/rc.zsh"
+
 source "$HOME/.zsh/colors.zsh"
 source "$HOME/.zsh/aliases.zsh"
 source "$HOME/.zsh/zinit_plugins.zsh"
 source "$HOME/.zsh/fzf.zsh"
 [[ -d "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
-[[ -d "$XDG_DATA_HOME/dotfiles" ]] && source "$XDG_DATA_HOME/dotfiles/rc.zsh"
+[[ -f  $private_dotfiles ]] && source $private_dotfiles
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
@@ -68,4 +70,4 @@ bindkey $terminfo[khome]  beginning-of-line
 bindkey $terminfo[kend]   end-of-line         
 bindkey $terminfo[cub1]   backward-kill-word  
 
-#zprof
+# zprof
