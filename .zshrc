@@ -23,6 +23,7 @@ export GPG_TTY=$(tty)
 export COLORTERM=truecolor                        
 export WORDCHARS='?_-.&!#$%'                      
 export MANPAGER="sh -c 'col -bx | bat -l man -p'" 
+export EDITOR=nvim
 
 export N_PREFIX="$HOME/.n"
 
@@ -40,7 +41,7 @@ path=(
 local private_dotfiles="$XDG_DATA_HOME/dotfiles/rc.zsh"
 
 source "$HOME/.zsh/colors.zsh"
-source "$HOME/.zsh/aliases.zsh"
+source "$HOME/.aliasrc"
 source "$HOME/.zsh/zinit_plugins.zsh"
 source "$HOME/.zsh/fzf.zsh"
 [[ -d "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
@@ -64,10 +65,15 @@ setopt hist_reduce_blanks     # remove blanks from each command line
 # -----------------------------------------------------------------------------
 
 bindkey $terminfo[kdch1]  delete-char         
-bindkey '^[[1;5C'         forward-word        
-bindkey '^[[1;5D'         backward-word       
+bindkey "\e[1;5C"         forward-word        
+bindkey "\e[1;5D"         backward-word       
 bindkey $terminfo[khome]  beginning-of-line   
 bindkey $terminfo[kend]   end-of-line         
-bindkey $terminfo[cub1]   backward-kill-word  
+bindkey $terminfo[cub1]   backward-kill-word
+
+# Edit current command in vim with CTRL-X CTRL-E
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
 
 # zprof

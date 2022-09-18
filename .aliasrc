@@ -1,8 +1,10 @@
+#!/usr/bin/env zsh
+
 alias aliases="nvim $0"
 alias cat="bat"
 alias ccat="command cat"
 alias cdgo="cd $(go env GOPATH)/src/github.com/jessesomerville"
-alias config="/usr/bin/git --git-dir=${HOME}/.cfg --work-tree=${HOME}"
+alias dotf="git dotfiles"
 alias hist="history -fD 0"  # Show history with time, date, and command runtime
 alias la="ls -lAh --color=auto"
 alias ls="ls --color=auto"
@@ -15,18 +17,23 @@ alias envs="env | rg -v '^LS_COLORS' | sort"
 alias tv="tidy-viewer"
 
 randstr() { print -r -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64}); }
+dec2hex() { python3 -c "print(hex($1))"; }
+
 echoinfo() { print -P "%B%F{12}[+]%f%b" $@ >&2; }
 echoerr() { print -P "%B%F{9}[!]%f%b" $@ >&2; }
 
 mkcd() {
   local pathname="${1:-}"
-  if [[ -z $pathname ]]; then
-    echoerr "missing required path argument"
-    return 1
-  fi
+  [[ -n $pathname ]] || return 1
   mkdir -p "${pathname}"
   (( $? == 0 )) || return 1
   cd "${pathname}"
+}
+
+dhtml() {
+  local html_file="${1:-}"
+  [[ -f $html_file ]] || return 1
+  lynx -dump $html_file -nolist --width $(( $(tput cols) - 5 ))
 }
 
 capture() {

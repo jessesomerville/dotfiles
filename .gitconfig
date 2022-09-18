@@ -2,11 +2,15 @@
 	name = jessesomerville
 	email = jssomerville2@gmail.com
 
-[diff]
-  colorMoved = default
+[core]
+  editor = nvim
+  excludesfile = ~/.gitignore
 
 [pager]
   diff = delta
+
+[diff]
+  colorMoved = default
 
 [delta]
   features = diff-colors line-numbers file-headers
@@ -50,6 +54,5 @@
 [interactive]
   diffFilter = delta --color-only
 
-[core]
-  editor = nvim
-  excludesfile = ~/.gitignore
+[alias]
+	dotfiles = !git --git-dir=$HOME/.dotfiles --work-tree=$HOME
