@@ -9,22 +9,19 @@
 # zle -N zle-line-init
 ##################################
 
-setopt rmstarsilent
-set -o emacs
-
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
-export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/config"
 
 export LANG=en_US.UTF-8                           
 export GPG_TTY=$(tty)                             
 export COLORTERM=truecolor                        
 export WORDCHARS='?_-.&!#$%'                      
-export MANPAGER="sh -c 'col -bx | bat -l man -p'" 
 export EDITOR=nvim
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/config"
 export N_PREFIX="$HOME/.n"
 
 typeset -U path
@@ -38,14 +35,38 @@ path=(
   $path
 )
 
-local private_dotfiles="$XDG_DATA_HOME/dotfiles/rc.zsh"
+export LS_COLORS="$(vivid generate glacier)"
 
-source "$HOME/.zsh/colors.zsh"
 source "$HOME/.aliasrc"
-source "$HOME/.zsh/zinit_plugins.zsh"
-source "$HOME/.zsh/fzf.zsh"
-[[ -d "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+source "$HOME/.zinitrc"
+local private_dotfiles="$XDG_DATA_HOME/dotfiles/rc.zsh"
 [[ -f  $private_dotfiles ]] && source $private_dotfiles
+
+# ----------------------------------- fzf -------------------------------------
+
+local fzf_dir="$XDG_DATA_HOME/fzf/shell"
+if [[ -d $fzf_dir ]]; then
+  source "$fzf_dir/completion.zsh"
+  source "$fzf_dir/key-bindings.zsh"
+fi
+
+if [[ -n $(whence fd) ]]; then
+  export FZF_DEFAULT_COMMAND='fd --type f -HL --exclude .git'
+  export FZF_CTRL_T_COMMAND='fd . --type f -HL --exclude .git $(pwd)'
+  export FZF_ALT_C_COMMAND='fd . --type d -HL --exclude .git $(pwd)'
+
+  _fzf_compgen_path() { fd -HL --exclude ".git" . "$1"; }
+  _fzf_compgen_dir()  { fd -HL --exclude ".git" --type d . "$1"; }
+fi
+
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always {}'"
+export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
+
+export FZF_TMUX_OPTS='-d 80%'
+
+# -----------------------------------------------------------------------------
+
+setopt rmstarsilent
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
@@ -63,6 +84,8 @@ setopt hist_reduce_blanks     # remove blanks from each command line
 #          Use `showkey -a` or `od -c` to identify an escape sequence
 #          and `infocmp -1 | grep <seq>` to find the terminfo entry.
 # -----------------------------------------------------------------------------
+
+bindkey -e  # emacs mode
 
 bindkey $terminfo[kdch1]  delete-char         
 bindkey "\e[1;5C"         forward-word        

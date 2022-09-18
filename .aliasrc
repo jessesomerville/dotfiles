@@ -12,54 +12,41 @@ alias rg="rg --hidden"
 alias rgi="rg -i"
 alias top="btm -b"
 alias vim="nvim"
-alias lines="echo ${(l:80::─:)}"
+alias lines="print -- ${(l:80::─:)}"
 alias envs="env | rg -v '^LS_COLORS' | sort"
 alias tv="tidy-viewer"
 
 randstr() { print -r -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64}); }
 dec2hex() { python3 -c "print(hex($1))"; }
 
-echoinfo() { print -P "%B%F{12}[+]%f%b" $@ >&2; }
-echoerr() { print -P "%B%F{9}[!]%f%b" $@ >&2; }
+echoinfo() { print -Pu2 "%B%F{12}[+]%f%b" $@; }
+echoerr()  { print -Pu2 "%B%F{ 9}[!]%f%b" $@; }
 
 mkcd() {
-  local pathname="${1:-}"
-  [[ -n $pathname ]] || return 1
-  mkdir -p "${pathname}"
-  (( $? == 0 )) || return 1
-  cd "${pathname}"
+  mkdir -p "${1:-}" || return 1
+  cd "${1:-}"       || return 1
 }
 
 dhtml() {
-  local html_file="${1:-}"
-  [[ -f $html_file ]] || return 1
-  lynx -dump $html_file -nolist --width $(( $(tput cols) - 5 ))
+  [[ -f "${1:-}" ]] || return 1
+  lynx -dump "${1:-}" -nolist --width $(( $(tput cols) - 5 ))
 }
 
-capture() {
-  local opt log_file args
-  while getopts o: opt; do
-    case $opt in
-      (o)
-        log_file=$OPTARG
-        ;;
-      (\?)
-        echoerr "bad option provided"
-        return 1
-        ;;
-    esac
-  done
-  (( OPTIND > 1 )) && shift $(( OPTIND - 1 ))
-  args=$*
+hexcolor() {
+  setopt localoptions extendedglob
+  local hexval="#${(S)1#\#}"
+  print -Pu2 "%B%F{$hexval} $hexval %f%K{$hexval} $hexval %k%b"
+}
 
-  if [[ -z $log_file ]]; then
-    echoerr "missing required '-o LOG_FILE' option"
-    return 1
-  fi
-  
-  if [[ -f $log_file ]] && (read -q "?Append to existing log file $log_file? "); then
-    CAPTURE_SESSION_LOG_FILE__=$log_file script -a $log_file
-  else
-    CAPTURE_SESSION_LOG_FILE__=$log_file script $log_file
-  fi
+colors16() {
+  local fgc bgc
+  for i in {0..15}; do
+    fgc="${fgc} %F{$i}${(l:2:: ::0:)i}%f "
+    bgc="${bgc}%K{$i}${(l:4:)}%k"
+    if (( (i + 1) % 16 == 0 )); then
+      print -lP $fgc $bgc
+      fgc='' bgc=''
+    fi
+  done
+  print -lP $fgc $bgc
 }
