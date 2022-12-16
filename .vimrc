@@ -83,7 +83,7 @@ augroup filegroup
   autocmd FileType cpp setlocal cindent
   autocmd FileType cpp,go inoremap {<CR> {<CR>}<ESC>ko
   autocmd FileType json syntax match Comment +\/\/.\+$+
-  autocmd FileType py setlocal colorcolumn=80
+  autocmd FileType markdown setlocal textwidth=80
 augroup END
 
 " Run go vet and golint on golang file save
@@ -108,3 +108,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Ctrl-Backspace to work like it does in every other app
+inoremap <C-h> <C-w>
+set backspace=indent,eol,start
+
+filetype plugin indent on
+syntax on

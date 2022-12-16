@@ -15,6 +15,7 @@ alias vim="nvim"
 alias lines="print -- ${(l:80::─:)}"
 alias envs="env | rg -v '^LS_COLORS' | sort"
 alias tv="tidy-viewer"
+alias weather="curl -sSL 'http://wttr.in/New%20York'"
 
 randstr() { print -r -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64}); }
 dec2hex() { python3 -c "print(hex($1))"; }
@@ -49,4 +50,24 @@ colors16() {
     fi
   done
   print -lP $fgc $bgc
+}
+
+define() {
+  local dictfile="$XDG_DATA_HOME/websters_dict_en.json"
+  if [[ ! -f $dictfile ]]; then
+    echoinfo "Downloading dictionary file"
+    wget -O $dictfile 'https://github.com/matthewreagan/WebstersEnglishDictionary/raw/master/dictionary.json'
+  fi
+  local query_word="${1:-}"
+  if [[ -z $query_word ]]; then
+    echoerr "Missing required term argument"
+    return 1
+  fi
+
+  local definition=$(jq -r '.'$query_word < $dictfile)
+  if [[ -z $definition ]]; then
+    echoerr "No definition found for $query_word"
+    return 1
+  fi
+  print -P "%F{7}$(print -r -- $definition | sd -p '(\d+\.) ' '\n$1 ' | sd -p '^(\d+\. )(.*)$' '%F{cyan}$1%F{7}$2' | sd -p '\n\n' '\n')%f"
 }
