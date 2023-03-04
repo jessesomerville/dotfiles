@@ -1,5 +1,5 @@
 # zmodload zsh/zprof
-# typeset -F SECONDS start 
+# typeset -F SECONDS start
 # precmd () {
 #     start=$SECONDS
 # }
@@ -14,12 +14,12 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
-export LANG=en_US.UTF-8                           
-export GPG_TTY=$(tty)                             
-export COLORTERM=truecolor                        
-export WORDCHARS='?_-.&!#$%'                      
+export LANG=en_US.UTF-8
+export GPG_TTY=$(tty)
+export WORDCHARS='?_-.&!#$%'
 export EDITOR=nvim
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export COLORTERM=truecolor
 
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/config"
 export N_PREFIX="$HOME/.n"
@@ -61,7 +61,6 @@ fi
 
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always {}'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
-
 export FZF_TMUX_OPTS='-d 80%'
 
 # -----------------------------------------------------------------------------
@@ -87,11 +86,11 @@ setopt hist_reduce_blanks     # remove blanks from each command line
 
 bindkey -e  # emacs mode
 
-bindkey $terminfo[kdch1]  delete-char         
-bindkey "\e[1;5C"         forward-word        
-bindkey "\e[1;5D"         backward-word       
-bindkey $terminfo[khome]  beginning-of-line   
-bindkey $terminfo[kend]   end-of-line         
+bindkey $terminfo[kdch1]  delete-char
+bindkey "\e[1;5C"         forward-word
+bindkey "\e[1;5D"         backward-word
+bindkey $terminfo[khome]  beginning-of-line
+bindkey $terminfo[kend]   end-of-line
 bindkey $terminfo[cub1]   backward-kill-word
 
 # Edit current command in vim with CTRL-X CTRL-E

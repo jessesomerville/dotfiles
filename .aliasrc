@@ -3,7 +3,6 @@
 alias aliases="nvim $0"
 alias cat="bat"
 alias ccat="command cat"
-alias cdgo="cd $(go env GOPATH)/src/github.com/jessesomerville"
 alias dotf="git dotfiles"
 alias hist="history -fD 0"  # Show history with time, date, and command runtime
 alias la="ls -lAh --color=auto"
@@ -16,12 +15,18 @@ alias lines="print -- ${(l:80::─:)}"
 alias envs="env | rg -v '^LS_COLORS' | sort"
 alias tv="tidy-viewer"
 alias weather="curl -sSL 'http://wttr.in/New%20York'"
+alias goinstall="curl -LO https://get.golang.org/$(uname)/go_installer && chmod +x go_installer && ./go_installer && rm go_installer"
 
 randstr() { print -r -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64}); }
 dec2hex() { python3 -c "print(hex($1))"; }
 
 echoinfo() { print -Pu2 "%B%F{12}[+]%f%b" $@; }
 echoerr()  { print -Pu2 "%B%F{ 9}[!]%f%b" $@; }
+
+cdgo() {
+  local subdir="${1:-}"
+  cd "$(go env GOPATH)/src/github.com/jessesomerville/${subdir}"
+}
 
 mkcd() {
   mkdir -p "${1:-}" || return 1

@@ -3,12 +3,44 @@
 Change the `reply` lines in [this function](https://github.com/zdharma-continuum/fast-syntax-highlighting/blob/9469bd0e7ed65eb30e38085409b96ad6643752c5/fast-highlight#L1151)
 to `fg=` instead of `bg=`.  Or just turn it off.
 
+```
+#!/usr/bin/env zsh
 
- hyperfine, tealdeer
- n - https://github.com/tj/n
- sd
- fd
-   sudo apt install -y fd-find && ln -s $(which fdfind) ~/.local/bin/fd
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install -y \
+  tmux \
+  neovim \
+  tree \
+  ripgrep \
+  build-essential
+
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+vim -c 'PlugInstall' -c 'qa!'
+
+mkcd "$(go env GOPATH)/src/github.com/jessesomerville"
+git clone git@github.com:jessesomerville/doomsday.git
+cd doomsday
+go build
+mkdir ~/.local/bin
+cp doomsday ~/.local/bin/doomsday
+
+git clone --depth 1 https://github.com/junegunn/fzf.git $XDG_DATA_HOME/fzf
+$XDG_DATA_HOME/fzf/install --bin
+
+fd
+bat
+tealdeer
+xsv
+btm
+delta
+tidy-viewer
+sd
+
+curl https://sh.rustup.rs -sSf | sh
+```
 
 ## 1pass
 
