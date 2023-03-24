@@ -57,6 +57,15 @@ colors16() {
   print -lP $fgc $bgc
 }
 
+colors256() {
+  for i in {16..231}; do
+    fg=$(( 231 + ((i - 16) % 36 / 18) ))
+    printf "\e[38;5;${fg}m\e[48;5;${i}m ${(l:3:: :)i} \e[0m";
+    (( (i - 15) % 36 )) || print
+  done
+  print
+}
+
 define() {
   local dictfile="$XDG_DATA_HOME/websters_dict_en.json"
   if [[ ! -f $dictfile ]]; then

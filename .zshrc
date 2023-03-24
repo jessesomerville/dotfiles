@@ -32,6 +32,7 @@ path=(
   "$HOME/.cargo/bin"
   "$N_PREFIX/bin"
   "$XDG_DATA_HOME/fzf/bin"
+  "$XDG_DATA_HOME/gem/ruby/3.0.0/bin"
   $path
 )
 
