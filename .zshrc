@@ -99,6 +99,6 @@ zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
 # Run doomsday for every new shell >:)
-doomsday
+# doomsday
 
 # zprof

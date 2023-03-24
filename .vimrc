@@ -48,10 +48,12 @@ set laststatus=2
 " ─────────────────────────────────────────────────────────────────────────────
 "                                   vim-plug
 " ─────────────────────────────────────────────────────────────────────────────
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'rbong/vim-crystalline'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 call plug#end()
 " ─────────────────────────────────────────────────────────────────────────────
@@ -92,6 +94,7 @@ let g:go_metalinter_command = 'golangci-lint'
 let g:go_metalinter_autosave_enabled = ['vet', 'revive']
 
 let mapleader = "-"
+let localleader = "\\"
 
 nnoremap <leader>x :noh<cr>
 nnoremap <leader>ev :vsplit $HOME/.vimrc<cr>
