@@ -51,10 +51,10 @@ disabled = true
 format = "[$symbol $branch]($style)"
 symbol = ""
 style = "white"
-disabled = true
+disabled = false
 
 [git_status]
-format = '([\[$all_status\]]($style))'
+format = ' ([\[$all_status\]]($style))'
 style = "yellow"
 conflicted = "="
 untracked = "?"
@@ -63,4 +63,4 @@ modified = "!"
 staged = "+"
 renamed = "%"
 deleted = "-"
-disabled = true
+disabled = false
