@@ -22,29 +22,26 @@
   hunk-header-style = omit
 
 [delta "diff-colors"]
-  minus-style = syntax "#3B1A13"
-  minus-emph-style = syntax "#55451b"
+  minus-style = syntax "#24191d"
+  minus-emph-style = normal "#6f3731"
   minus-non-emph-style = minus-style
-  minus-empty-line-marker-style = minus-style
-  plus-style = syntax "#243324"
-  plus-emph-style = syntax "#36424C"
+  plus-style = syntax "#192520"
+  plus-emph-style = normal "#335633"
   plus-non-emph-style = plus-style
-  plus-empty-line-marker-style = plus-style
-  zero-style = syntax
 
 [delta "line-numbers"]
   line-numbers = true
-  line-numbers-left-format = " {nm:>1} "
-  line-numbers-left-style = black
-  line-numbers-minus-style = "#bf4349"
-  line-numbers-right-format = " {np:>1} │ "
-  line-numbers-right-style = black
-  line-numbers-plus-style = green
-  line-numbers-zero-style = "#404040"
+  line-numbers-left-format = "{nm:^4}"
+  line-numbers-left-style = "#383838"
+  line-numbers-minus-style = "#c7ccd1"
+  line-numbers-right-format = "{np:^4} │"
+  line-numbers-right-style = "#383838"
+  line-numbers-plus-style = "#c7ccd1"
+  line-numbers-zero-style = "#383838"
 
 [delta "file-headers"]
   file-style = syntax
-  file-decoration-style = "#b57614" ul ol
+  file-decoration-style = "#747C84" ul
   file-added-label = [added]
   file-copied-label = [copied]
   file-modified-label = [modified]
