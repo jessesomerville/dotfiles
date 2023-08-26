@@ -68,7 +68,7 @@ define() {
   local dictfile="$XDG_DATA_HOME/websters_dict_en.json"
   if [[ ! -f $dictfile ]]; then
     echoinfo "Downloading dictionary file"
-    wget -O $dictfile 'https://github.com/matthewreagan/WebstersEnglishDictionary/raw/master/dictionary.json'
+    curl 'https://github.com/matthewreagan/WebstersEnglishDictionary/raw/master/dictionary.json' > $dictfile
   fi
   local query_word="${1:-}"
   if [[ -z $query_word ]]; then
