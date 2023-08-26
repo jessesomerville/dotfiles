@@ -30,7 +30,7 @@ success_symbol = ">"
 error_symbol = ">"
 
 [python]
-format = '[($symbol $virtualenv)]($style)'
+format = '[($symbol $virtualenv)]($style) '
 style = 'fg:#E7D60A'
 symbol = ''
 disabled = false
