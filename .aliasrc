@@ -6,7 +6,7 @@ echoerr()  { print -Pu2 "%B%F{ 9}[!]%f%b" $@; }
 alias aliases="nvim $0"
 alias cat="bat"
 alias ccat="command cat"
-alias dotf="git dotfiles"
+alias dotfiles="git dotfiles"
 alias hist="history -fD 0"  # Show history with time, date, and command runtime
 alias la="ls -lAh --color=auto"
 alias ls="ls --color=auto"
@@ -68,7 +68,7 @@ define() {
   local dictfile="$XDG_DATA_HOME/websters_dict_en.json"
   if [[ ! -f $dictfile ]]; then
     echoinfo "Downloading dictionary file"
-    wget -O $dictfile 'https://github.com/matthewreagan/WebstersEnglishDictionary/raw/master/dictionary.json'
+    curl 'https://github.com/matthewreagan/WebstersEnglishDictionary/raw/master/dictionary.json' > $dictfile
   fi
   local query_word="${1:-}"
   if [[ -z $query_word ]]; then

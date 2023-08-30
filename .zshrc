@@ -33,6 +33,7 @@ path=(
   "$N_PREFIX/bin"
   "$XDG_DATA_HOME/fzf/bin"
   "$XDG_DATA_HOME/gem/ruby/3.0.0/bin"
+  "/usr/local/texlive/2023/bin/x86_64-linux"
   $path
 )
 
