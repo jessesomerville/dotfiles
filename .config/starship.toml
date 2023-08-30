@@ -18,7 +18,7 @@ disabled = false
 
 [custom.fig]
 format = "[$symbol ($output)]($style)"
-symbol = ""
+symbol = ""
 style = "bold white"
 command = 'print -P "%B%F{7}$FIGSTATUS_CITC %F{3}$FIGSTATUS_MODIFIED%f%b"'
 when = "[[ -n $FIGSTATUS_CITC ]]"
