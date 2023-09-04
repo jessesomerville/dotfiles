@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
+#
+# dif uses fzf to view diffs between mercurial revision chains.
 
 REV_WORKING='.' REV_PREV='.^' REV_P4HEAD='p4head'
 STATUS_PREFIX='hg status --no-status --color always --rev'

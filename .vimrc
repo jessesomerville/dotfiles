@@ -5,25 +5,31 @@ filetype off
 set termguicolors
 colors base16-ashes
 
-function! StatusLine(current, width)
+let g:crystalline_separators = [
+  \ { 'ch': '', 'alt_ch': '', 'dir': '' },
+  \ { 'ch': '', 'alt_ch': '', 'dir': '' },
+  \ ]
+
+function! g:CrystallineStatuslineFn(winnr)
+  let l:curr = a:winnr == winnr()
   let l:s = ''
 
-  if a:current
-    let l:s .= crystalline#mode() . crystalline#right_mode_sep('')
+  if l:curr
+    let l:s .= crystalline#ModeSection(0, 'A', 'B')
   else
-    let l:s .= '%#CrystallineInactive#'
+    let l:s .= crystalline#HiItem('Fill')
   endif
   let l:s .= ' %f '
-  if a:current
-    let l:s .= crystalline#right_sep('', 'Fill')
+  if l:curr
+    let l:s .= crystalline#Sep(0, 'B', 'Fill')
   endif
 
   let l:s .= '%='
-  if a:current
-    let l:s .= crystalline#left_sep('', 'Fill')
-    let l:s .= crystalline#left_mode_sep('')
+  if l:curr
+    let l:s .= crystalline#Sep(1, 'Fill', 'B')
+    let l:s .= crystalline#Sep(1, 'B', 'A')
   endif
-  if a:width > 80
+  if winwidth(a:winnr) > 80
     let l:s .= ' %l/%L %c%V '
   else
     let l:s .= ' '
@@ -32,15 +38,20 @@ function! StatusLine(current, width)
   return l:s
 endfunction
 
+function! g:CrystallineTablineFn()
+  return crystalline#DefaultTabline({
+    \ 'enable_sep': 0,
+    \ 'max_tabs': 0,
+    \ 'max_width': 1
+    \ })
+endfunction
+
 function! TabLine()
   return crystalline#bufferline(0, 0, 1)
 endfunction
 
-let g:crystalline_enable_sep = 0
-let g:crystalline_statusline_fn = 'StatusLine'
-let g:crystalline_tabline_fn = 'TabLine'
 let showtabline=2
-let g:crystalline_theme = 'jellybeans'
+let g:crystalline_theme = 'onehalfdark'
 
 set guioptions-=e
 set laststatus=2
@@ -51,7 +62,7 @@ set laststatus=2
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'rbong/vim-crystalline'
+Plug 'rbong/vim-crystalline', { 'tag': '1.0.0' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
