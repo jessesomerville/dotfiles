@@ -23,7 +23,6 @@ typeset -U zle_highlight
 zle_highlight=(paste:none $zle_highlight)  # don't highlight when pasting
 
 zinit wait lucid light-mode for \
- atinit"ZINIT[COMPINIT_OPTS]=-C; zicompinit; zicdreplay" \
  atload"fast-theme clean > /dev/null" \
     zdharma-continuum/fast-syntax-highlighting \
  atload"!_zsh_autosuggest_start" \

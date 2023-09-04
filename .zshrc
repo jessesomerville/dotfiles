@@ -44,6 +44,7 @@ source "$HOME/.zinitrc"
 local private_dotfiles="$XDG_DATA_HOME/dotfiles/rc.zsh"
 [[ -f  $private_dotfiles ]] && source $private_dotfiles
 
+
 # ----------------------------------- fzf -------------------------------------
 
 local fzf_dir="$XDG_DATA_HOME/fzf/shell"
@@ -65,7 +66,7 @@ export FZF_CTRL_T_OPTS="--preview 'bat --color=always {}'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 export FZF_TMUX_OPTS='-d 80%'
 
-# -----------------------------------------------------------------------------
+# -------------------------------- Options ------------------------------------
 
 setopt rmstarsilent
 
@@ -80,8 +81,7 @@ setopt hist_verify            # don't execute history expansion commands
 setopt share_history          # share command history data
 setopt hist_reduce_blanks     # remove blanks from each command line
 
-# -----------------------------------------------------------------------------
-#                                  Bindings
+# -------------------------------- Bindings -----------------------------------
 #          Use `showkey -a` or `od -c` to identify an escape sequence
 #          and `infocmp -1 | grep <seq>` to find the terminfo entry.
 # -----------------------------------------------------------------------------
@@ -100,7 +100,14 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
-# Run doomsday for every new shell >:)
-# doomsday
+# ------------------------------- Completion ----------------------------------
+
+autoload -Uz compinit && compinit
+
+compdef '_files -W $(go env GOPATH)/src/github.com/jessesomerville -/' cdgo
+
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# doomsday  # Run doomsday for every new shell >:)
 
 # zprof
