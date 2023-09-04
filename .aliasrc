@@ -6,7 +6,7 @@ echoerr()  { print -Pu2 "%B%F{ 9}[!]%f%b" $@; }
 alias aliases="nvim $0"
 alias cat="bat"
 alias ccat="command cat"
-alias dotfiles="git dotfiles"
+alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias hist="history -fD 0"  # Show history with time, date, and command runtime
 alias ls="ls --color=always"
 alias la="ls -lAh"
