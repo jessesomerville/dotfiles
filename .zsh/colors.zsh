@@ -20,10 +20,10 @@ hexcolor() {
 
 colors16() {
   local fgc bgc
-  for i in {0..255}; do
+  for i in {0..15}; do
     fgc="${fgc} %F{$i}${(l:3:: ::0:)i}%f "
     bgc="${bgc}%K{$i}${(l:5:)}%k"
-    if (( (i + 1) % 16 == 0 )); then
+    if (( (i + 1) % 8 == 0 )); then
       print -lP $fgc $bgc
       fgc='' bgc=''
     fi

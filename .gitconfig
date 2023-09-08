@@ -2,6 +2,9 @@
 	name = jessesomerville
 	email = jssomerville2@gmail.com
 
+[alias]
+    dotf = !git --git-dir=$HOME/.dotfiles --work-tree=$HOME
+
 [diff]
   colorMoved = default
 

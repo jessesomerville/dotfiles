@@ -6,7 +6,7 @@
 # added when running (ie: btm -a) will override this config file if an option
 # is also set here.
 
-[flags]
+# [flags]
 # Whether to hide the average cpu entry.
 #hide_avg_cpu = false
 # Whether to use dot markers rather than braille.

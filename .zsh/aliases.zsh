@@ -2,7 +2,6 @@ alias aliases="nvim $0"
 alias cat="bat"
 alias ccat="command cat"
 alias cdgo="cd $(go env GOPATH)/src/github.com/jessesomerville"
-alias config="/usr/bin/git --git-dir=${HOME}/.cfg --work-tree=${HOME}"
 alias hist="history -fD 0"  # Show history with time, date, and command runtime
 alias la="ls -lAh --color=auto"
 alias ls="ls --color=auto"
@@ -27,6 +26,11 @@ mkcd() {
   mkdir -p "${pathname}"
   (( $? == 0 )) || return 1
   cd "${pathname}"
+}
+
+dhtml() {
+  [[ -n ${1:-} ]] || { echoerr "missing required arg"; return 1; }
+  elinks $1 -dump 1 -dump-color-mode 3 -dump-width $(tput cols) -no-references -no-numbering
 }
 
 capture() {

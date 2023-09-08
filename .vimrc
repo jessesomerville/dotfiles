@@ -48,10 +48,12 @@ set laststatus=2
 " ─────────────────────────────────────────────────────────────────────────────
 "                                   vim-plug
 " ─────────────────────────────────────────────────────────────────────────────
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'rbong/vim-crystalline'
-Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 call plug#end()
 " ─────────────────────────────────────────────────────────────────────────────
@@ -83,14 +85,16 @@ augroup filegroup
   autocmd FileType cpp setlocal cindent
   autocmd FileType cpp,go inoremap {<CR> {<CR>}<ESC>ko
   autocmd FileType json syntax match Comment +\/\/.\+$+
-  autocmd FileType py setlocal colorcolumn=80
+  autocmd FileType markdown setlocal textwidth=80
 augroup END
 
 " Run go vet and golint on golang file save
-let g:go_metalinter_autosave = 1
-let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+" let g:go_metalinter_autosave = 1
+let g:go_metalinter_command = 'golangci-lint'
+let g:go_metalinter_autosave_enabled = ['vet', 'revive']
 
 let mapleader = "-"
+let localleader = "\\"
 
 nnoremap <leader>x :noh<cr>
 nnoremap <leader>ev :vsplit $HOME/.vimrc<cr>
@@ -108,3 +112,9 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+" Ctrl-Backspace to work like it does in every other app
+inoremap <C-h> <C-w>
+set backspace=indent,eol,start
+
+filetype plugin indent on
+syntax on
