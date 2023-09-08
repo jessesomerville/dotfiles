@@ -1,3 +1,8 @@
+--max-columns-preview
+--colors=match:none
+--colors=line:none
 --colors=line:fg:yellow
 --colors=path:fg:cyan
---colors=path:style:bold
+--type-add
+figorig:*.orig
+-Tfigorig

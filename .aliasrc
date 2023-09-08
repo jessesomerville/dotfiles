@@ -1,0 +1,72 @@
+#!/usr/bin/env zsh
+
+echoinfo() { print -Pu2 "%B%F{12}[+]%f%b" $@; }
+echoerr()  { print -Pu2 "%B%F{ 9}[!]%f%b" $@; }
+
+alias aliases="nvim $0"
+alias cat="bat"
+alias ccat="command cat"
+alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias hist="history -fD 0"  # Show history with time, date, and command runtime
+alias ls="ls --color=always"
+alias la="ls -lAh"
+alias rg="rg --hidden"
+alias rgi="rg -i"
+alias top="btm -b"
+alias vim="nvim"
+alias lines="print -- ${(l:80::─:)}"
+alias tv="tidy-viewer"
+alias weather="curl -sSL http://wttr.in"
+alias urlencode="python3 -c 'import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))'"
+
+randstr() { print -r -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64}); }
+dec2hex() { python3 -c "print(hex($1))"; }
+cdgo() { cd "$(go env GOPATH)/src/github.com/jessesomerville/${1:-}"; }
+
+mkcd() {
+  mkdir -p "${1:-}" || return 1
+  cd "${1:-}"       || return 1
+}
+
+envs() {
+  local width=$(tput cols)
+  env | sort | awk '
+    length($0) <= '$width' { print $0 }
+    length($0) > '$width' { print substr($0, 1, '$(( width - 3 ))') "..." }' \
+    | bat --plain --language sh --pager=never
+}
+
+dhtml() {
+  [[ -f "${1:-}" ]] || return 1
+  lynx -dump "${1:-}" -nolist --width $(( $(tput cols) - 5 ))
+}
+
+hexcolor() {
+  setopt localoptions extendedglob
+  local x="#${(S)1#\#}"
+  local fmt="%F{$x} $x %f%K{$x} $x %k %K{$x}%F{black} $x %f%k"
+  print -Pu2 $fmt
+  print -Pu2 "%B${fmt}%b"
+}
+
+colors16() {
+  local fgc bgc
+  for i in {0..15}; do
+    fgc="${fgc} %F{$i}${(l:2:: ::0:)i}%f "
+    bgc="${bgc}%K{$i}${(l:4:)}%k"
+    if (( (i + 1) % 16 == 0 )); then
+      print -lP $fgc $bgc
+      fgc='' bgc=''
+    fi
+  done
+  print -lP $fgc $bgc
+}
+
+colors256() {
+  for i in {16..231}; do
+    fg=$(( 231 + ((i - 16) % 36 / 18) ))
+    printf "\e[38;5;${fg}m\e[48;5;${i}m ${(l:3:: :)i} \e[0m";
+    (( (i - 15) % 36 )) || print
+  done
+  print
+}
