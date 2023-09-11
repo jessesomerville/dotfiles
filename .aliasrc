@@ -6,21 +6,18 @@ echoerr()  { print -Pu2 "%B%F{ 9}[!]%f%b" $@; }
 alias aliases="nvim $0"
 alias cat="bat"
 alias ccat="command cat"
-alias dotfiles="git dotfiles"
+alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias hist="history -fD 0"  # Show history with time, date, and command runtime
-alias la="ls -lAh --color=auto"
-alias ls="ls --color=auto"
+alias ls="ls --color=always"
+alias la="ls -lAh"
 alias rg="rg --hidden"
 alias rgi="rg -i"
 alias top="btm -b"
 alias vim="nvim"
 alias lines="print -- ${(l:80::─:)}"
-alias envs="env | rg -v '^LS_COLORS' | sort"
 alias tv="tidy-viewer"
-alias weather="curl -sSL 'http://wttr.in/New%20York'"
-alias goinstall="curl -LO https://get.golang.org/$(uname)/go_installer && chmod +x go_installer && ./go_installer && rm go_installer"
+alias weather="curl -sSL http://wttr.in"
 alias urlencode="python3 -c 'import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))'"
-alias hl="bat -n -P -l"
 
 randstr() { print -r -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64}); }
 dec2hex() { python3 -c "print(hex($1))"; }
@@ -31,6 +28,14 @@ mkcd() {
   cd "${1:-}"       || return 1
 }
 
+envs() {
+  local width=$(tput cols)
+  env | sort | awk '
+    length($0) <= '$width' { print $0 }
+    length($0) > '$width' { print substr($0, 1, '$(( width - 3 ))') "..." }' \
+    | bat --plain --language sh --pager=never
+}
+
 dhtml() {
   [[ -f "${1:-}" ]] || return 1
   lynx -dump "${1:-}" -nolist --width $(( $(tput cols) - 5 ))
@@ -38,8 +43,10 @@ dhtml() {
 
 hexcolor() {
   setopt localoptions extendedglob
-  local hexval="#${(S)1#\#}"
-  print -Pu2 "%B%F{$hexval} $hexval %f%K{$hexval} $hexval %k%b"
+  local x="#${(S)1#\#}"
+  local fmt="%F{$x} $x %f%K{$x} $x %k %K{$x}%F{black} $x %f%k"
+  print -Pu2 $fmt
+  print -Pu2 "%B${fmt}%b"
 }
 
 colors16() {
@@ -62,24 +69,4 @@ colors256() {
     (( (i - 15) % 36 )) || print
   done
   print
-}
-
-define() {
-  local dictfile="$XDG_DATA_HOME/websters_dict_en.json"
-  if [[ ! -f $dictfile ]]; then
-    echoinfo "Downloading dictionary file"
-    curl 'https://github.com/matthewreagan/WebstersEnglishDictionary/raw/master/dictionary.json' > $dictfile
-  fi
-  local query_word="${1:-}"
-  if [[ -z $query_word ]]; then
-    echoerr "Missing required term argument"
-    return 1
-  fi
-
-  local definition=$(jq -r '.'$query_word < $dictfile)
-  if [[ -z $definition ]]; then
-    echoerr "No definition found for $query_word"
-    return 1
-  fi
-  print -P "%F{7}$(print -r -- $definition | sd -p '(\d+\.) ' '\n$1 ' | sd -p '^(\d+\. )(.*)$' '%F{cyan}$1%F{7}$2' | sd -p '\n\n' '\n')%f"
 }
