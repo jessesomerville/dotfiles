@@ -18,8 +18,8 @@ disabled = false
 
 [custom.fig]
 format = "[$symbol ($output)]($style)"
-symbol = ""
-style = "bold white"
+symbol = ""
+style = "white"
 command = 'print -P "%B%F{7}$FIGSTATUS_CITC %F{3}$FIGSTATUS_MODIFIED%f%b"'
 when = "[[ -n $FIGSTATUS_CITC ]]"
 disabled = false
@@ -30,7 +30,7 @@ success_symbol = ">"
 error_symbol = ">"
 
 [python]
-format = '[($symbol $virtualenv)]($style) '
+format = '[($symbol $virtualenv)]($style)'
 style = 'fg:#E7D60A'
 symbol = ''
 disabled = false
@@ -46,11 +46,12 @@ truncation_symbol = ""
 home_symbol = "~"
 disabled = true
 
+# WARNING: These are slow in most situations (700ms)
 [git_branch]
 format = "[$symbol $branch]($style)"
 symbol = ""
 style = "white"
-disabled = false
+disabled = true
 
 [git_status]
 format = ' ([\[$all_status\]]($style))'
@@ -62,4 +63,4 @@ modified = "!"
 staged = "+"
 renamed = "%"
 deleted = "-"
-disabled = false
+disabled = true
