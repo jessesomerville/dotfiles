@@ -1,73 +1,15 @@
-" Enable modern Vim features not compatible with Vi spec.
-set nocompatible
-filetype off
-
-set termguicolors
-colors base16-ashes
-
-let g:crystalline_separators = [
-  \ { 'ch': '', 'alt_ch': '', 'dir': '' },
-  \ { 'ch': '', 'alt_ch': '', 'dir': '' },
-  \ ]
-
-function! g:CrystallineStatuslineFn(winnr)
-  let l:curr = a:winnr == winnr()
-  let l:s = ''
-
-  if l:curr
-    let l:s .= crystalline#ModeSection(0, 'A', 'B')
-  else
-    let l:s .= crystalline#HiItem('Fill')
-  endif
-  let l:s .= ' %f '
-  if l:curr
-    let l:s .= crystalline#Sep(0, 'B', 'Fill')
-  endif
-
-  let l:s .= '%='
-  if l:curr
-    let l:s .= crystalline#Sep(1, 'Fill', 'B')
-    let l:s .= crystalline#Sep(1, 'B', 'A')
-  endif
-  if winwidth(a:winnr) > 80
-    let l:s .= ' %l/%L %c%V '
-  else
-    let l:s .= ' '
-  endif
-
-  return l:s
-endfunction
-
-function! g:CrystallineTablineFn()
-  return crystalline#DefaultTabline({
-    \ 'enable_sep': 0,
-    \ 'max_tabs': 0,
-    \ 'max_width': 1
-    \ })
-endfunction
-
-function! TabLine()
-  return crystalline#bufferline(0, 0, 1)
-endfunction
-
-let showtabline=2
-let g:crystalline_theme = 'onehalfdark'
-
-set guioptions-=e
-set laststatus=2
-
-" ─────────────────────────────────────────────────────────────────────────────
-"                                   vim-plug
-" ─────────────────────────────────────────────────────────────────────────────
 
 call plug#begin('~/.vim/plugged')
 
 Plug 'rbong/vim-crystalline', { 'tag': '1.0.0' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'lukas-reineke/virt-column.nvim'
+Plug 'rebelot/kanagawa.nvim'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
 
 call plug#end()
-" ─────────────────────────────────────────────────────────────────────────────
 
 set relativenumber
 set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
@@ -75,8 +17,14 @@ set splitbelow
 set splitright
 set mouse=a
 set cmdheight=1
-set colorcolumn=80
 set signcolumn=yes
+set colorcolumn=80
+set guioptions-=e
+set laststatus=2
+set termguicolors
+
+lua require("virt-column").setup()
+hi VirtColumn guifg=#24242f
 
 " Folding
 set foldlevelstart=99
@@ -135,5 +83,6 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
-filetype plugin indent on
-syntax on
+" Run the current file
+nnoremap <leader>sh :te %:p<cr>
+
