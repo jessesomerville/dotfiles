@@ -103,6 +103,9 @@ setopt hist_reduce_blanks     # remove blanks from each command line
 
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
+typeset -U zle_highlight
+zle_highlight=(paste:none $zle_highlight)  # don't highlight when pasting
+
 # -------------------------------- Bindings -----------------------------------
 #          Use `showkey -a` or `od -c` to identify an escape sequence
 #          and `infocmp -1 | grep <seq>` to find the terminfo entry.
@@ -116,7 +119,6 @@ bindkey "\e[1;5D"         backward-word
 bindkey $terminfo[khome]  beginning-of-line
 bindkey $terminfo[kend]   end-of-line
 bindkey $terminfo[cub1]   backward-kill-word
-# bindkey $terminfo[kbs]    backward-kill-word
 
 # Edit current command in vim with CTRL-X CTRL-E
 autoload -Uz edit-command-line
@@ -130,17 +132,16 @@ if [[ ! -f $HOME/.zcomet/bin/zcomet.zsh ]]; then
 fi
 source $HOME/.zcomet/bin/zcomet.zsh
 
-typeset -A ZSH_HIGHLIGHT_STYLES
-
-ZSH_HIGHLIGHT_STYLES[path]='fg=blue'
-
-zcomet load zsh-users/zsh-syntax-highlighting
+zcomet load zdharma-continuum/fast-syntax-highlighting
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 zcomet load zsh-users/zsh-autosuggestions
 
 zcomet compinit
+
 compdef '_files -W $(go env GOPATH)/src/github.com/jessesomerville -/' cdgo
+
+[[ -f "$XDG_DATA_HOME/dotfiles/completions.zsh" ]] && source "$XDG_DATA_HOME/dotfiles/completions.zsh"
 
 # -----------------------------------------------------------------------------
 
