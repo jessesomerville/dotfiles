@@ -1,2 +1,4 @@
 --theme=OneHalfDark
 --italic-text=always
+--style=numbers,changes,header
+--tabs=2

@@ -1,13 +1,31 @@
-# zmodload zsh/zprof
-# typeset -F SECONDS start
-# precmd () {
-#     start=$SECONDS
-# }
-# zle-line-init () {
-#      PREDISPLAY="[$(( $SECONDS - $start ))] "
-# }
-# zle -N zle-line-init
-##################################
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# ------------------------------- Benchmarks ----------------------------------
+
+# To run zprof, execute
+#   env ZSH_PROF=1 zsh -ic zprof
+(( ZSH_PROF )) && zmodload zsh/zprof
+
+# github.com/agkozak/dotfiles
+#   DOT_XTRACE=1 zsh
+if (( DOT_XTRACE )); then
+  (( ${+EPOCHREALTIME} )) || zmodload zsh/datetime
+  setopt PROMPT_SUBST
+  PS4='+$EPOCHREALTIME %N:%i> '
+
+  logfile=$(mktemp zsh_profile.XXXXXXXX)
+  echo "Logging to $logfile"
+  exec 3>&2 2>$logfile
+
+  setopt XTRACE
+fi
+
+# ------------------------------------ env ------------------------------------
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -15,7 +33,6 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 export LANG=en_US.UTF-8
-export GPG_TTY=$(tty)
 export WORDCHARS='?_-.&!#$%'
 export EDITOR=nvim
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -37,12 +54,13 @@ path=(
   $path
 )
 
-export LS_COLORS="$(vivid generate glacier)"
+(( ${+LS_COLORS} )) || export LS_COLORS="$(vivid generate glacier)"
 
 source "$HOME/.aliasrc"
-source "$HOME/.zinitrc"
-local private_dotfiles="$XDG_DATA_HOME/dotfiles/rc.zsh"
-[[ -f  $private_dotfiles ]] && source $private_dotfiles
+[[ -d "$HOME/.zsh_fn" ]] && fpath=(~/.zsh_fn $fpath)
+autoload -Uz -- ~/.zsh_fn/[^_]*(N:t)
+
+[[ -f "$XDG_DATA_HOME/dotfiles/rc.zsh" ]] && source "$XDG_DATA_HOME/dotfiles/rc.zsh"
 
 
 # ----------------------------------- fzf -------------------------------------
@@ -66,9 +84,10 @@ export FZF_CTRL_T_OPTS="--preview 'bat --color=always {}'"
 export FZF_ALT_C_OPTS="--preview 'tree -C {}'"
 export FZF_TMUX_OPTS='-d 80%'
 
-# -------------------------------- Options ------------------------------------
+# --------------------------------- Options -----------------------------------
 
 setopt rmstarsilent
+setopt interactive_comments # allow comments in the command line
 
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=50000
@@ -77,9 +96,12 @@ SAVEHIST=10000
 setopt extended_history       # record timestamp of command in HISTFILE
 setopt hist_ignore_dups       # ignore repeated commands
 setopt hist_ignore_all_dups   # only store unique commands in history
+setopt hist_ignore_space      # ignore commands that start with space
 setopt hist_verify            # don't execute history expansion commands
 setopt share_history          # share command history data
 setopt hist_reduce_blanks     # remove blanks from each command line
+
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # -------------------------------- Bindings -----------------------------------
 #          Use `showkey -a` or `od -c` to identify an escape sequence
@@ -94,20 +116,40 @@ bindkey "\e[1;5D"         backward-word
 bindkey $terminfo[khome]  beginning-of-line
 bindkey $terminfo[kend]   end-of-line
 bindkey $terminfo[cub1]   backward-kill-word
+# bindkey $terminfo[kbs]    backward-kill-word
 
 # Edit current command in vim with CTRL-X CTRL-E
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey '^x^e' edit-command-line
 
-# ------------------------------- Completion ----------------------------------
+# --------------------------------- Plugins -----------------------------------
 
-autoload -Uz compinit && compinit
+if [[ ! -f $HOME/.zcomet/bin/zcomet.zsh ]]; then
+  git clone https://github.com/agkozak/zcomet.git $HOME/.zcomet/bin
+fi
+source $HOME/.zcomet/bin/zcomet.zsh
 
+typeset -A ZSH_HIGHLIGHT_STYLES
+
+ZSH_HIGHLIGHT_STYLES[path]='fg=blue'
+
+zcomet load zsh-users/zsh-syntax-highlighting
+
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+zcomet load zsh-users/zsh-autosuggestions
+
+zcomet compinit
 compdef '_files -W $(go env GOPATH)/src/github.com/jessesomerville -/' cdgo
 
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+# -----------------------------------------------------------------------------
 
-# doomsday  # Run doomsday for every new shell >:)
+source $HOME/powerlevel10k/powerlevel10k.zsh-theme
 
-# zprof
+if (( DOT_XTRACE )); then
+  unsetopt XTRACE
+  exec 2>&3 3>&-
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -6,6 +6,7 @@ echoerr()  { print -Pu2 "%B%F{ 9}[!]%f%b" $@; }
 alias aliases="nvim $0"
 alias cat="bat"
 alias ccat="command cat"
+alias wh='{ _CMD_NAME="$(cat -)"; which "$_CMD_NAME" | bat -l zsh --style=numbers; }<<<'
 alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias hist="history -fD 0"  # Show history with time, date, and command runtime
 alias ls="ls --color=always"
@@ -18,6 +19,9 @@ alias lines="print -- ${(l:80::─:)}"
 alias tv="tidy-viewer"
 alias weather="curl -sSL http://wttr.in"
 alias urlencode="python3 -c 'import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))'"
+
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 randstr() { print -r -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64}); }
 dec2hex() { python3 -c "print(hex($1))"; }

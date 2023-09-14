@@ -13,22 +13,24 @@ source "$zinitdir/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zinit light-mode for \
-  zdharma-continuum/zinit-annex-as-monitor \
-  zdharma-continuum/zinit-annex-bin-gem-node \
-  zdharma-continuum/zinit-annex-patch-dl \
-  zdharma-continuum/zinit-annex-rust
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1 # Manually load autosuggest widgets
 
 typeset -U zle_highlight
 zle_highlight=(paste:none $zle_highlight)  # don't highlight when pasting
 
-zinit wait lucid light-mode for \
- atload"fast-theme clean > /dev/null" \
+zi wait lucid light-mode for \
+  atload'FAST_HIGHLIGHT[chroma-man]=' \
+  atclone'(){local f;cd -q →*;for f (*~*.zwc){zcompile -Uz -- ${f}};}' \
+  compile'.*fast*~*.zwc' nocompletions atpull'%atclone' \
     zdharma-continuum/fast-syntax-highlighting \
- atload"!_zsh_autosuggest_start" \
+  atload'_zsh_autosuggest_start' \
     zsh-users/zsh-autosuggestions
 
-zinit wait'!0' lucid as"command" from"gh-r" \
-  atclone"./starship init zsh > init.zsh" atpull"%atclone" \
-  src"init.zsh" for \
-    starship/starship
+
+zi ice depth'1' as"command" from"gh-r" \
+  atclone"./starship init zsh > init.zsh" \
+  atpull"%atclone" src"init.zsh"
+zi light starship/starship
+
+zicompinit_fast
+zinit cdreplay -q

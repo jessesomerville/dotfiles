@@ -1,3 +1,5 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
 add_newline = true
 
 format = """
@@ -38,8 +40,6 @@ disabled = false
 [directory]
 format = "[$path]($style) "
 style = "bright-yellow"
-read_only = " "
-read_only_style = "red"
 truncation_length = 3
 truncate_to_repo = false
 truncation_symbol = ""

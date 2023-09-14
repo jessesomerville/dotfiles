@@ -1,0 +1,53 @@
+#!/usr/bin/env zsh
+
+zmodload zsh/mathfunc
+
+autoload -Uz zmathfunc
+zmathfunc
+
+local ONE_THIRD=0.333333
+local TWO_THIRD=0.666667
+local ONE_SIXTH=0.166667
+
+_v() {
+  local m1="${1:-0}" m2="${2:-0}" hue="${3:-0}"
+
+  hue=$(( hue % 1.0 ))
+
+  if (( hue < ONE_SIXTH )); then
+    print $(( m1 + (m2-m1) * hue * 6.0 ))
+    return 0
+  elif (( hue < 0.5 )); then
+    print $m2
+    return 0
+  elif (( hue < TWO_THIRD )); then
+    print $(( m1 + (m2-m1)*(TWO_THIRD-hue)*6.0 ))
+    return 0
+  fi
+  print $m1
+}
+
+() {
+  local h="${1:-0}"
+  local s="${2:-0}"
+  local l="${3:-0}"
+
+  h=$(( h / 360.0 ))
+  s=$(( s / 100.0 ))
+  l=$(( l / 100.0 ))
+
+  (( s == 0 )) && print $l $l $l && return 0
+
+  local m2
+  if (( l <= 0.5 )); then
+    m2=$(( l * (1.0+s) ))
+  else
+    m2=$(( l + s - (l * s) ))
+  fi
+  m1=$(( 2.0 * l - m2 ))
+
+  print \
+    $(( min(255, int(abs($(_v $m1 $m2 $((h+ONE_THIRD))) * 255))) )) \
+    $(( min(255, int(abs($(_v $m1 $m2 $h ) * 255))) )) \
+    $(( min(255, int(abs($(_v $m1 $m2 $((h-ONE_THIRD))) * 255))) ))
+} "$@"

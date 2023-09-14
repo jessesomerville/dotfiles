@@ -74,7 +74,7 @@ set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
 set splitbelow
 set splitright
 set mouse=a
-set cmdheight=2
+set cmdheight=1
 set colorcolumn=80
 set signcolumn=yes
 
@@ -126,6 +126,14 @@ nnoremap <C-H> <C-W><C-H>
 " Ctrl-Backspace to work like it does in every other app
 inoremap <C-h> <C-w>
 set backspace=indent,eol,start
+
+" Move selected lines with Alt-j/Alt-k
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 
 filetype plugin indent on
 syntax on
