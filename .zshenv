@@ -1,0 +1,1 @@
+/home/jsomerville/.config/zsh/.zshenv

@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+#
+# fzf setup and functions.
+
+local _FZF_DIR="$XDG_DATA_HOME/fzf"
+
+if [[ -d "$_FZF_DIR/shell" ]]; then
+  source $_FZF_DIR/shell/completion.zsh
+  source $_FZF_DIR/shell/key-bindings.zsh
+fi
+
+if (( $+commands[fd] )); then
+  export FZF_DEFAULT_COMMAND='fd --type f -HL --exclude .git'
+  export FZF_CTRL_T_COMMAND='fd . --type f -HL --exclude .git $(pwd)'
+  export FZF_ALT_C_COMMAND='fd . --type d -HL --exclude .git $(pwd)'
+
+  _fzf_compgen_path() { fd -HL --exclude ".git" . "$1"; }
+  _fzf_compgen_dir()  { fd -HL --exclude ".git" --type d . "$1"; }
+fi
+
+(( $+commands[bat]  )) && export FZF_CTRL_T_OPTS="--preview 'bat --color=always {}'"
+(( $+commands[tree] )) && export FZF_ALT_C_OPTS="--preview 'tree -C {}'"

@@ -14,7 +14,7 @@
 
 [delta]
   features = diff-colors line-numbers file-headers
-  syntax-theme = turnip
+  syntax-theme = Kanagawa
   tabs = 2
   dark = true
   side-by-side = false
