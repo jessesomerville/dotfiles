@@ -1,15 +1,16 @@
 #!/usr/bin/env zsh
 
-echoinfo() { print -Pu2 "%B%F{12}[+]%f%b" $@; }
-echoerr()  { print -Pu2 "%B%F{ 9}[!]%f%b" $@; }
+alias echoinfo='print -Pu2 -- "%B%F{12}[+]%f%b"'
+alias echoerr='print -Pu2 -- "%B%F{ 9}[!]%f%b"'
 
 alias aliases="nvim $0"
+alias adb='HOME="$XDG_DATA_HOME/android" adb'
 alias cat="bat"
 alias ccat="command cat"
-alias wh='{ _CMD_NAME="$(cat -)"; which "$_CMD_NAME" | bat -l zsh --style=numbers; }<<<'
+alias wh='{ which "$(cat -)" | bat -l zsh --style=numbers; }<<<'
 alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias hist="history -fD 0"  # Show history with time, date, and command runtime
-alias ls="ls --color=always"
+alias ls="ls --color=auto"
 alias la="ls -lAh"
 alias rg="rg --hidden"
 alias rgi="rg -i"
@@ -19,6 +20,7 @@ alias lines="print -- ${(l:80::─:)}"
 alias tv="tidy-viewer"
 alias weather="curl -sSL http://wttr.in"
 alias urlencode="python3 -c 'import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))'"
+alias wget="wget --hsts-file=$XDG_CACHE_HOME/wget-hsts"
 
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'

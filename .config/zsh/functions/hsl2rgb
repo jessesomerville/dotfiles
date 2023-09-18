@@ -1,9 +1,8 @@
 #!/usr/bin/env zsh
 
-zmodload zsh/mathfunc
 
-autoload -Uz zmathfunc
-zmathfunc
+zmodload zsh/mathfunc || return
+autoload -Uz zmathfunc && zmathfunc
 
 local ONE_THIRD=0.333333
 local TWO_THIRD=0.666667

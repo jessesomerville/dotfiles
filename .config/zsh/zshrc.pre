@@ -1,0 +1,76 @@
+#!/usr/bin/env zsh
+#
+# This file handles installation of various zsh plugins and calls compinit.
+
+(( ${+ZPLUGINDIR} )) || export PLUGIN_DIR="$XDG_DATA_HOME/zshplugins"
+
+() {
+  setopt extendedglob
+
+  function zcompile-many() {
+    local f
+    for f; do zcompile -R -- "$f".zwc "$f"; done
+  }
+
+  
+  [[ ! -e $ZPLUGINDIR ]] && mkdir -p $ZPLUGINDIR
+
+  if [[ ! -e $ZPLUGINDIR/fast-syntax-highlighting ]]; then
+    print -Pu2 -- "%B%F{blue}Installing%f%b fast-syntax-highlighting..."
+
+    git clone --quiet --depth=1 \
+      https://github.com/jessesomerville/fast-syntax-highlighting.git \
+      $ZPLUGINDIR/fast-syntax-highlighting
+    mv -- $ZPLUGINDIR/fast-syntax-highlighting/{'→chroma','tmp'}
+    zcompile-many $ZPLUGINDIR/fast-syntax-highlighting/{fast*,.fast*,**/*.ch,**/*.zsh}
+    mv -- $ZPLUGINDIR/fast-syntax-highlighting/{'tmp','→chroma'}
+  fi
+
+  if [[ ! -e $ZPLUGINDIR/zsh-autosuggestions ]]; then
+    print -Pu2 -- "%B%F{blue}Installing%f%b zsh-autosuggestions..."
+
+    git clone --quiet --depth=1 \
+      https://github.com/zsh-users/zsh-autosuggestions.git \
+      $ZPLUGINDIR/zsh-autosuggestions
+    zcompile-many $ZPLUGINDIR/zsh-autosuggestions/{zsh-autosuggestions.zsh,src/**/*.zsh}
+  fi
+
+  if [[ ! -e $ZPLUGINDIR/powerlevel10k ]]; then
+    print -Pu2 -- "%B%F{blue}Installing%f%b powerlevel10k..."
+
+    git clone --quiet --depth=1 \
+      https://github.com/romkatv/powerlevel10k.git \
+      $ZPLUGINDIR/powerlevel10k
+    make --silent -C $ZPLUGINDIR/powerlevel10k pkg
+  fi
+
+  if [[ -r "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+    source "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh"
+  fi
+
+# ────────────────────────────────── compinit ──────────────────────────────────
+  
+  autoload -Uz compinit
+
+  local _COMPDUMP_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+  [[ ! -e $_COMPDUMP_DIR ]] && mkdir -p $_COMPDUMP_DIR
+
+  local _compdumpf="$_COMPDUMP_DIR/zcompdump-$ZSH_VERSION"
+  local _compdump_t="${_compdumpf}.meta"
+  local _compzwc="${_compdumpf}.zwc"
+
+  # Only check for new completion functions once a day.
+  if [[ -e $_compdumpf && -f $_compdump_t(#qN.m-1) ]]; then
+    compinit -C -d $_compdumpf
+  else
+    compinit -d $_compdumpf
+    touch $_compdump_t
+  fi
+
+  # If the compdump exists and it needs to be compiled.
+  if [[ -s $_compdumpf && (! -s $_compzwc || $_compdumpf -nt $_compzwc) ]]; then
+    zcompile-many $_compdumpf
+  fi
+  unfunction zcompile-many
+}
+
