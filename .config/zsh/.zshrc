@@ -107,12 +107,13 @@ bindkey '^x^e' edit-command-line
 
 # ──────────────────────────────────────────────────────────────────────────────
 
-# Install plugins, initialize prompt, and call compinit.
+[[ -d "$ZDOTDIR/functions"         ]] && fpath=("$ZDOTDIR/functions" $fpath)
+[[ -d "$ZDOTDIR/localrc/functions" ]] && fpath=("$ZDOTDIR/localrc/functions" $fpath)
+autoload -Uz -- $ZDOTDIR{,/localrc}/functions/[^_]*(N:t)
+
 [[ -f "$ZDOTDIR/zshrc.pre"  ]] && source "$ZDOTDIR/zshrc.pre"
 [[ -f "$ZDOTDIR/aliasrc"    ]] && source "$ZDOTDIR/aliasrc"
 [[ -d "$ZDOTDIR/localrc"    ]] && source "$ZDOTDIR/localrc/rc.zsh"
-[[ -d "$ZDOTDIR/functions"  ]] && fpath=("$ZDOTDIR/functions" $fpath)
-autoload -Uz -- $ZDOTDIR/functions/[^_]*(N:t)
 
 # There's better ways to handle this one.
 compdef '_files -W $(go env GOPATH)/src/github.com/jessesomerville -/' cdgo
@@ -125,4 +126,4 @@ source $ZPLUGINDIR/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source $ZPLUGINDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZPLUGINDIR/powerlevel10k/powerlevel10k.zsh-theme
 
-[[ -f "$ZDOTDIR/p10k.zsh" ]] && source "$ZDOTDIR/p10k.zsh"
+[[ -f "$ZDOTDIR/p10k.zsh"   ]] && source "$ZDOTDIR/p10k.zsh"
