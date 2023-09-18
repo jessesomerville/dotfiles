@@ -12,6 +12,7 @@
 (( ${+XDG_STATE_HOME} ))        || export XDG_STATE_HOME="$HOME/.local/state"
 (( ${+ZDOTDIR} ))               || export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 (( ${+HISTFILE} ))              || export HISTFILE="$XDG_STATE_HOME/zsh/history"
+(( ${+LESSHISTFILE} ))          || export LESSHISTFILE="$XDG_STATE_HOME/less/history"
 (( ${+ZPLUGINDIR} ))            || export ZPLUGINDIR="$XDG_DATA_HOME/zshplugins"
 (( ${+LANG} ))                  || export LANG=en_US.UTF-8
 (( ${+EDITOR} ))                || export EDITOR=nvim
@@ -29,12 +30,18 @@
 (( ${+RIPGREP_CONFIG_PATH} ))   || export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/ripgrep/config"
 (( ${+RUSTUP_HOME} ))           || export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 (( ${+SQLITE_HISTORY} ))        || export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
+(( ${+XINITRC} ))               || export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
+(( ${+XSERVERRC} ))             || export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
+(( ${+XAUTHORITY} ))            || export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+
+export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
+export WORDCHARS='?_-.&!#$%'
 
 HISTSIZE=100_000    # Max number of events stored in internal history.
 SAVEHIST=1_000_000  # Max number of events to save to HISTFILE.
 LISTMAX=0           # Only ask to show matches if it would scroll.
 
-export WORDCHARS='?_-.&!#$%'
 
 typeset -U path
 path=(
@@ -103,7 +110,7 @@ bindkey '^x^e' edit-command-line
 # Install plugins, initialize prompt, and call compinit.
 [[ -f "$ZDOTDIR/zshrc.pre"  ]] && source "$ZDOTDIR/zshrc.pre"
 [[ -f "$ZDOTDIR/aliasrc"    ]] && source "$ZDOTDIR/aliasrc"
-[[ -d "$ZDOTDIR/localrc"    ]] && source "$ZDOTDIR/localrc"
+[[ -d "$ZDOTDIR/localrc"    ]] && source "$ZDOTDIR/localrc/rc.zsh"
 [[ -d "$ZDOTDIR/functions"  ]] && fpath=("$ZDOTDIR/functions" $fpath)
 autoload -Uz -- $ZDOTDIR/functions/[^_]*(N:t)
 

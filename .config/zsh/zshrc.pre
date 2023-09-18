@@ -2,7 +2,7 @@
 #
 # This file handles installation of various zsh plugins and calls compinit.
 
-(( ${+ZPLUGINDIR} )) || export PLUGIN_DIR="$XDG_DATA_HOME/zshplugins"
+(( ${+ZPLUGINDIR} )) || export ZPLUGINDIR="$XDG_DATA_HOME/zshplugins"
 
 () {
   setopt extendedglob
