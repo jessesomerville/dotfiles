@@ -107,4 +107,6 @@ compdef '_files -W $(go env GOPATH)/src/github.com/jessesomerville -/' cdgo
 
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
+# doomsday  # Run doomsday for every new shell >:)
+
 # zprof

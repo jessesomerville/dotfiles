@@ -74,7 +74,7 @@ set tabstop=2 softtabstop=2 expandtab shiftwidth=2 smarttab
 set splitbelow
 set splitright
 set mouse=a
-set cmdheight=2
+set cmdheight=1
 set colorcolumn=80
 set signcolumn=yes
 
