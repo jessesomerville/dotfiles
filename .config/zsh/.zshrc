@@ -50,6 +50,7 @@ path=(
   "$HOME/go/bin"
   "$CARGO_HOME/bin"
   "$N_PREFIX/bin"
+  "$XDG_DATA_HOME/npm/bin"
   "$XDG_DATA_HOME/fzf/bin"
   "$XDG_DATA_HOME/gem/ruby/3.0.0/bin"
   "/usr/local/texlive/2023/bin/x86_64-linux"
@@ -77,7 +78,7 @@ setopt shortloops             # short forms of for, select, if, and function
 #         https://zsh.sourceforge.io/Doc/Release/Completion-System.html
 # ──────────────────────────────────────────────────────────────────────────────
 
-zstyle ':completion:*'               completer         _expand _complete _ignored _approximate
+zstyle ':completion:*'               completer         _complete _ignored _approximate
 zstyle ':completion:*'               use-cache         true 
 zstyle ':completion:*'               cache-path        $XDG_CACHE_HOME/zsh/zcompcache
 zstyle ':completion:*'               list-colors       ${(s.:.)LS_COLORS}
