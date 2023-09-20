@@ -22,8 +22,8 @@ alias weather="curl -sSL http://wttr.in"
 alias urlencode="python3 -c 'import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))'"
 alias wget="wget --hsts-file=$XDG_CACHE_HOME/wget-hsts"
 
-alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
-alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+alias -g --     -h='-h     |& bat -l help -p --paging=never'
+alias -g -- --help='--help |& bat -l help -p --paging=never'
 
 randstr() { print -r -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64}); }
 dec2hex() { python3 -c "print(hex($1))"; }
@@ -76,6 +76,7 @@ colors16() {
 }
 
 colors256() {
+  # for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done 
   for i in {16..231}; do
     fg=$(( 231 + ((i - 16) % 36 / 18) ))
     printf "\e[38;5;${fg}m\e[48;5;${i}m ${(l:3:: :)i} \e[0m";
