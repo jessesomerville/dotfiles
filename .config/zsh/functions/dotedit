@@ -10,10 +10,6 @@ unset GIT_DIR GIT_WORK_TREE
 0="${${ZERO:-${0:#$ZSH_ARGZERO}}:=${(%):-%N}}"
 _fn_name="${0:t}"
 
-function _printinfo() { print -Pu2 -- "%F{blue}%B${_fn_name}:%f%b" "$@"; }
-function _printerr()  { print -Pu2 -- "%F{red}%B${_fn_name}:%f%b" "$@"; }
-
-
 {
   pushd -q ~ || return
 
@@ -21,17 +17,19 @@ function _printerr()  { print -Pu2 -- "%F{red}%B${_fn_name}:%f%b" "$@"; }
   local -x GIT_WORK_TREE="$HOME"
 
   if ! git rev-parse --is-inside-work-tree &>/dev/null; then
-    _printerr 'Not in a git repo'
+    print -Pu2 -- "%F{red}%B${_fn_name}:%f%b Not in a git repo"
     return 1
   fi
 
-  git ls-files --full-name --directory $GIT_WORK_TREE | fzf \
+  local open_in=nvim
+  [[ "$(uname -r)" =~ .*microsoft.* ]] && open_in=code
+
+  git ls-files --full-name --directory $GIT_WORK_TREE | \
+    fzf --query "${1:-}" \
     --preview 'bat --color=always {}' \
     --preview-window 'right,75%' \
-    --bind 'enter:become(nvim {})'
+    --bind 'enter:become('$open_in' {})'
 
 } always {
-  unset -f -- _printinfo
-  unset -f -- _printerr
   popd -q
 }
