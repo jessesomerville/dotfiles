@@ -62,7 +62,7 @@ let mapleader = "-"
 let localleader = "\\"
 
 nnoremap <leader>x :noh<cr>
-nnoremap <leader>ev :vsplit $HOME/.vimrc<cr>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 inoremap jk <ESC>
 

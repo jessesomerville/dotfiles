@@ -24,7 +24,14 @@ _fn_name="${0:t}"
   local open_in=nvim
   [[ "$(uname -r)" =~ .*microsoft.* ]] && open_in=code
 
-  git ls-files --full-name --directory $GIT_WORK_TREE | \
+  # Get a list of both the files tracked by git and any local dotfiles.
+  local -a _dotfiles=(
+    ${ZDOTDIR:-~}/localrc/**[^_]{,/[^_]*}(.N)
+    "${(@f)$(git ls-files --full-name --directory $GIT_WORK_TREE)}"
+  )
+
+  # Make the absolute paths of any local dotfiles relative to $HOME.
+  print -l -- ${_dotfiles#$HOME/} | \
     fzf --query "${1:-}" \
     --preview 'bat --color=always {}' \
     --preview-window 'right,75%' \

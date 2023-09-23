@@ -2,18 +2,17 @@
 #
 # dif uses fzf to view diffs between mercurial revision chains.
 
-REV_WORKING='.' REV_PREV='.^' REV_P4HEAD='p4head'
-STATUS_PREFIX='hg status --no-status --color always --rev'
-DIFF_PREFIX='hg diff {} --color always --pager always --from'
+local STATUS_PREFIX='hg status --no-status --color always --rev'
+local DIFF_PREFIX='hg diff {} --color always --pager always --from'
 
 : | fzf --ansi \
-    --bind "start:reload($STATUS_PREFIX $REV_WORKING)+unbind(ctrl-w)" \
-    --bind "ctrl-w:change-prompt(working> )+reload($STATUS_PREFIX $REV_WORKING)+change-preview($DIFF_PREFIX $REV_WORKING)" \
-    --bind "ctrl-v:change-prompt(prev> )+reload($STATUS_PREFIX $REV_PREV)+change-preview($DIFF_PREFIX $REV_PREV)" \
-    --bind "ctrl-p:change-prompt(p4head> )+reload($STATUS_PREFIX $REV_P4HEAD)+change-preview($DIFF_PREFIX $REV_P4HEAD)" \
+    --bind "start:reload($STATUS_PREFIX .)" \
+    --preview="$DIFF_PREFIX . {}" \
+    --bind "ctrl-w:change-prompt(working> )+reload($STATUS_PREFIX .)+change-preview($DIFF_PREFIX .)" \
+    --bind "ctrl-v:change-prompt(parent> )+reload($STATUS_PREFIX '.^')+change-preview($DIFF_PREFIX '.^')" \
+    --bind "ctrl-p:change-prompt(p4head> )+reload($STATUS_PREFIX p4head)+change-preview($DIFF_PREFIX p4head)" \
     --prompt 'working> ' \
     --query "${1:-}" \
-    --header "ctrl-p: p4head | ctrl-v: prev | ctrl-w: working" \
+    --header "ctrl-p: p4head | ctrl-v: parent | ctrl-w: working" \
     --header-first \
-    --preview="$DIFF_PREFIX $REV_WORKING {}" \
-    --preview-window 'up,60%,border-bottom,~4'
+    --preview-window 'up,70%,border-bottom,~4'

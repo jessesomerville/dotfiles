@@ -75,12 +75,19 @@ colors16() {
   print -lP $fgc $bgc
 }
 
-colors256() {
-  # for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done 
+function colors256() {
+  local w=36
+  case $(( $(tput cols) / 5 )) in
+    <0-11>)  w=6  ;;
+    <12-23>) w=12 ;;
+    <24-35>) w=24 ;;
+  esac
+
+
   for i in {16..231}; do
     fg=$(( 231 + ((i - 16) % 36 / 18) ))
-    printf "\e[38;5;${fg}m\e[48;5;${i}m ${(l:3:: :)i} \e[0m";
-    (( (i - 15) % 36 )) || print
+    print -Pn -- "%F{${fg}}%K{${i}} ${(l:3:: :)i} %f%k"
+    (( (i - 15) % w )) || print
   done
   print
 }
