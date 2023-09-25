@@ -30,12 +30,19 @@ _fn_name="${0:t}"
     "${(@f)$(git ls-files --full-name --directory $GIT_WORK_TREE)}"
   )
 
-  # Make the absolute paths of any local dotfiles relative to $HOME.
-  print -l -- ${_dotfiles#$HOME/} | \
-    fzf --query "${1:-}" \
-    --preview 'bat --color=always {}' \
-    --preview-window 'right,75%' \
-    --bind 'enter:become('$open_in' {})'
+  local -a selected=(
+    $(
+      print -l -- ${_dotfiles#$HOME/} | \
+      fzf \
+        --query "${1:-}" \
+        --multi \
+        --preview 'bat --color=always {}' \
+        --preview-window 'right,75%' \
+        --bind 'start:last'
+    )
+  )
+
+  (( $#selected )) && eval "$open_in $selected[@]"
 
 } always {
   popd -q
