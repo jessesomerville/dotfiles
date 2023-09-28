@@ -100,6 +100,7 @@ bindkey "\e[1;5C"         forward-word
 bindkey "\e[1;5D"         backward-word
 bindkey $terminfo[khome]  beginning-of-line
 bindkey $terminfo[kend]   end-of-line
+bindkey "^@"              end-of-line # ctrl+space
 bindkey $terminfo[cub1]   backward-kill-word
 
 autoload -Uz edit-command-line

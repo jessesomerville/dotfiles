@@ -34,6 +34,7 @@ _fn_name="${0:t}"
     $(
       print -l -- ${_dotfiles#$HOME/} | \
       fzf \
+        -1 \
         --query "${1:-}" \
         --multi \
         --preview 'bat --color=always {}' \
