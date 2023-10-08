@@ -1,4 +1,3 @@
-> **IMPORTANT:** Remove hex color syntax highlighting from `fast-syntax-highlighting`.
 
 ## How to Install
 

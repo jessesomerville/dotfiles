@@ -1,0 +1,50 @@
+#!/usr/bin/env zsh
+#
+# Helper function for dotfiles management with fzf.
+
+emulate -L zsh -o no_unset -o pipe_fail -o extended_glob -o pushd_silent
+
+local GIT_DIR GIT_WORK_TREE
+unset GIT_DIR GIT_WORK_TREE
+
+0="${${ZERO:-${0:#$ZSH_ARGZERO}}:=${(%):-%N}}"
+_fn_name="${0:t}"
+
+{
+  pushd -q ~ || return
+
+  local -x GIT_DIR="$HOME/.dotfiles"
+  local -x GIT_WORK_TREE="$HOME"
+
+  if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+    print -Pu2 -- "%F{red}%B${_fn_name}:%f%b Not in a git repo"
+    return 1
+  fi
+
+  local open_in=nvim
+  [[ "$(uname -r)" =~ .*microsoft.* ]] && open_in=code
+
+  # Get a list of both the files tracked by git and any local dotfiles.
+  local -a _dotfiles=(
+    ${ZDOTDIR:-~}/localrc/**[^_]{,/[^_]*}(.N)
+    "${(@f)$(git ls-files --full-name --directory $GIT_WORK_TREE)}"
+  )
+
+  local -a selected=(
+    $(
+      print -l -- ${_dotfiles#$HOME/} | \
+      fzf \
+        -1 \
+        --query "${1:-}" \
+        --multi \
+        --preview 'bat --color=always {}' \
+        --preview-window 'right,75%' \
+        --bind 'start:last'
+    )
+  )
+
+  (( $#selected )) && eval "$open_in $selected[@]"
+
+} always {
+  popd -q
+}
