@@ -38,6 +38,13 @@ export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
 export WORDCHARS='?_-.&!#$%'
 
+[[ -d $XDG_CONFIG_HOME ]] || mkdir -p $XDG_CONFIG_HOME
+[[ -d $XDG_CACHE_HOME  ]] || mkdir -p $XDG_CACHE_HOME
+[[ -d $XDG_DATA_HOME   ]] || mkdir -p $XDG_DATA_HOME
+[[ -d $XDG_STATE_HOME  ]] || mkdir -p $XDG_STATE_HOME
+[[ -d ${HISTFILE:h}    ]] || mkdir -p ${HISTFILE:h}
+
+
 HISTSIZE=100_000    # Max number of events stored in internal history.
 SAVEHIST=1_000_000  # Max number of events to save to HISTFILE.
 LISTMAX=0           # Only ask to show matches if it would scroll.
