@@ -19,7 +19,7 @@ alias weather="curl -sSL http://wttr.in"
 alias urlencode="python3 -c 'import urllib.parse, sys; print(urllib.parse.quote(sys.argv[1]))'"
 alias wget="wget --hsts-file=$XDG_CACHE_HOME/wget-hsts"
 
-alias -g --     -h='-h     |& bat -l help -p --paging=never'
+# alias -g --     -h='-h     |& bat -l help -p --paging=never'
 alias -g -- --help='--help |& bat -l help -p --paging=never'
 
 randstr() { print -r -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64}); }
