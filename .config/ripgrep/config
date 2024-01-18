@@ -1,5 +1,5 @@
 --max-columns-preview
---colors=match:none
+--colors=match:fg:blue
 --colors=line:none
 --colors=line:fg:yellow
 --colors=path:fg:cyan

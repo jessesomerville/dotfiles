@@ -6,6 +6,9 @@
   editor = nvim
   excludesfile = ~/.gitignore
 
+[url "git@github.com:"]
+  pushInsteadOf = https://github.com/
+
 [pager]
   diff = delta
 
@@ -53,3 +56,6 @@
 
 [alias]
 	dotfiles = !git --git-dir=$HOME/.dotfiles --work-tree=$HOME
+
+[pull]
+	rebase = false

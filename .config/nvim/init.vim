@@ -14,6 +14,7 @@ Plug 'lukas-reineke/virt-column.nvim'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
+Plug 'fladson/vim-kitty'
 
 call plug#end()
 
