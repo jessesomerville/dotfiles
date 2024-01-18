@@ -49,7 +49,7 @@ hexcolor() {
   local fg="%F{$x} $x %f"
   local bg="%K{$x} $x %k"
   local tmpl="$fg $bg %F{0}$bg%f"
-  print -Pu2 -- "$tmpl %B$tmpl%b"
+  print -Pu2 -- {,%B}$tmpl
 }
 
 rgbcolor() { hexcolor $(printf "#%02x%02x%02x" ${1:-0} ${2:-0} ${3:-0}) }
