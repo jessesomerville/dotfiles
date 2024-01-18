@@ -68,18 +68,7 @@ colors16() {
 }
 
 function colors256() {
-  # local -a steps=( 0x00 0x5f 0x87 0xaf 0xd7 0xff )
-  # function _to_rgb_hex() {
-  #   local c=${1:-0}
-  #   (( 16 <= c )) && (( c <= 231 )) || return 0
-  #   c=$(( c - 16 ))
-  #   local r=$(( c / 36 )) g=$(( (c % 36) / 6 )) b=$(( c % 6 ))
-  #   print $(( (steps[r+1] << 16) + (steps[g+1] << 8) + steps[b+1] ))
-  # }
-
   for i in {16..231}; do
-    # local hex_val=$(_to_rgb_hex $i)
-    # local fg="#${(l:6::0:)$(( [#16] hex_val ^ 0xFFFFFF ))#*\#}"
     fg=$(( 231 + ((i - 16) % 36 / 18) ))
     print -Pn -- "%F{$fg}%K{$i} ${(l:3:: :)i} %f%k"
     (( (i - 15) % 36 )) || print
