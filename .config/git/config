@@ -6,6 +6,9 @@
   editor = nvim
   excludesfile = ~/.gitignore
 
+[url "git@github.com:"]
+  pushInsteadOf = https://github.com/
+
 [pager]
   diff = delta
 

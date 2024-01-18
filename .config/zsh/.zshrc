@@ -17,6 +17,7 @@
 (( ${+LANG} ))                  || export LANG=en_US.UTF-8
 (( ${+EDITOR} ))                || export EDITOR=nvim
 (( ${+MANPAGER} ))              || export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+(( ${+MANROFFOPT} ))            || export MANROFFOPT="-c"
 (( ${+COLORTERM} ))             || export COLORTERM=truecolor
 (( ${+LS_COLORS} ))             || export LS_COLORS="$(vivid generate glacier)"
 (( ${+ANDROID_HOME} ))          || export ANDROID_HOME="$XDG_DATA_HOME/android"

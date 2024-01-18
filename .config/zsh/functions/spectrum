@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+() {
+  # Get terminal dimensions (rows and columns)
+  local ROWS=$(tput lines)
+  local COLS=$(tput cols)
+
+  for (( ROW=0; ROW<ROWS; ROW++ )); do
+    for (( COL=0; COL<COLS; COL++ )); do
+      local R=$(echo "scale=2; 255 * $COL / $COLS" | bc | awk '{printf "%d", $0}') 
+      local G=$(echo "scale=2; 255 * (1 - $COL / $COLS)" | bc | awk '{printf "%d", $0}')
+      local B=0  # Set blue to 0 for a red-green gradient
+
+      printf "\033[48;2;%d;%d;%dm " $R $G $B    
+    done
+    printf "\033[0m\n"  # Reset formatting after each line
+  done
+} "$@"
+
