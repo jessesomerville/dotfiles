@@ -4,6 +4,7 @@ alias aliases="nvim $0"
 alias adb='HOME="$XDG_DATA_HOME/android" adb'
 alias cat="bat"
 alias ccat="command cat"
+alias duckdb="duckdb -init $XDG_CONFIG_HOME/duckdb/duckdbrc"
 alias wh='{ which "$(cat -)" | bat -l zsh --style=numbers; }<<<'
 alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
 alias hist="history -fD 0"  # Show history with time, date, and command runtime
@@ -20,7 +21,7 @@ alias urlencode="python3 -c 'import urllib.parse, sys; print(urllib.parse.quote(
 alias wget="wget --hsts-file=$XDG_CACHE_HOME/wget-hsts"
 
 # alias -g --     -h='-h     |& bat -l help -p --paging=never'
-alias -g -- --help='--help |& bat -l help -p --paging=never'
+alias -g -- --help='--help |& bat -l help -p -P'
 
 randstr() { print -r -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64}); }
 dec2hex() { python3 -c "print(hex($1))"; }
@@ -49,7 +50,7 @@ hexcolor() {
   local fg="%F{$x} $x %f"
   local bg="%K{$x} $x %k"
   local tmpl="$fg $bg %F{0}$bg%f"
-  print -Pu2 -- {,%B}$tmpl
+  print -Pu2 -- $tmpl "%B${tmpl}%b"
 }
 
 rgbcolor() { hexcolor $(printf "#%02x%02x%02x" ${1:-0} ${2:-0} ${3:-0}) }
