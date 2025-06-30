@@ -7,6 +7,7 @@ alias ccat="command cat"
 alias duckdb="duckdb -init $XDG_CONFIG_HOME/duckdb/duckdbrc"
 alias wh='{ which "$(cat -)" | bat -l zsh --style=numbers; }<<<'
 alias dotfiles="git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+alias gmailctl="gmailctl --config=$XDG_CONFIG_HOME/gmailctl"
 alias hist="history -fD 0"  # Show history with time, date, and command runtime
 alias ls="ls --color=auto"
 alias la="ls -lAh"
