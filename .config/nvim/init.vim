@@ -14,7 +14,6 @@ Plug 'lukas-reineke/virt-column.nvim'
 Plug 'rebelot/kanagawa.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
-Plug 'fladson/vim-kitty'
 
 call plug#end()
 
@@ -40,6 +39,8 @@ set foldmethod=manual
 nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 " Fold the visually selected lines
 vnoremap <Space> zf
+
+autocmd VimLeave * set guicursor=a:ver25
 
 augroup generic
   autocmd!

@@ -11,7 +11,7 @@
   unset -m '(POWERLEVEL9K_*|DEFAULT_USER)~POWERLEVEL9K_GITSTATUS_DIR'
 
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir hgstatus vcs newline prompt_char)
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv newline)
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv context newline)
 
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
   typeset -g POWERLEVEL9K_ICON_PADDING=none
@@ -99,6 +99,30 @@
   typeset -g POWERLEVEL9K_VCS_{CLEAN,UNTRACKED,MODIFIED}_FOREGROUND=3
   typeset -g POWERLEVEL9K_VCS_{,LOADING_}VISUAL_IDENTIFIER_COLOR=7
   typeset -g POWERLEVEL9K_VCS_{,LOADING_}VISUAL_IDENTIFIER_EXPANSION=
+
+    ##################################[ context: user@hostname ]##################################
+  # Context color when running with privileges.
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=178
+  # Context color in SSH without privileges.
+  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_FOREGROUND=180
+  # Default context color (no privileges, no SSH).
+  typeset -g POWERLEVEL9K_CONTEXT_FOREGROUND=180
+
+  # Context format when running with privileges: bold user@hostname.
+  typeset -g POWERLEVEL9K_CONTEXT_ROOT_TEMPLATE='%B%n@%m'
+  # Context format when in SSH without privileges: user@hostname.
+  typeset -g POWERLEVEL9K_CONTEXT_{REMOTE,REMOTE_SUDO}_TEMPLATE='%n@%m'
+  # Default context format (no privileges, no SSH): user@hostname.
+  typeset -g POWERLEVEL9K_CONTEXT_TEMPLATE='%n@%m'
+
+  # Don't show context unless running with privileges or in SSH.
+  # Tip: Remove the next line to always show context.
+  typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
+
+  # Custom icon.
+  # typeset -g POWERLEVEL9K_CONTEXT_VISUAL_IDENTIFIER_EXPANSION='⭐'
+  # Custom prefix.
+  # typeset -g POWERLEVEL9K_CONTEXT_PREFIX='%fwith '
 
   typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=3
   typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false

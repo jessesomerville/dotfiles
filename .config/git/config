@@ -34,10 +34,10 @@
 
 [delta "line-numbers"]
   line-numbers = true
-  line-numbers-left-format = "{nm:^4}"
+  line-numbers-left-format = "{nm:^5}"
   line-numbers-left-style = "#383838"
   line-numbers-minus-style = "#c7ccd1"
-  line-numbers-right-format = "{np:^4} │"
+  line-numbers-right-format = "{np:^5} │"
   line-numbers-right-style = "#383838"
   line-numbers-plus-style = "#c7ccd1"
   line-numbers-zero-style = "#383838"
