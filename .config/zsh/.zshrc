@@ -1,9 +1,9 @@
 # env ZSH_PROF=1 zsh -ic zprof
 (( ZSH_PROF )) && zmodload zsh/zprof
 
-if [[ -z ${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} ]]; then
-  exec tmux
-fi
+# if [[ -z ${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X}${SKIP_TMUX_LAUNCH_ON_STARTUP+X} ]]; then
+#   exec tmux
+# fi
 
 # ──────────────────────────────────── env ─────────────────────────────────────
 #             https://wiki.archlinux.org/title/XDG_Base_Directory
@@ -60,6 +60,7 @@ typeset -U path
 path=(
   "$HOME/.local/bin"
   "$HOME/.go/bin"
+  "/usr/local/go/bin"
   "$HOME/go/bin"
   "$CARGO_HOME/bin"
   "$N_PREFIX/bin"

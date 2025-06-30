@@ -28,6 +28,7 @@ set colorcolumn=80
 set guioptions-=e
 set laststatus=2
 set termguicolors
+set timeoutlen=200
 
 lua require("virt-column").setup()
 hi VirtColumn guifg=#24242f
