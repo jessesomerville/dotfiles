@@ -114,7 +114,9 @@ bindkey "\e\e[C"          forward-word
 bindkey "\e[1;5D"         backward-word
 bindkey "\e\e[D"          backward-word
 bindkey $terminfo[khome]  beginning-of-line
+bindkey $terminfo[home]   beginning-of-line
 bindkey $terminfo[kend]   end-of-line
+bindkey "\e[F"            end-of-line
 bindkey "^@"              end-of-line # ctrl+space
 bindkey $terminfo[cub1]   backward-kill-word
 
@@ -131,9 +133,6 @@ autoload -Uz -- $ZDOTDIR{,/localrc}/functions/[^_]*(N:t)
 [[ -f "$ZDOTDIR/zshrc.pre"  ]] && source "$ZDOTDIR/zshrc.pre"
 [[ -f "$ZDOTDIR/aliasrc"    ]] && source "$ZDOTDIR/aliasrc"
 [[ -d "$ZDOTDIR/localrc"    ]] && source "$ZDOTDIR/localrc/rc.zsh"
-
-# There's better ways to handle this one.
-compdef '_files -W $(go env GOPATH)/src/github.com/jessesomerville -/' cdgo
 
 (( $+commands[fzf] )) && [[ -f "$ZDOTDIR/fzfrc" ]] && source "$ZDOTDIR/fzfrc"
 
