@@ -25,10 +25,10 @@
   hunk-header-style = omit
 
 [delta "diff-colors"]
-  minus-style = syntax "#24191d"
+  minus-style = syntax "#51191b"
   minus-emph-style = normal "#6f3731"
   minus-non-emph-style = minus-style
-  plus-style = syntax "#192520"
+  plus-style = syntax "#2f3b2a"
   plus-emph-style = normal "#335633"
   plus-non-emph-style = plus-style
 

@@ -78,3 +78,16 @@ function colors256() {
   done
   print
 }
+
+jwtdecode() {
+  if (( ARGC == 0 )) {
+    print -Pu2 -- "missing required input argument"
+    return 2
+  }
+  typeset -a parts=( ${(s:.:)argv[1]} )
+  if (( $#parts != 3 )) {
+    print -Pu2 -- "invalid JWT format, expected 3 components, got $#parts"
+    return 2
+  }
+  base64 -d <<<$parts[2] | jq
+}
