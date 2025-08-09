@@ -27,7 +27,13 @@ aliases[=]='noglob arith-eval'
 
 randstr() { print -r -- $(tr -dc A-Za-z0-9 </dev/urandom | head -c ${1:-64}); }
 dec2hex() { python3 -c "print(hex($1))"; }
-cdgo() { cd "$(go env GOPATH)/src/github.com/jessesomerville/${1:-}"; }
+
+cdgo() {
+  local p=$(go env GOPATH)/src/github.com/jessesomerville
+  [[ -d $p ]] || mkdir -p $p
+  cd $p/${1:-}
+}
+compdef '_files -W $(go env GOPATH)/src/github.com/jessesomerville -/' cdgo
 
 mkcd() {
   mkdir -p "${1:-}" || return 1
@@ -74,6 +80,15 @@ function colors256() {
   for i in {16..231}; do
     fg=$(( 231 + ((i - 16) % 36 / 18) ))
     print -Pn -- "%F{$fg}%K{$i} ${(l:3:: :)i} %f%k"
+    (( (i - 15) % 36 )) || print
+  done
+  print
+}
+
+function colors256plain() {
+  for i in {16..231}; do
+    fg=$(( 231 + ((i - 16) % 36 / 18) ))
+    print -Pn -- "%F{$fg}%K{$i}     %f%k"
     (( (i - 15) % 36 )) || print
   done
   print
