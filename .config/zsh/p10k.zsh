@@ -10,8 +10,8 @@
 
   unset -m '(POWERLEVEL9K_*|DEFAULT_USER)~POWERLEVEL9K_GITSTATUS_DIR'
 
-  typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir hgstatus vcs newline prompt_char)
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(virtualenv context newline)
+  typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir hgstatus vcs command_execution_time newline prompt_char)
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time virtualenv context newline)
 
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
   typeset -g POWERLEVEL9K_ICON_PADDING=none
@@ -100,7 +100,17 @@
   typeset -g POWERLEVEL9K_VCS_{,LOADING_}VISUAL_IDENTIFIER_COLOR=7
   typeset -g POWERLEVEL9K_VCS_{,LOADING_}VISUAL_IDENTIFIER_EXPANSION=
 
-    ##################################[ context: user@hostname ]##################################
+  typeset -g POWERLEVEL9K_TIME_FOREGROUND=4
+
+  ###########[ command_execution_time: duration of the last command ]###########
+  # Show duration of the last command if takes at least this many seconds.
+  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=30
+  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_PRECISION=0
+  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FOREGROUND=8
+  # Duration format: 1d 2h 3m 4s.
+  typeset -g POWERLEVEL9K_COMMAND_EXECUTION_TIME_FORMAT='d h m s'
+  
+  ##########################[ context: user@hostname ]##########################
   # Context color when running with privileges.
   typeset -g POWERLEVEL9K_CONTEXT_ROOT_FOREGROUND=178
   # Context color in SSH without privileges.
@@ -118,11 +128,6 @@
   # Don't show context unless running with privileges or in SSH.
   # Tip: Remove the next line to always show context.
   typeset -g POWERLEVEL9K_CONTEXT_{DEFAULT,SUDO}_{CONTENT,VISUAL_IDENTIFIER}_EXPANSION=
-
-  # Custom icon.
-  # typeset -g POWERLEVEL9K_CONTEXT_VISUAL_IDENTIFIER_EXPANSION='⭐'
-  # Custom prefix.
-  # typeset -g POWERLEVEL9K_CONTEXT_PREFIX='%fwith '
 
   typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=3
   typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false

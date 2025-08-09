@@ -59,9 +59,8 @@ LISTMAX=0           # Only ask to show matches if it would scroll.
 typeset -U path
 path=(
   "$HOME/.local/bin"
-  "$HOME/.go/bin"
-  "/usr/local/go/bin"
   "$HOME/go/bin"
+  "/usr/local/go/bin"
   "$CARGO_HOME/bin"
   "$N_PREFIX/bin"
   "$XDG_DATA_HOME/npm/bin"
