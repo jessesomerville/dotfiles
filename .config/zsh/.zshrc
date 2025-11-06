@@ -1,9 +1,13 @@
 # env ZSH_PROF=1 zsh -ic zprof
 (( ZSH_PROF )) && zmodload zsh/zprof
 
-if [[ -z ${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} ]]; then
-  exec tmux
-fi
+# if [[ -z ${TMUX+X}${ZSH_SCRIPT+X}${ZSH_EXECUTION_STRING+X} ]]; then
+#  if (( $+commands[tmux] )); then
+#   exec tmux
+#  else
+#   exec /usr/local/bin/tmux
+#  fi
+# fi
 
 # ──────────────────────────────────── env ─────────────────────────────────────
 #             https://wiki.archlinux.org/title/XDG_Base_Directory
@@ -22,7 +26,6 @@ fi
 (( ${+MANPAGER} ))              || export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 (( ${+MANROFFOPT} ))            || export MANROFFOPT="-c"
 (( ${+COLORTERM} ))             || export COLORTERM=truecolor
-(( ${+LS_COLORS} ))             || export LS_COLORS="$(vivid generate glacier)"
 (( ${+ANDROID_HOME} ))          || export ANDROID_HOME="$XDG_DATA_HOME/android"
 (( ${+CARGO_HOME} ))            || export CARGO_HOME="$XDG_DATA_HOME/cargo"
 (( ${+DOCKER_CONFIG} ))         || export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
@@ -37,6 +40,15 @@ fi
 (( ${+XINITRC} ))               || export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 (( ${+XSERVERRC} ))             || export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
 (( ${+XAUTHORITY} ))            || export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+(( ${+HOMEBREW_PREFIX} ))       || export HOMEBREW_PREFIX="/opt/homebrew"
+(( ${+HOMEBREW_CELLAR} ))       || export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+(( ${+HOMEBREW_REPOSITORY} ))   || export HOMEBREW_REPOSITORY="/opt/homebrew"
+
+# (( ${+LS_COLORS} )) || (( ${+commands[vivid]} )) && export LS_COLORS="$(vivid generate glacier)"
+
+
+export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:"
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
 
 export JULIA_DEPOT_PATH="$XDG_DATA_HOME/julia:$JULIA_DEPOT_PATH"
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java"
@@ -65,6 +77,10 @@ path=(
   "$XDG_DATA_HOME/fzf/bin"
   "$XDG_DATA_HOME/gem/ruby/3.0.0/bin"
   "/usr/local/texlive/2023/bin/x86_64-linux"
+  "/usr/local/bin"
+  "/opt/homebrew/bin"
+  "/opt/homebrew/sbin"
+  "/opt/homebrew/opt/openjdk/bin"
   $path
 )
 

@@ -2,12 +2,7 @@
 #
 # fzf setup and functions.
 
-local _FZF_DIR="$XDG_DATA_HOME/fzf"
-
-if [[ -d "$_FZF_DIR/shell" ]]; then
-  source $_FZF_DIR/shell/completion.zsh
-  source $_FZF_DIR/shell/key-bindings.zsh
-fi
+source <(fzf --zsh)
 
 if (( $+commands[fd] )); then
   export FZF_DEFAULT_COMMAND='fd --type f -HL --exclude .git'

@@ -41,6 +41,9 @@ nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 " Fold the visually selected lines
 vnoremap <Space> zf
 
+" Reset cursor shape when vim is closed.
+autocmd VimLeave * set guicursor=a:ver25
+
 augroup generic
   autocmd!
   autocmd WinEnter * if winnr('$') == 1 && &buftype == "quickfix" | q | endif

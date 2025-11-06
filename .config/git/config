@@ -9,8 +9,6 @@
 [url "git@github.com:"]
   pushInsteadOf = https://github.com/
 
-[pager]
-  diff = delta
 
 [diff]
   colorMoved = default
