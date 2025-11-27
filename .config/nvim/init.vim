@@ -12,7 +12,9 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'lukas-reineke/virt-column.nvim'
 Plug 'rebelot/kanagawa.nvim'
+Plug 'vague2k/vague.nvim'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'nvim-tree/nvim-tree.lua'
 Plug 'nvim-tree/nvim-web-devicons'
 
 call plug#end()
@@ -30,8 +32,10 @@ set laststatus=2
 set termguicolors
 set timeoutlen=200
 
-lua require("virt-column").setup()
-hi VirtColumn guifg=#24242f
+lua vim.opt.fillchars:append({ eob = " " })
+
+lua require "virt-column".setup( { char = '▕' } )
+hi NonText guifg=#343442
 
 " Folding
 set foldlevelstart=99

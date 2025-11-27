@@ -1,0 +1,60 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+  name = "jessesomerville"
+  email = "jssomerville2@gmail.com"
+
+[git]
+  push-new-bookmarks = true
+
+[ui]
+  paginate = "never"
+
+[aliases]
+  sync = ["util", "exec", "--", "bash", "-c", """
+  set -euo pipefail
+  jj git fetch
+  jj rebase -d main
+  """, ""]
+
+[colors]
+  description = "bright black"
+  "working_copy description" = { fg = "white", bold = true }
+  timestamp = "#624b86"
+  "working_copy timestamp" = "bright magenta"
+
+[templates]
+  log = "builtin_log_compact"
+  op_log = "builtin_op_log_comfortable"
+
+  log_node = '''
+coalesce(
+  if(!self, label("elided", "🮀")),
+  label(
+    separate(" ",
+      if(current_working_copy, "working_copy"),
+      if(immutable, "immutable"),
+      if(conflict, "conflict"),
+    ),
+    coalesce(
+      if(current_working_copy, "●"),
+      if(immutable, "◇"),
+      if(root, "╧"),
+      if(conflict, "×"),
+      "○",
+    )
+  )
+)
+'''
+
+[template-aliases]
+  'format_timestamp(timestamp)' = 'timestamp.ago()'
+  
+  'format_short_commit_header(commit)' = '''
+separate(" ",
+  format_short_change_id_with_hidden_and_divergent_info(commit),
+  format_timestamp(commit_timestamp(commit)),
+  if(commit.git_head(), label("git_head", "git_head()")),
+  if(commit.conflict(), label("conflict", "conflict")),
+)
+'''
