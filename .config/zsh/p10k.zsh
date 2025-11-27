@@ -100,7 +100,15 @@
   typeset -g POWERLEVEL9K_VCS_{,LOADING_}VISUAL_IDENTIFIER_COLOR=7
   typeset -g POWERLEVEL9K_VCS_{,LOADING_}VISUAL_IDENTIFIER_EXPANSION=
 
-  typeset -g POWERLEVEL9K_TIME_FOREGROUND=4
+  ##################################[ Time ]####################################
+
+  typeset -g POWERLEVEL9K_TIME_FOREGROUND=12
+  typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%I:%M}'
+  typeset -g POWERLEVEL9K_TIME_VISUAL_IDENTIFIER_EXPANSION=
+  # Update the time when you hit enter. This makes it such that the time shown
+  # in the prompt lines for previous commands reflects the time that that
+  # command was executed rather than the time the previous command finished.
+  typeset -g POWERLEVEL9K_TIME_UPDATE_ON_COMMAND=true
 
   ###########[ command_execution_time: duration of the last command ]###########
   # Show duration of the last command if takes at least this many seconds.
