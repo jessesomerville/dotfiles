@@ -1,26 +1,3 @@
--- Default options:
-require('kanagawa').setup({
-    compile = false,             -- enable compiling the colorscheme
-    undercurl = true,            -- enable undercurls
-    commentStyle = { italic = false },
-    functionStyle = {},
-    keywordStyle = { italic = false },
-    statementStyle = { bold = true },
-    typeStyle = {},
-    transparent = true,          -- do not set background color
-    dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
-    terminalColors = true,       -- define vim.g.terminal_color_{0,17}
-    colors = {                   -- add/modify theme and palette colors
-        theme = { 
-          all = { ui = { bg_gutter = "none" } }
-        },
-    },
-    overrides = function(colors) -- add/modify highlights
-        return {}
-    end,
-    theme = "wave",              -- Load "wave" theme when 'background' option is not set
-})
-
 require("vague").setup({
   transparent = false, -- don't set background
   -- disable bold/italic globally in `style`
@@ -109,5 +86,18 @@ require("vague").setup({
   },
 })
 
--- setup must be called before loading
-vim.cmd("colorscheme vague")
+local hl = vim.api.nvim_set_hl
+
+local surfacebg = "#19191d"
+
+-- vim.cmd("colorscheme vague")
+
+-- hl(0, "WinSeparator", { fg = surfacebg })
+
+
+--hl(0, "NvimTreeWinSeparator", { fg = "#141415" })
+--hl(0, "NvimTreeNormal", { bg = surfacebg })
+--hl(0, "NvimTreeNormalNC", { bg = surfacebg })
+
+-- barbar
+
