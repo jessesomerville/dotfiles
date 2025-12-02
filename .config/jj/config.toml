@@ -6,6 +6,7 @@
 
 [git]
   push-new-bookmarks = true
+  subprocess = true
 
 [ui]
   paginate = "never"
