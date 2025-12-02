@@ -10,8 +10,8 @@
 
   unset -m '(POWERLEVEL9K_*|DEFAULT_USER)~POWERLEVEL9K_GITSTATUS_DIR'
 
-  typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir hgstatus vcs command_execution_time newline prompt_char)
-  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time virtualenv context newline)
+  typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir jjstatus vcs command_execution_time newline prompt_char)
+  typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(time virtualenv newline)
 
   typeset -g POWERLEVEL9K_MODE=nerdfont-complete
   typeset -g POWERLEVEL9K_ICON_PADDING=none
@@ -49,15 +49,15 @@
   typeset -g POWERLEVEL9K_DIR_SHOW_WRITABLE=v3
   typeset -g POWERLEVEL9K_DIR_CLASSES=()
 
-  function prompt_hgstatus() {
-    [[ -n $FIGSTATUS_CITC ]] || return
-    local res='$FIGSTATUS_CITC'
-    (( $#FIGSTATUS_MODIFIED )) && res+=' %F{5}$FIGSTATUS_MODIFIED%f'
+  function prompt_jjstatus() {
+    [[ -n $JJSTATUS_CITC ]] || return
+    local res='$JJSTATUS_CITC'
+    (( $#JJSTATUS_MODIFIED )) && res+=' %F{5}$JJSTATUS_MODIFIED%f'
     p10k segment -f '244' -e -i '' -t "%B${res}%b"
   }
 
-  function instant_prompt_hgstatus() {
-    prompt_hgstatus
+  function instant_prompt_jjstatus() {
+    prompt_jjstatus
   }
 
   typeset -g POWERLEVEL9K_VCS_BRANCH_ICON=' '
